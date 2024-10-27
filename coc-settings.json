@@ -1,0 +1,36 @@
+{
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "go.goplsOptions": {
+      "completeUnimported": true
+    },
+    "kotlin": {
+      "command": "/Users/nisidabay/.vim/lsp/server/bin/kotlin-language-server",
+      "args": ["start"],
+      "filetypes": ["kotlin"]
+    },
+    "python": {
+      "command": "pyright-langserver",
+      "args": ["--stdio"],
+      "filetypes": ["python"],
+      "settings": {
+        "python.analysis.typeCheckingMode": "basic",
+        "python.analysis.diagnosticMode": "workspace",
+        "python.analysis.useLibraryCodeForTypes": true
+      }
+    }
+  },
+  "clangd.path": "clangd",
+  "clangd.arguments": [
+    "--background-index",
+    "--clang-tidy",
+    "--header-insertion=iwyu",
+    "--completion-style=detailed",
+    "--function-arg-placeholders"
+  ]
+}

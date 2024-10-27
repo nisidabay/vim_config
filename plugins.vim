@@ -1,0 +1,307 @@
+"------------------------------------------------------------------------------
+" Vundle configuration 
+"------------------------------------------------------------------------------ 
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Plugin Manager
+Plugin 'VundleVim/Vundle.vim'
+
+" Syntax and Language Support
+Plugin 'udalov/kotlin-vim'
+Plugin 'fwcd/kotlin-language-server'
+Plugin 'https://github.com/NLKNguyen/c-syntax.vim'
+Plugin 'rust-lang/rust.vim'
+
+" Code Formatting and Linting
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+Plugin 'google/vim-glaive'
+Plugin 'dense-analysis/ale'
+Plugin 'rhysd/vim-clang-format'
+Plugin 'vim-autoformat/vim-autoformat'
+
+" File Navigation and Project Management
+Plugin 'scrooloose/nerdtree'
+Plugin 'majutsushi/tagbar'
+
+" Visual Enhancements
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'Yggdroot/indentLine'
+
+" Editing Enhancements
+Plugin 'Raimondi/delimitMate'
+Plugin 'kshenoy/vim-signature'
+
+" Utilities
+Plugin 'instant-markdown/vim-instant-markdown'
+Plugin 'mattn/calendar-vim'
+
+" Integration and Navigation
+Plugin 'christoomey/vim-tmux-navigator'
+"Plugin 'puremourning/vimspector'
+
+call vundle#end()
+call glaive#Install()        
+
+"------------------------------------------------------------------------------
+"  configuration 
+"------------------------------------------------------------------------------
+call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
+
+" Startify Vim
+Plug 'mhinz/vim-startify'
+" Codeium
+Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+let g:codeium_filetypes = {
+  \ 'bash': v:true,
+  \ 'lua': v:true,
+  \ 'python': v:true,
+  \ 'c': v:true,
+  \ }
+
+" Code Navigation
+Plug 'bfrg/vim-cpp-modern'
+Plug 'ludovicchabant/vim-gutentags'
+
+" Themes
+Plug 'sainnhe/everforest'
+
+" Note-taking and Wiki
+Plug 'vimwiki/vimwiki'
+
+" Code Completion and Snippets
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-snippets'
+"Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+" File Icons
+Plug 'ryanoasis/vim-devicons'
+
+" Fuzzy Finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+
+" Undo Tree
+Plug 'mbbill/undotree'
+
+" Text Manipulation
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+
+" Language Support
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" Markdown Support
+Plug 'dhruvasagar/vim-table-mode'
+
+" Shell Formatting
+Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
+
+" Git Integration
+Plug 'airblade/vim-gitgutter'
+
+" Documentation
+Plug 'sunaku/vim-dasht'
+
+call plug#end()
+
+"------------------------------------------------------------------------------
+" Plugin Configurations
+"------------------------------------------------------------------------------
+
+" ALE Configuration
+let g:ale_linters = {'c': ['clangd']}
+let g:ale_fixers = {'c': ['clang-format', 'clangtidy']}
+let g:ale_c_gcc_options = '-Wall -Wextra -Wpedantic'
+let g:ale_fix_on_save = 1
+let g:ale_lsp_suggestions = 1
+let g:ale_completion_enabled = 1
+let g:ale_completion_autoimport = 1
+let g:ale_c_clangd_options = '--background-index --compile-commands-dir=' . getcwd()
+let g:ale_completion_enabled = 1
+let g:ale_completion_tsserver_autoimport = 1
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_virtualtext_cursor = 'current'
+let g:ale_c_parse_compile_commands = 1
+let g:ale_fix_on_save = 1
+let g:ale_virtualtext_cursor = 1
+let g:ale_virtualtext_prefix = '🔎 '
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+
+" ALE Mappings
+nmap <silent> [e <Plug>(ale_previous_wrap)
+nmap <silent> ]e <Plug>(ale_next_wrap)
+nmap <silent> <leader>d :ALEDetail<CR>
+nmap <silent> <leader>f <Plug>(ale_fix)
+
+
+" vim-gutentags Configuration
+let g:gutentags_ctags_extra_args = ['-c', '.ctags.cnf']
+
+" Git Gutter Configuration
+highlight GitGutterAdd guifg=#009900 ctermfg=Green
+highlight GitGutterChange guifg=#bbbb00 ctermfg=Yellow
+highlight GitGutterDelete guifg=#ff2222 ctermfg=Red
+nmap ) <Plug>(GitGutterNextHunk)
+nmap ( <Plug>(GitGutterPrevHunk)
+let g:gitgutter_enabled = 1
+let g:gitgutter_map_keys = 0
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.dirty='⚡'
+let g:airline_section_b = '%{getcwd()}'  " Current directory in section B
+let g:airline_section_c = '%t'  " Just the tail of the filename
+let g:airline_section_x = '%{&filetype}'  " Filetype in section X
+let g:airline_section_y = '%{strftime("%H:%M")}'  " Current time in section Y
+let g:airline_section_z = 'ln:%l/%L col:%c'  " Custom line/column display
+let g:airline#extensions#ale#enabled = 1  " Show ALE errors in airline
+let g:airline#extensions#branch#enabled = 1  " Show git branch
+let g:airline#extensions#tagbar#enabled = 1  " Show tagbar integration
+let g:airline_powerline_fonts = 1 
+let g:airline_theme='everforest'  " Match your colorscheme
+
+" Color Scheme Configuration
+if has('termguicolors')
+    set termguicolors
+endif
+
+set background=dark
+let g:everforest_better_performance = 1
+colorscheme everforest
+highlight Normal guibg=NONE ctermbg=NONE
+set guifont=Maple:h14
+
+
+" UltiSnips Configuration
+let g:UltiSnipsExpandTrigger="<c-l>"
+
+" Indent Configuration
+autocmd FileType c,cpp setlocal expandtab shiftwidth=2 softtabstop=2 cindent 
+autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4 autoindent
+let g:indentLine_char = '│'
+
+" codefmt Configuration
+augroup autoformat_settings
+  autocmd FileType c AutoFormatBuffer clang-format
+  autocmd FileType bash AutoFormatBuffer shfmt
+  autocmd FileType python AutoFormatBuffer black
+augroup END
+Glaive codefmt clang_format_style='google'
+"
+" NERDTree Configuration
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+" devicons Configuration
+set guifont=DroidSansMono\ Nerd\ Font\ 14
+
+" Vimwiki Configuration
+let g:vimkwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+command! Diary VimwikiDiaryIndex
+augroup vimwikigroup
+  autocmd!
+  autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
+augroup end
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+let g:calendar_diary=$HOME.'/vimwiki/diary'
+let g:instant_markdown_autostart = 0
+let g:vimwiki_global_ext = 0
+
+" Markdown Toggle Function
+function! ToggleMarkdown()
+  if &filetype == 'vimwiki'
+    set ft=markdown
+  elseif &filetype == 'markdown'
+    set ft=vimwiki
+  endif
+endfunction
+map <silent> <C-N> :call ToggleMarkdown()<CR>
+
+" FZF Configuration
+function! s:my_fzf_preview_command()
+  let l:preview_command = 'bat --color=always --style=plain --line-range=:100 {}'
+  return l:preview_command
+endfunction
+let g:fzf_command_prefix = 'Fzf'
+let g:fzf_preview_window = ['right:60%:wrap', 'ctrl-/']
+let g:fzf_action = {'enter': 'edit'}
+let $FZF_DEFAULT_OPTS = '--preview-window=right:60%:wrap --preview ' . shellescape(s:my_fzf_preview_command())
+let g:fzf_colors = { 'fg':      ['fg', 'Normal'],
+                   \ 'bg':      ['bg', 'Normal'],
+                   \ 'hl':      ['fg', 'Comment'],
+                   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+                   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+                   \ 'hl+':     ['fg', 'Statement'],
+                   \ 'info':    ['fg', 'PreProc'],
+                   \ 'border':  ['fg', 'Ignore'],
+                   \ 'prompt':  ['fg', 'Conditional'],
+                   \ 'pointer': ['fg', 'Exception'],
+                   \ 'marker':  ['fg', 'Keyword'],
+                   \ 'spinner': ['fg', 'Label'],
+                   \ 'header':  ['fg', 'Comment'] }
+
+" Command to call the FzfManPages function
+" Ensure Man command is available
+runtime! ftplugin/man.vim
+
+function! FzfManPages()
+    let l:cmd = 'man -k . | sed "s/ *\([^ ]*\) *(\([^)]*\)) *- *\(.*\)/\1 [\2] - \3/"'
+    call fzf#run({
+        \ 'source': l:cmd,
+        \ 'sink': function('s:OpenManPage'),
+        \ 'options': '--ansi --preview "echo {1} {2} | sed \"s/\[//;s/\]//\" | xargs man -P cat" '
+        \            . '--preview-window=right:60%:wrap'
+        \ })
+endfunction
+
+function! s:OpenManPage(selection)
+    let l:parts = split(a:selection)
+    let l:page = l:parts[0]
+    let l:section = substitute(l:parts[1], '[\[\]]', '', 'g')
+    execute 'Man ' . l:section . ' ' . l:page
+endfunction
+
+command! FzfMan call FzfManPages()
+nnoremap <silent> <leader>fk :FzfMan<CR>
+
+" Mapping to trigger FzfMan
+nnoremap <silent> <leader>fk :FzfMan<CR>
+nnoremap <silent> <leader>ff :FzfFiles<CR>
+nnoremap <silent> <leader>fb :FzfBuffers<CR> 
+nnoremap <silent> <leader>fl :FzfLines<CR> 
+nnoremap <silent> <leader>ft :FzfTags<CR> 
+nnoremap <silent> <leader>fT :FzfBTags<CR> 
+nnoremap <silent> <leader>fh :FzfHistory:<CR> 
+nnoremap <silent> <leader>fg :FzfGFiles<CR> 
+nnoremap <silent> <leader>rg :FzfRg<CR> 
+nnoremap <silent> <leader>fm :FzfMarks<CR> 
+nnoremap <silent> <leader>fM :FzfMaps<CR> 
+
+" File Finding Configuration
+set path+=**
+command! MakeTags !ctags -R .
+
+" Kotlin Configuration
+autocmd BufReadPost *.kt setlocal filetype=kotlin
+let g:LanguageClient_serverCommands = { 'kotlin': ["kotlin-language-server"] }
+
+" Rust Configuration
+let g:rustfmt_autosave = 1
+
+" Dasht Configuration
+nnoremap <Leader>k :Dasht<Space>
+nnoremap <Leader><Leader>k :Dasht!<Space>
