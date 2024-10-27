@@ -1,0 +1,24 @@
+# Vim files
+*.swp
+*.swo
+*~
+
+# Plugin directories that will be installed
+autoload/*
+bundle/*
+colors/*
+doc/*
+ftdetect/*
+lsp/*
+pack/*
+plugged/*
+plugin/*
+sessions/*
+spell/*
+syntax/*
+undodir/*
+view/*
+
+
+# Except the local_plugins directory
+!local_plugins/
