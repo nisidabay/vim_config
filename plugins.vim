@@ -7,6 +7,9 @@ call vundle#begin()
 " Plugin Manager
 Plugin 'VundleVim/Vundle.vim'
 
+" Documentation
+Plugin 'rizzatti/dash.vim'
+
 " Syntax and Language Support
 Plugin 'udalov/kotlin-vim'
 Plugin 'fwcd/kotlin-language-server'
@@ -105,8 +108,7 @@ Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 Plug 'airblade/vim-gitgutter'
 
 " Documentation
-Plug 'sunaku/vim-dasht'
-
+" Plug 'sunaku/vim-dasht'
 call plug#end()
 
 "------------------------------------------------------------------------------
@@ -304,5 +306,5 @@ let g:LanguageClient_serverCommands = { 'kotlin': ["kotlin-language-server"] }
 let g:rustfmt_autosave = 1
 
 " Dasht Configuration
-nnoremap <Leader>k :Dasht<Space>
-nnoremap <Leader><Leader>k :Dasht!<Space>
+nmap <Leader>k <Plug>DashSearch
+nmap <Leader>kk <Plug>DashSearch
