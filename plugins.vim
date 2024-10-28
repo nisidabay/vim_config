@@ -37,6 +37,7 @@ Plugin 'kshenoy/vim-signature'
 " Utilities
 Plugin 'instant-markdown/vim-instant-markdown'
 Plugin 'mattn/calendar-vim'
+Plugin 'chrisbra/unicode.vim'
 
 " Integration and Navigation
 Plugin 'christoomey/vim-tmux-navigator'
