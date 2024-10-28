@@ -99,8 +99,6 @@ REQUIRED_FILES=(
     "$VIM_CONFIG_DIR/coc-config.vim"
     "$VIM_CONFIG_DIR/coc-settings.json"
     "$VIM_CONFIG_DIR/local_plugins/Colorizer.vim"
-    "$VIM_CONFIG_DIR/local_plugins/unicode.vim"
-    "$VIM_CONFIG_DIR/local_plugins/yuyuko.vim"
     "$VIM_CONFIG_DIR/local_plugins/snippets.vim"
 )
 
@@ -257,8 +255,6 @@ EOL
     # Install local plugins using absolute paths
     log "info" "Installing local plugins..."
     install_local_plugin "$VIM_CONFIG_DIR/local_plugins/Colorizer.vim" "$VIM_DIR/plugin"
-    #install_local_plugin "$VIM_CONFIG_DIR/local_plugins/unicode.vim" "$VIM_DIR/plugin"
-    install_local_plugin "$VIM_CONFIG_DIR/local_plugins/yuyuko.vim" "$VIM_DIR/colors"
     install_local_plugin "$VIM_CONFIG_DIR/local_plugins/snippets.vim" "$VIM_DIR/plugin"
 
     log "success" "Setup complete!"
