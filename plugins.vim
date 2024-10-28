@@ -7,7 +7,8 @@ call vundle#begin()
 " Plugin Manager
 Plugin 'VundleVim/Vundle.vim'
 
-" Documentation
+" Documentation. Only for Mac(macOS)
+" Must have kapeli dash installed (https://kapeli.com/dash)
 Plugin 'rizzatti/dash.vim'
 
 " Syntax and Language Support
