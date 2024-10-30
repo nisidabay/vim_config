@@ -411,6 +411,12 @@ let @h = "I\u2022\u2022\u2022"
 " split the lines in 80 characters
 let @l = "080li ya0"
 
+" Convenient diff commands
+nnoremap <silent> <leader>dU :diffupdate<CR>
+nnoremap <silent> <leader>dN ]c "Previous difference"
+nnoremap <silent> <leader>dP [c "Previous difference"
+nnoremap <silent> <leader>dg :diffget<CR> "Get diff from another file"
+nnoremap <silent> <leader>dp :diffput<CR> "Put diff from another file"
 
 " python help
 nnoremap <leader>k :<c-u>let save_isk = &iskeyword \|
