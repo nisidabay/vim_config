@@ -20,6 +20,10 @@ set nocompatible
 set foldenable
 set foldmethod=syntax
 
+" Settings for diff
+" Always use vertical splits
+set diffopt+=vertical  
+
 " Find the next match as we type the search.This is enabled by default though
 set incsearch
 
