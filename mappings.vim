@@ -423,6 +423,9 @@ nnoremap <leader>k :<c-u>let save_isk = &iskeyword \|
 \ set iskeyword+=. \|
 \ execute "!pydoc3 " . expand("<cword>") \|
 \ let &iskeyword = save_isk<cr>
+
+" Mapping for Man pages above the cursor
+nnoremap <leader>m :Man <C-R><C-W><CR>
 "
 " search related docsets
 nnoremap <silent> <Leader>K :call Dasht(dasht#cursor_search_terms())<Return>
@@ -547,3 +550,10 @@ endfunction
 
 nnoremap <Leader>ag :call GenerateCompileCommands()<CR>
 
+" Mappings for Codeium
+imap <script><silent><nowait><expr> <C-g> codeium#Accept()
+imap <script><silent><nowait><expr> <C-h> codeium#AcceptNextWord()
+imap <script><silent><nowait><expr> <C-j> codeium#AcceptNextLine()
+imap <C-;>   <Cmd>call codeium#CycleCompletions(1)<CR>
+imap <C-,>   <Cmd>call codeium#CycleCompletions(-1)<CR>
+imap <C-x>   <Cmd>call codeium#Clear()<CR>
