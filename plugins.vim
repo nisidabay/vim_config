@@ -195,9 +195,9 @@ let g:UltiSnipsExpandTrigger="<c-l>"
 
 " Python formatting
 autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4 
+
 " C formatting
 let g:codefmt_enabled = 0
-
 " Define the Linux kernel style (used by ftplugin/c.vim)
 let g:linux_kernel_style = 
     \ '{BasedOnStyle: LLVM, ' .
