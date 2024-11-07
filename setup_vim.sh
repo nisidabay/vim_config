@@ -100,6 +100,7 @@ REQUIRED_FILES=(
     "$VIM_CONFIG_DIR/coc-settings.json"
     "$VIM_CONFIG_DIR/local_plugins/Colorizer.vim"
     "$VIM_CONFIG_DIR/local_plugins/snippets.vim"
+    "$VIM_CONFIG_DIR/local_plugins/c.vim"
 )
 
 # Function to check required files
@@ -256,6 +257,7 @@ EOL
     log "info" "Installing local plugins..."
     install_local_plugin "$VIM_CONFIG_DIR/local_plugins/Colorizer.vim" "$VIM_DIR/plugin"
     install_local_plugin "$VIM_CONFIG_DIR/local_plugins/snippets.vim" "$VIM_DIR/plugin"
+    install_local_plugin "$VIM_CONFIG_DIR/local_plugins/snippets.vim" "$VIM_DIR/ftplugin/plugin"
 
     log "success" "Setup complete!"
     log "info" "You can now start Vim and run :PlugInstall, :PluginInstall to install plugins"
