@@ -193,19 +193,45 @@ set guifont=Maple:h14
 " UltiSnips Configuration
 let g:UltiSnipsExpandTrigger="<c-l>"
 
-" Indent Configuration
-autocmd FileType c,cpp setlocal expandtab shiftwidth=2 softtabstop=2 cindent 
-autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4 autoindent
-let g:indentLine_char = '│'
+" Python formatting
+autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4 
+" C formatting
+let g:codefmt_enabled = 0
 
-" codefmt Configuration
-augroup autoformat_settings
-  autocmd FileType c AutoFormatBuffer clang-format
-  autocmd FileType bash AutoFormatBuffer shfmt
-  autocmd FileType python AutoFormatBuffer black
+" Define the Linux kernel style (used by ftplugin/c.vim)
+let g:linux_kernel_style = 
+    \ '{BasedOnStyle: LLVM, ' .
+    \ 'IndentWidth: 8, ' .
+    \ 'UseTab: Always, ' .
+    \ 'TabWidth: 8, ' .
+    \ 'ContinuationIndentWidth: 8, ' .
+    \ 'BreakBeforeBraces: Linux, ' .
+    \ 'AllowShortIfStatementsOnASingleLine: Never, ' .
+    \ 'AllowShortLoopsOnASingleLine: false, ' .
+    \ 'AllowShortFunctionsOnASingleLine: None, ' .
+    \ 'AllowShortBlocksOnASingleLine: Never, ' .
+    \ 'IndentCaseLabels: false, ' .
+    \ 'AlignAfterOpenBracket: DontAlign, ' .
+    \ 'DerivePointerAlignment: false, ' .
+    \ 'PointerAlignment: Right, ' .
+    \ 'SpaceBeforeParens: ControlStatements, ' .
+    \ 'MaxEmptyLinesToKeep: 2, ' .
+    \ 'KeepEmptyLinesAtTheStartOfBlocks: false, ' .
+    \ 'AlignTrailingComments: false, ' .
+    \ 'ReflowComments: false, ' .
+    \ 'SortIncludes: Never, ' .
+    \ 'ColumnLimit: 80}'
+
+" Ensure proper indentation settings
+augroup c_cpp_settings
+    autocmd!
+    " C files use Linux kernel style
+    autocmd FileType c setlocal tabstop=8 shiftwidth=8 noexpandtab softtabstop=8
 augroup END
-Glaive codefmt clang_format_style='google'
-"
+
+" Disable ALE's auto-formatting
+let g:ale_fix_on_save = 0
+
 " NERDTree Configuration
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
