@@ -175,7 +175,7 @@ nnoremap <F3> :setlocal spell spelllang=en_us<CR>
 " nnoremap <leader>p :r !kitten clipboard --get-clipboard<CR>
 
 " Clipboard for Linux
-vnoremap <silent> <C-c> :w !xclip -i -sel clipboard<ESC>
+vnoremap <silent> <C-c> :w !xclip -i -sel clipboard<CR><CR>
 nnoremap <silent> <C-v> :r !xclip -o -sel clip<CR>
 " Clipboard for wayland
 " vnoremap <silent> <C-c> :w !wl-copy<CR><CR>
