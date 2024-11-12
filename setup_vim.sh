@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 ###############################################################################
 # Setup script for Vim configuration
 # This script runs inside .vim_config folder, which is a cloned repo from

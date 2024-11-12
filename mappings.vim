@@ -169,19 +169,19 @@ nnoremap <F3> :setlocal spell spelllang=en_us<CR>
 
 " Clipboard 
 " For using in Macos
-vnoremap <leader>y :w !pbcopy<CR><CR>
-nnoremap <leader>p :r !pbpaste<CR>
-vnoremap <leader>y :w !kitten clipboard<CR><CR>
-nnoremap <leader>p :r !kitten clipboard --get-clipboard<CR>
+" vnoremap <leader>y :w !pbcopy<CR><CR>
+" nnoremap <leader>p :r !pbpaste<CR>
+" vnoremap <leader>y :w !kitten clipboard<CR><CR>
+" nnoremap <leader>p :r !kitten clipboard --get-clipboard<CR>
 set clipboard=unnamed
 vnoremap <leader>y "+y
 nnoremap <leader>p "+p
 " Clipboard for Linux
-" nnoremap <F4> :r !xclip -o -sel clip<Esc>
-" vnoremap <F6> :w !xclip -i -sel clip<CR><CR>
-" " Clipboard for wayland
-" vnoremap <silent> <C-c> :w !wl-copy<CR><CR>
-" nnoremap <silent> <C-v> :r !wl-paste<Esc>
+nnoremap <F4> :r !xclip -o -sel clip<Esc>
+vnoremap <F6> :w !xclip -i -sel clip<CR><CR>
+" Clipboard for wayland
+vnoremap <silent> <C-c> :w !wl-copy<CR><CR>
+nnoremap <silent> <C-v> :r !wl-paste<Esc>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/
 "
