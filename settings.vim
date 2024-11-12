@@ -7,6 +7,10 @@
 set encoding=utf-8
 set fileencodings=utf-8,latin1
   
+" Undodirectory
+set undodir=$HOME/.vim/undodir
+set undofile
+
 " ZSH
 set shell=/bin/zsh
 

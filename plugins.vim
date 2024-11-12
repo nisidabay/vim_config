@@ -68,7 +68,7 @@ let g:codeium_filetypes = {
 
 " Code Navigation
 Plug 'bfrg/vim-cpp-modern'
-Plug 'ludovicchabant/vim-gutentags'
+"Plug 'ludovicchabant/vim-gutentags'
 
 " Themes
 Plug 'sainnhe/everforest'
@@ -144,7 +144,7 @@ nmap <silent> <leader>f <Plug>(ale_fix)
 
 
 " vim-gutentags Configuration
-let g:gutentags_ctags_extra_args = ['-c', '.ctags.cnf']
+"let g:gutentags_ctags_extra_args = ['-c', '.ctags.cnf']
 
 " Git Gutter Configuration
 highlight GitGutterAdd guifg=#009900 ctermfg=Green
