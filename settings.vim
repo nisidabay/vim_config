@@ -179,13 +179,13 @@ let g:startify_lists = [
 
 let g:startify_bookmarks = [
     \ { 'b': '~/bin' },
-    \ { 's': '~/mac_dotfiles/.bash_aliases' },
+    \ { 'd': '~/_dotfiles' },
+    \ { 'p': '~/proyectos_git' },
+    \ { 'r': '~/Downloads/Refactor/curso_c'},
     \ { 'v': '~/.vimrc' },
-    \ { 'z': '~/mac_dotfiles/.zshrc' },
-    \ { 'p': '~/Downloads/Refactor/curso_c'},
     \ ]
 
 let g:startify_custom_footer = [
     \ '',
-    \ '   Vim is not just a text editor, it''s a way of life!',
+    \ '   With Vim, you are not a user; you are a master of your text domain.',
     \ ]

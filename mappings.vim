@@ -1,5 +1,5 @@
-" Vim mappings
-" -------------
+" Vim  mappings
+" -------------e
 
  " Autopep format for Python
 au FileType python setlocal formatprg=black\ -
@@ -8,10 +8,13 @@ au FileType python setlocal formatprg=black\ -
 let mapleader = "\<Space>"
 
 " Remap 'jk' and 'kj' to escape in insert and visual modes
-inoremap jk <Esc>
+inoremap jk <Esc> 
 inoremap kj <Esc>
 vnoremap jk <Esc>
 vnoremap kj <Esc>
+cnoremap kj <Esc>
+cnoremap jk <Esc>
+
 
 " Termwinkey
 " Move from terminal to window
@@ -20,8 +23,8 @@ set termwinkey=<C-T>
 
 " Save/Restore/View sessions
 " Mappings for saving and restoring sessions
-nnoremap <leader>ss :mksession! ~/.vim/sessions/
-nnoremap <leader>sr :source ~/.vim/sessions/
+nnoremap <leader>ss :mksession! ~/.vim/sessions/ 
+nnoremap <leader>sr :source ~/.vim/sessions/ 
 
 " Function to list and load sessions using fzf
 function! s:load_session()
@@ -35,7 +38,7 @@ function! s:load_session()
 endfunction
 
 " Mapping to view and select sessions
-nnoremap <leader>sv :call <SID>load_session()<CR>
+nnoremap <leader>sv :call <SID>load_session()<CR> 
 
 " Ensure the sessions directory exists
 if !isdirectory($HOME . '/.vim/sessions')
@@ -43,47 +46,44 @@ if !isdirectory($HOME . '/.vim/sessions')
 endif
 
 " Open term
-nnoremap <leader>t :term<CR>
+nnoremap <leader>t :term<CR> 
 
 " Switch from terminal mode to normal mode
-tnoremap <C-x> <C-\><C-n>
+tnoremap <C-x> <C-\><C-n> 
 "
 " InstantMarkdownPreview
-map <leader>md :InstantMarkdownPreview<CR>
+map <leader>md :InstantMarkdownPreview<CR> 
 
 " Easy expansion of the active file directory
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%' 
 
 " .vimrc modifications
-nnoremap <leader>mv :tabnew $MYVIMRC<CR>
-nnoremap <leader>rv :source $MYVIMRC"<CR>
+nnoremap <leader>mv :tabnew $MYVIMRC<CR> 
+nnoremap <leader>rv :source $MYVIMRC"<CR> 
 
 " Copy of .vimrc
-nnoremap <leader>cv :!cp ~/.vimrc "vim
-" Esc key
-inoremap kj <Esc>
-cnoremap kj <Esc>
-inoremap jk <Esc>
-cnoremap jk <Esc>
+nnoremap <leader>cv :!cp ~/.vimrc vimrc_copy<CR> 
 
 " Show working directory
-nnoremap <leader>. :lcd %:p:h<CR>
-" Change directory of the current file
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <leader>. :lcd %:p:h<CR> 
+" Change directory to the current file
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR> 
 
 " Tab keys
-nnoremap <leader>tc :tabclose<CR>
-nnoremap <leader>tf :tabfirst<CR>
-nnoremap <leader>tj :tabprev<CR>
-nnoremap <leader>tk :tabnext<CR>
-nnoremap <leader>tl :tablast<CR>
+nnoremap <leader>tc :tabclose<CR> 
+nnoremap <leader>tf :tabfirst<CR> 
+nnoremap <leader>tj :tabprev<CR> 
+nnoremap <leader>tk :tabnext<CR> 
+nnoremap <leader>tl :tablast<CR> 
 nnoremap <leader>tn :tabnew <Space> 
-nnoremap <leader>ts :tabs<CR>
+nnoremap <leader>ts :tabs<CR> 
+
 
 " No hls. Unselect marked words
-nnoremap <leader>nh :nohls<CR>
+nnoremap <leader>nh :nohls<CR> 
+
 " Surround the block with quotes
-vnoremap <leader>vc :s/\%V\(^.*$\)/`&`/g<CR>gv
+vnoremap <leader>vc :s/\%V\(^.*$\)/`&`/g<CR>gv 
 
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
