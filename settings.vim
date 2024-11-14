@@ -186,8 +186,7 @@ let g:startify_bookmarks = [
     \ ]
 
 let g:startify_custom_footer = [
-    \ '',
-    \ '   With Vim, you are not a user; you are a master of your text domain.',
+    \ 'With Vim, you are not a user; you are a master of your text domain.',
     \ ]
 
 " Codeium API
