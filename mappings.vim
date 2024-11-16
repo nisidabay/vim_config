@@ -360,3 +360,7 @@ imap <script><silent><nowait><expr> <C-j> codeium#AcceptNextLine()
 imap <C-;>   <Cmd>call codeium#CycleCompletions(1)<CR>
 imap <C-,>   <Cmd>call codeium#CycleCompletions(-1)<CR>
 imap <C-x>   <Cmd>call codeium#Clear()<CR>
+
+" Mappings for opening links
+nmap <silent> gx <Plug>(openbrowser-smart-search)
+vmap <silent> gx <Plug>(openbrowser-smart-search)
