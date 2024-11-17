@@ -15,6 +15,46 @@ vnoremap kj <Esc>
 cnoremap kj <Esc>
 cnoremap jk <Esc>
 
+" Disable arrow keys
+no <down> <Nop>
+no <up> <Nop>
+no <left> <Nop>
+no <right> <Nop>
+
+ino <down> <Nop>
+ino <up> <Nop>
+ino <left> <Nop>
+ino <right> <Nop>
+
+vno <down> <Nop>
+vno <up> <Nop>
+vno <left> <Nop>
+vno <right> <Nop>
+
+" Some abbreviations
+iabbr clm Carlos Lacaci Moya
+"iabbr email nisidabay@gmail.com
+iabbr true True
+iabbr false False
+
+" Command mode abreviations for saving and quitting
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+
+
+" Show buffers
+nnoremap <leader>b :set nomore <Bar> :ls <Bar> :set more <CR>:b<leader>
+" Delete all buffers but this one
+nnoremap <silent> <leader>cab :update <bar> %bd <bar> e# <bar> bd# <CR><CR>
+
 
 " Termwinkey
 " Move from terminal to window
@@ -28,7 +68,7 @@ nnoremap <leader>sr :source ~/.vim/sessions/
 
 " Function to list and load sessions using fzf
 function! s:load_session()
-  let l:sessions = split(globpath('~/.vim/sessions', '*'), '\n')
+  et l:sessions = split(globpath('~/.vim/sessions', '*'), '\n')
   call fzf#run({
         \ 'source': map(l:sessions, 'fnamemodify(v:val, ":t")'),
         \ 'sink': 'source',
@@ -50,7 +90,7 @@ nnoremap <leader>t :term<CR>
 
 " Switch from terminal mode to normal mode
 tnoremap <C-x> <C-\><C-n> 
-"
+
 " InstantMarkdownPreview
 map <leader>md :InstantMarkdownPreview<CR> 
 
@@ -215,7 +255,7 @@ let g:webdevicons_enable_nerdtree = 1
 let g:webdevicons_enable_airline_tabline = 1
 let g:webdevicons_enable_airline_statusline = 1
 
-" If you want different icons for diffupdate<CR>
+" If you want different mappings for diffupdate<CR>
 nnoremap <silent> <leader>dN ]c "Previous difference"
 nnoremap <silent> <leader>dP [c "Previous difference"
 nnoremap <silent> <leader>dg :diffget<CR> "Get diff from another file"
