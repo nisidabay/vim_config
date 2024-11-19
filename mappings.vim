@@ -404,3 +404,10 @@ imap <C-x>   <Cmd>call codeium#Clear()<CR>
 " Mappings for opening links
 nmap <silent> gx <Plug>(openbrowser-smart-search)
 vmap <silent> gx <Plug>(openbrowser-smart-search)
+
+" Snippets mappings
+nnoremap <silent> <leader>ssl :ListSnippets<CR>
+nnoremap <silent> <leader>ssa :AddSnippet<CR>
+nnoremap <silent> <leader>sse :EditSnippet<CR>
+nnoremap <silent> <leader>ssd :DeleteSnippet<CR>
+nnoremap <silent> <leader>ssi :InsertSnippet<CR>
