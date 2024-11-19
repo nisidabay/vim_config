@@ -68,7 +68,6 @@ let g:codeium_filetypes = {
 
 " Open Browser 
 Plug 'tyru/open-browser.vim'
-"
 " Code Navigation
 Plug 'bfrg/vim-cpp-modern'
 "Plug 'ludovicchabant/vim-gutentags'
