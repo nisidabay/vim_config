@@ -179,8 +179,3 @@ let g:startify_custom_footer = [
     \ 'With Vim, you are not a user; you are a master of your text domain.',
     \ ]
 
-" Codeium API
-if filereadable(expand("~/.vim/codeium_auth.vim"))
-    source ~/.vim/codeium_auth.vim
-endif
-
