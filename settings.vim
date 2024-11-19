@@ -20,28 +20,18 @@ set timeoutlen=500
 " Vim required
 set nocompatible              
 
-" Set foldmethod
+" Enable folding
 set foldenable
-set foldmethod=syntax
+set foldlevelstart=10
+set foldnestmax=10
+set foldmethod=indent
 
-" Settings for diff
-" Always use vertical splits
-set diffopt+=vertical  
-
-" Find the next match as we type the search.This is enabled by default though
-set incsearch
-
-" Highlight searches by default
-set hlsearch
-
-" Makes search case sensitive when the search term contains an uppercase
-" letter, and case insensitive when the search term does not contain any
-" uppercase letters. 
-set smartcase
-set noignorecase
-
-" Prevents the creation of a swap file when editing a file
-set noswapfile 
+" Save the folds
+augroup remember_folds
+autocmd!
+autocmd BufWinLeave, BufLeave ?* silent! mkview
+autocmd BufWinEnter *.* silent! loadview 
+augroup END
 
 " option prevents the creation of backup files
 set nobackup
