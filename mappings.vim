@@ -281,13 +281,6 @@ vnoremap <silent> <Leader>K y:<C-U>call Dasht(getreg(0))<Return>
 " search ALL the docsets
 vnoremap <silent> <Leader><Leader>K y:<C-U>call Dasht(getreg(0), '!')<Return>
 
-" sourcery
-nnoremap <silent> <leader>cl :CocDiagnostics<cr>
-nnoremap <silent> <leader>ch :call CocAction('doHover')<cr>
-nnoremap <silent> <leader>cc <plug>(coc-codeaction-cursor)
-nnoremap <silent> <leader>ca <plug>(coc-fix-current)
-nnoremap <silent> <leader>fi :CocCommand python.sortImports<CR>
-
 " diagnostic
 nnoremap <silent> <leader> dp: <plug>(coc-diagnostic-prev)
 nnoremap <silent> <leader> dn: <plug>(coc-diagnostic-next)
@@ -405,7 +398,7 @@ imap <C-x>   <Cmd>call codeium#Clear()<CR>
 nmap <silent> gx <Plug>(openbrowser-smart-search)
 vmap <silent> gx <Plug>(openbrowser-smart-search)
 
-" Snippets mappings
+" Snippets mappings in the module configuration
 " nnoremap <silent> <leader>ssl :ListSnippets<CR>
 " nnoremap <silent> <leader>ssa :AddSnippet<CR>
 " nnoremap <silent> <leader>sse :EditSnippet<CR>
