@@ -158,8 +158,8 @@ endfunction
 
 " Startify configuration
 let g:startify_custom_header = s:figlet('V i m')
-    \ + ['', 'Vim is not just a text editor, it''s a way of life!','']
-
+    \ + ['', 'Vim is not just a text editor, it''s a way of life!']
+    \ + [ 'With Vim, you are not a user; you are a master of your text domain.', '' ]
 let g:startify_lists = [
     \ { 'type': 'files',     'header': ['   Recent Files']   },
     \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
@@ -173,9 +173,5 @@ let g:startify_bookmarks = [
     \ { 'p': '~/proyectos_git' },
     \ { 'r': '~/Downloads/Refactor/curso_c'},
     \ { 'v': '~/.vimrc' },
-    \ ]
-
-let g:startify_custom_footer = [
-    \ 'With Vim, you are not a user; you are a master of your text domain.',
     \ ]
 
