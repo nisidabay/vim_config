@@ -55,8 +55,11 @@ call glaive#Install()
 "------------------------------------------------------------------------------
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
-" Startify Vim
+
+"" Startify Vim
 Plug 'mhinz/vim-startify'
+
+
 " Codeium
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 let g:codeium_filetypes = {
@@ -180,16 +183,30 @@ let g:airline#extensions#tagbar#enabled = 1  " Show tagbar integration
 let g:airline_powerline_fonts = 1 
 let g:airline_theme='everforest'  " Match your colorscheme
 
+
 " Color Scheme Configuration
 if has('termguicolors')
     set termguicolors
 endif
 
 set background=dark
+
+" Everforest settings - important: set transparency BEFORE loading colorscheme
+let g:everforest_background = 'soft'
 let g:everforest_better_performance = 1
+let g:everforest_enable_italic = 1
+let g:everforest_disable_italic_comment = 1
+let g:everforest_transparent_background = 2  " Changed from 1 to 2 for full transparency
+let g:everforest_sign_column_background = 'none'
+
+" Load colorscheme after settings
 colorscheme everforest
+
+" Force transparency after colorscheme
 highlight Normal guibg=NONE ctermbg=NONE
-set guifont=Maple:h14
+
+" Font settings
+set guifont=Fira-Code:h14
 
 
 " UltiSnips Configuration
