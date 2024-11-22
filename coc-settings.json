@@ -32,5 +32,8 @@
     "--header-insertion=iwyu",
     "--completion-style=detailed",
     "--function-arg-placeholders"
-  ]
+  ],
+  "shfmt.executable": "shfmt",  // Path to shfmt executable
+  "shfmt.args": ["-w"],         // Optional: Automatically write changes back to the file
+  "shfmt.formatOnSave": true     // Optional: Automatically format on save
 }
