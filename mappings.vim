@@ -142,6 +142,9 @@ nnoremap <leader>gcn :!gcc -Wall -Wextra -g -std=c11 -o %< -lncurses %<.c<CR>
 nnoremap <leader>gcs :!gcc -Wall -Wextra -g -std=c11 -o %< -lsqlite3 %<.c<CR>
 nnoremap <leader>cf :%!clang-format<CR>
 
+" Insert pynuggets header
+nnoremap <leader>ph I••• <Esc> 
+
 " Which bash
 nnoremap <leader>wb :.!which bash<CR>I#!<Esc>
 
