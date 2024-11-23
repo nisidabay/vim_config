@@ -407,3 +407,30 @@ vmap <silent> gx <Plug>(openbrowser-smart-search)
 " nnoremap <silent> <leader>sse :EditSnippet<CR>
 " nnoremap <silent> <leader>ssd :DeleteSnippet<CR>
 " nnoremap <silent> <leader>ssi :InsertSnippet<CR>
+"
+"
+" Search for a word under the cursor
+function! SearchInFirefox(type, ...)
+    let sel_save = &selection
+    let &selection = "inclusive"
+    let reg_save = @@
+
+    if a:0  " Invoked from Visual mode, use '< and '> marks.
+        silent exe "normal! `<" . a:type . "`>y"
+    elseif a:type == 'line'
+        silent exe "normal! '[V']y"
+    elseif a:type == 'block'
+        silent exe "normal! `[\<C-V>`]y"
+    else
+        silent exe "normal! `[v`]y"
+    endif
+
+    let search = substitute(escape(@@, '"\'), '[[:space:]]', '+', 'g')
+    silent exe "!firefox 'https://www.google.com/search?q=" . search . "' &"
+
+    let &selection = sel_save
+    let @@ = reg_save
+endfunction
+
+vnoremap <silent> <Leader>sw :<C-U>call SearchInFirefox(visualmode(), 1)<CR>
+nnoremap <silent> <Leader>sw :set opfunc=SearchInFirefox<CR>g@
