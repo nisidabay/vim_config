@@ -1,5 +1,5 @@
 " Vim  mappings
-" -------------e
+" -------------
 
  " Autopep format for Python
 au FileType python setlocal formatprg=black\ -
@@ -61,29 +61,32 @@ nnoremap <silent> <leader>cab :update <bar> %bd <bar> e# <bar> bd# <CR><CR>
 " Example: C-t k
 set termwinkey=<C-T>
 
-" Save/Restore/View sessions
-" Mappings for saving and restoring sessions
-nnoremap <leader>ss :mksession! ~/.vim/sessions/ 
-nnoremap <leader>sr :source ~/.vim/sessions/ 
-
-" Function to list and load sessions using fzf
-function! s:load_session()
-  et l:sessions = split(globpath('~/.vim/sessions', '*'), '\n')
-  call fzf#run({
-        \ 'source': map(l:sessions, 'fnamemodify(v:val, ":t")'),
-        \ 'sink': 'source',
-        \ 'dir': '~/.vim/sessions',
-        \ 'options': '+m --prompt="Sessions> "',
-        \ })
-endfunction
-
-" Mapping to view and select sessions
-nnoremap <leader>sv :call <SID>load_session()<CR> 
-
 " Ensure the sessions directory exists
 if !isdirectory($HOME . '/.vim/sessions')
   call mkdir($HOME . '/.vim/sessions', 'p')
 endif
+
+" Save/Restore/View sessions 
+function! s:save_session()
+  let l:name = input('Session name: ', '')  " Added empty default value
+  if !empty(l:name)
+    execute 'mksession! ~/.vim/sessions/'.l:name
+    echo "\nSession saved: ".l:name
+  endif
+endfunction
+
+function! s:load_session()
+ let l:sessions = split(globpath('~/.vim/sessions', '*'), '\n')
+ call fzf#run({
+       \ 'source': map(l:sessions, 'fnamemodify(v:val, ":t")'),
+       \ 'sink': {s -> execute('source ~/.vim/sessions/'.s)},
+       \ 'dir': '~/.vim/sessions',
+       \ 'options': '+m --prompt="Sessions> "',
+       \ })
+endfunction
+
+nnoremap <leader>ss :call <SID>save_session()<CR>
+nnoremap <leader>sl :call <SID>load_session()<CR>
 
 " Open term
 nnoremap <leader>t :term<CR> 
