@@ -77,6 +77,7 @@ Plug 'bfrg/vim-cpp-modern'
 
 " Themes
 Plug 'sainnhe/everforest'
+Plug 'ghifarit53/tokyonight-vim'
 
 " Note-taking and Wiki
 Plug 'vimwiki/vimwiki'
@@ -181,7 +182,9 @@ let g:airline#extensions#ale#enabled = 1  " Show ALE errors in airline
 let g:airline#extensions#branch#enabled = 1  " Show git branch
 let g:airline#extensions#tagbar#enabled = 1  " Show tagbar integration
 let g:airline_powerline_fonts = 1 
-let g:airline_theme='everforest'  " Match your colorscheme
+"let g:airline_theme='everforest " Match your colorscheme
+
+let g:airline_theme='tokyonight'  " Match your colorscheme
 
 
 " Color Scheme Configuration
@@ -190,23 +193,34 @@ if has('termguicolors')
 endif
 
 set background=dark
+" Configuration for everforest
+" " Everforest settings - important: set transparency BEFORE loading colorscheme
+" let g:everforest_background = 'soft'
+" let g:everforest_better_performance = 1
+" let g:everforest_enable_italic = 1
+" let g:everforest_disable_italic_comment = 1
+" let g:everforest_transparent_background = 2  " Changed from 1 to 2 for full transparency
+" let g:everforest_sign_column_background = 'none'
 
-" Everforest settings - important: set transparency BEFORE loading colorscheme
-let g:everforest_background = 'soft'
-let g:everforest_better_performance = 1
-let g:everforest_enable_italic = 1
-let g:everforest_disable_italic_comment = 1
-let g:everforest_transparent_background = 2  " Changed from 1 to 2 for full transparency
-let g:everforest_sign_column_background = 'none'
+" " Load colorscheme after settings
+" colorscheme everforest
 
-" Load colorscheme after settings
-colorscheme everforest
+
+" Configuration for tokyonight
+let g:tokyonight_style = 'night'  " Available: storm, day, night
+let g:tokyonight_enable_italic = 1
+let g:tokyonight_enable_bold = 1
+let g:tokyonight_disable_italic_comment = 0
+let g:tokyonight_transparent_background = 1  " Values 0 or 1
+let g:tokyonight_transparent_sidebar = 1  " Values 0 or 1
+
+colorscheme tokyonight
 
 " Force transparency after colorscheme
 highlight Normal guibg=NONE ctermbg=NONE
 
-" Font settings
-set guifont=Fira-Code:h14
+" Font settings. Patched italic font, set in st terminal
+set guifont=Fisa\ Code:h14
 
 
 " UltiSnips Configuration
