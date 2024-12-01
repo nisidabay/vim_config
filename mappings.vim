@@ -31,6 +31,10 @@ vno <up> <Nop>
 vno <left> <Nop>
 vno <right> <Nop>
 
+" Move between windows
+nnoremap <leader>lw <C-w>h
+nnoremap <leader>rw <C-w>l
+
 " Some abbreviations
 iabbr clm Carlos Lacaci Moya
 "iabbr email nisidabay@gmail.com
@@ -207,7 +211,7 @@ vnoremap <leader>u :normal ^x <CR><Esc>
 vnoremap <leader>s :w <C-R>=input("Save to file: ")<CR><Esc>
 
 " Write as sudo
-nnoremap <leader>wr :w !sudo tee <C-R>=input("Save to file: ")<CR> > /dev/null<Esc>
+nnoremap <leader>sr :w !sudo tee <C-R>=input("Save to file: ")<CR> > /dev/null<Esc>
 
 " Set language
 nnoremap <F2> :setlocal spell spelllang=es<CR>
@@ -274,7 +278,7 @@ nnoremap <leader>k :<c-u>let save_isk = &iskeyword \|
 \ let &iskeyword = save_isk<cr>
 
 " Mapping for Man pages above the cursor
-nnoremap <leader>m :Man <C-R><C-W><CR>
+nnoremap <leader>M :Man <C-R><C-W><CR>
 "
 " search related docsets
 nnoremap <silent> <Leader>K :call Dasht(dasht#cursor_search_terms())<Return>
