@@ -33,9 +33,10 @@ autocmd BufWinLeave, BufLeave ?* silent! mkview
 autocmd BufWinEnter *.* silent! loadview 
 augroup END
 
-" option prevents the creation of backup files
+" option prevents the creation of backup and swap files
 set nobackup
-
+set noswapfile
+set nowritebackup
 " only prevents the creation of the backup file for the current buffer
 set nowb
 
