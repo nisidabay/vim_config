@@ -210,9 +210,10 @@ set background=dark
 let g:tokyonight_style = 'night'  " Available: storm, day, night
 let g:tokyonight_enable_italic = 1
 let g:tokyonight_enable_bold = 1
-let g:tokyonight_disable_italic_comment = 0
+let g:tokyonight_disable_italic_comment = 1
 let g:tokyonight_transparent_background = 1  " Values 0 or 1
 let g:tokyonight_transparent_sidebar = 1  " Values 0 or 1
+let g:tokyonight_current_word = 'bold'
 
 colorscheme tokyonight
 
