@@ -19,12 +19,10 @@ set timeoutlen=500
 
 " Vim required
 set nocompatible              
-
-" Enable folding
 set foldenable
 set foldlevelstart=10
 set foldnestmax=10
-set foldmethod=indent
+set foldmethod=syntax
 
 " Save the folds
 augroup remember_folds
