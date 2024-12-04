@@ -31,6 +31,39 @@ vno <up> <Nop>
 vno <left> <Nop>
 vno <right> <Nop>
 
+" Surround selected text with quotes
+xnoremap <leader>vc :s/\%V\(^.*$\)/`&`/g<CR>gv
+
+" Surround word with quotes
+nnoremap <leader>qwa Bi"<Esc>Ea"<Esc>
+
+" Surround word with code
+nnoremap <leader>qwc Bi`<Esc>Ea`<Esc>
+
+" Surround word in bold
+nnoremap <leader>qwb Bi**<Esc>Ea**<Esc>
+
+" Surround word with italics
+nnoremap <leader>qws Bi*<Esc>Ea*<Esc>
+
+" Surround word inline
+nnoremap <leader>qwi Bi$<Esc>Ea$<Esc>
+
+" Surround line with quotes
+nnoremap <leader>qla I"<Esc>$A"<Esc>
+
+" Surround line with code
+nnoremap <leader>qlc I`<Esc>$A`<Esc>
+
+" Surround line in bold
+nnoremap <leader>qlb I**<Esc>$A**<Esc>
+
+" Surround line with italics
+nnoremap <leader>qls I*<Esc>$A*<Esc>
+
+" Surround line inline
+nnoremap <leader>qli I$<Esc>$A$<Esc>
+
 " Move between windows
 nnoremap <leader>lw <C-w>h
 nnoremap <leader>rw <C-w>l
