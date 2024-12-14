@@ -476,8 +476,8 @@ vnoremap <silent> <Leader>sw :<C-U>call SearchInFirefox(visualmode(), 1)<CR>
 nnoremap <silent> <Leader>sw :set opfunc=SearchInFirefox<CR>g@
 
 " Vimwiki
-nnoremap<leader>ww :VimwikiIndex<CR>
-nnoremap<leader>rw :VimwikiRenameFile<ESC>
 nnoremap<leader>di :VimwikiDiaryIndex<CR>
 nnoremap<leader>kal :Calendar<CR>
-
+nnoremap<leader>rw :VimwikiRenameFile<ESC>
+nnoremap<leader>wt :VimwikiTOC<CR>
+nnoremap<leader>ww :VimwikiIndex<CR>
