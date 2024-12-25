@@ -6,8 +6,13 @@
       "filetypes": ["sh"],
       "ignoredRootPaths": ["~"]
     },
-    "go.goplsOptions": {
-      "completeUnimported": true
+    "golang": {
+      "command": "gopls",
+      "filetypes": ["go"],
+      "rootPatterns": ["go.mod"],
+      "settings": {
+        "completeUnimported": true
+      }
     },
     "kotlin": {
       "command": "/Users/nisidabay/.vim/lsp/server/bin/kotlin-language-server",
@@ -21,19 +26,36 @@
       "settings": {
         "python.analysis.typeCheckingMode": "basic",
         "python.analysis.diagnosticMode": "workspace",
-        "python.analysis.useLibraryCodeForTypes": true
+        "python.analysis.useLibraryCodeForTypes": true,
+        "python.analysis.disableLanguageServices": false,
+        "python.analysis.disableOrganizeImports": false,
+        "python.analysis.reportMissingImports": true,
+        "python.analysis.reportMissingTypeStubs": false
       }
     }
   },
-  "clangd.path": "clangd",
-  "clangd.arguments": [
-    "--background-index",
-    "--clang-tidy",
-    "--header-insertion=iwyu",
-    "--completion-style=detailed",
-    "--function-arg-placeholders"
-  ],
-  "shfmt.executable": "shfmt",  // Path to shfmt executable
-  "shfmt.args": ["-w"],         // Optional: Automatically write changes back to the file
-  "shfmt.formatOnSave": true     // Optional: Automatically format on save
+  "clangd": {
+    "path": "clangd",
+    "arguments": [
+      "--background-index",
+      "--clang-tidy",
+      "--header-insertion=iwyu",
+      "--completion-style=detailed",
+      "--function-arg-placeholders"
+    ],
+    "filetypes": ["c", "cpp", "objc", "objcpp"]
+  },
+  "sh": {
+    "enable": true,
+    "filetypes": ["sh"],
+    "highlightParsingErrors": true,
+    "format": {
+      "enable": true,
+      "provider": "shfmt"
+    }
+  },
+  "shfmt": {
+    "executablePath": "shfmt",
+    "args": ["-i", "2", "-ci", "-sr"]
+  }
 }

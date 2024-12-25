@@ -183,7 +183,7 @@ nnoremap <leader>gcs :!gcc -Wall -Wextra -g -std=c11 -o %< -lsqlite3 %<.c<CR>
 nnoremap <leader>cf :%!clang-format<CR>
 
 " Insert pynuggets header
-nnoremap <leader>ph I••• <Esc> 
+nnoremap <leader>ph I<C-r>=nr2char(0x2022) . nr2char(0x2022) . nr2char(0x2022)<CR> <Esc>
 
 " Which bash
 nnoremap <leader>wb :.!which bash<CR>I#!<Esc>
@@ -481,3 +481,25 @@ nnoremap<leader>kal :Calendar<CR>
 nnoremap<leader>rw :VimwikiRenameFile<ESC>
 nnoremap<leader>wt :VimwikiTOC<CR>
 nnoremap<leader>ww :VimwikiIndex<CR>
+
+" Map `<leader>b` in visual mode to create a box around selected text
+vnoremap <leader>8 :<C-u>call BoxAround()<CR>
+function! BoxAround()
+  " Get the selected text range
+  let l:lines = getline("'<", "'>")
+
+  " Calculate the longest line
+  let l:max_length = max(map(copy(l:lines), 'strwidth(v:val)'))
+
+  " Build the box
+  let l:top_bottom = '+' . repeat('-', l:max_length + 2) . '+'
+  let l:boxed_lines = map(copy(l:lines), '"| ".v:val.repeat(" ", l:max_length-strwidth(v:val))." |"')
+  call extend(l:boxed_lines, [l:top_bottom], 0)
+  call extend(l:boxed_lines, [l:top_bottom])
+
+  " Replace the selection with the boxed text
+  call setline("'<", l:boxed_lines)
+endfunction
+
+" format shell scripts
+nnoremap <Leader>fs :%!shfmt<CR>

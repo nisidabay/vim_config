@@ -69,9 +69,15 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
-
-" Format Shell/Bash code
-autocmd BufWritePre *.sh :CocCommand editor.action.formatDocument
+augroup sh_py
+  autocmd!
+  " Format Shell/Bash code
+  autocmd BufWritePre *.sh call CocAction('format')
+  " Format Python code
+  autocmd BufWritePre *.py call CocAction('format')
+  " Set format expression for manual formatting
+  autocmd FileType sh,python setl formatexpr=CocAction('formatSelected')
+augroup end
 
 augroup mygroup
   autocmd!
@@ -158,5 +164,6 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <space>oi  :<C-u>CocCommand pyright.organizeimports<CR>
 
 let g:coc_global_extensions = ['coc-clangd']
