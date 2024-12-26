@@ -207,7 +207,7 @@ nnoremap <leader>0 yyp<c-v>$r=A<CR><Esc>
 nnoremap <leader>7 i#<esc>79a#<esc>
 
 " Insert word in a box
-nnoremap <leader>8 yyp<c-v>$r#A<Esc>yy1kP<Esc>
+nnoremap <leader>8 yyp<c-v>$r"A<Esc>yy1kP<Esc>
 
 " Underline word
 nnoremap <leader>9 yyp<c-v>$r-A<CR><Esc>
