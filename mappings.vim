@@ -6,6 +6,8 @@ au FileType python setlocal formatprg=black\ -
 
 " Set leader key
 let mapleader = "\<Space>"
+" Map capslock to escape
+noremap <CapsLock> <Esc>
 
 " Remap 'jk' and 'kj' to escape in insert and visual modes
 inoremap jk <Esc> 
@@ -482,7 +484,7 @@ nnoremap<leader>rw :VimwikiRenameFile<ESC>
 nnoremap<leader>wt :VimwikiTOC<CR>
 nnoremap<leader>ww :VimwikiIndex<CR>
 
-" Map `<leader>b` in visual mode to create a box around selected text
+" Map `<leader>8` in visual mode to create a box around selected text
 vnoremap <leader>8 :<C-u>call BoxAround()<CR>
 function! BoxAround()
   " Get the selected text range
