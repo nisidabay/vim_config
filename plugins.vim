@@ -279,7 +279,11 @@ augroup vimwikigroup
   autocmd!
   autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
 augroup end
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [
+            \ {'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'},
+            \{'path': '~/personalwiki/', 'syntax': 'markdown', 'ext': '.md'}
+            \]
+
 let g:calendar_diary=$HOME.'/vimwiki/diary'
 let g:instant_markdown_autostart = 0
 let g:vimwiki_global_ext = 0
