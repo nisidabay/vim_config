@@ -6,8 +6,6 @@ au FileType python setlocal formatprg=black\ -
 
 " Set leader key
 let mapleader = "\<Space>"
-" Map capslock to escape
-noremap <CapsLock> <Esc>
 
 " Remap 'jk' and 'kj' to escape in insert and visual modes
 inoremap jk <Esc> 

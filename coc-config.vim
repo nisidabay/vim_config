@@ -167,3 +167,16 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 nnoremap <silent><nowait> <space>oi  :<C-u>CocCommand pyright.organizeimports<CR>
 
 let g:coc_global_extensions = ['coc-clangd']
+
+
+" Text objects for C structures
+xnoremap is :<C-u>normal! ?^\s*struct<CR>V/\v^\s*};<CR>
+xnoremap as :<C-u>normal! ?^\s*struct<CR>Vj/\v^\s*};<CR>
+
+" Commenting
+xnoremap <leader>c :s/^/\/\//<CR>
+xnoremap <leader>u :s/^\/\/<CR>
+
+" Quick header switching
+nnoremap <leader>h :e %:r.h<CR>
+nnoremap <leader>c :e %:r.c<CR>

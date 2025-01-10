@@ -22,7 +22,8 @@ set nocompatible
 set foldenable
 set foldlevelstart=10
 set foldnestmax=10
-set foldmethod=syntax
+set foldlevel=1
+set foldmethod=manual
 
 " Save the folds
 augroup remember_folds
@@ -40,6 +41,7 @@ set nowb
 
 " Syntax highlighting for the current buffer
 syntax on
+syntime on
 
 " Smart auto indentation
 filetype plugin indent on    

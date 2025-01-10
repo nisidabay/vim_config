@@ -57,5 +57,6 @@
   "shfmt": {
     "executablePath": "shfmt",
     "args": ["-i", "2", "-ci", "-sr"]
-  }
+  },
+  "coc.preferences.extensionUpdateCheck": "daily"
 }
