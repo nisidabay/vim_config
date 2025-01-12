@@ -177,6 +177,6 @@ xnoremap as :<C-u>normal! ?^\s*struct<CR>Vj/\v^\s*};<CR>
 xnoremap <leader>c :s/^/\/\//<CR>
 xnoremap <leader>u :s/^\/\/<CR>
 
-" Quick header switching
+" Quick header switching for C
 nnoremap <leader>h :e %:r.h<CR>
 nnoremap <leader>c :e %:r.c<CR>
