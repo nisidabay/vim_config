@@ -221,6 +221,9 @@ nnoremap <leader>rr :!./main <CR>
 " Run python code
 nnoremap <leader>rp :!python3 %<Esc>
 
+" Run ruby code
+nnoremap <leader>rr :!ruby %<Esc>
+
 " Run lua code
 nnoremap <leader>rl :!lua %<Esc>
 
