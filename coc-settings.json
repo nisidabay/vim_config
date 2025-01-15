@@ -32,6 +32,16 @@
         "python.analysis.reportMissingImports": true,
         "python.analysis.reportMissingTypeStubs": false
       }
+    },
+    "ruby": {
+      "command": "solargraph",
+      "args": ["stdio"],
+      "filetypes": ["ruby"],
+      "initializationOptions": {
+        "diagnostics": true,
+        "completion": true,
+        "hover": true
+      }
     }
   },
   "clangd": {
