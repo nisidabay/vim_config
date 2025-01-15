@@ -176,3 +176,4 @@ let g:startify_bookmarks = [
     \ { 'v': '~/.vimrc' },
     \ ]
 
+let g:coc_global_extensions =['coc-solargraph']
