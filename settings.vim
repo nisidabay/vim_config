@@ -22,8 +22,7 @@ set nocompatible
 set foldenable
 set foldlevelstart=10
 set foldnestmax=10
-set foldlevel=1
-set foldmethod=manual
+set foldmethod=syntax
 
 " Save the folds
 augroup remember_folds
@@ -41,7 +40,6 @@ set nowb
 
 " Syntax highlighting for the current buffer
 syntax on
-syntime on
 
 " Smart auto indentation
 filetype plugin indent on    
@@ -176,4 +174,3 @@ let g:startify_bookmarks = [
     \ { 'v': '~/.vimrc' },
     \ ]
 
-let g:coc_global_extensions =['coc-solargraph']

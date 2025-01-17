@@ -173,7 +173,7 @@ vmap > >gv
 vnoremap J :m'>+1<cr>gv=gv
 
 " Move visual selection one line up
-vnoremap K :m'<-2<cr>gv=gv
+xnoremap K :m'<-2<cr>gv=gv
 
 " C/C++
 nnoremap <leader>gc :!gcc -Wall -Wextra -g -std=c11 -o %< %<.c<CR>
@@ -317,7 +317,7 @@ nnoremap <leader>k :<c-u>let save_isk = &iskeyword \|
 nnoremap <leader>M :Man <C-R><C-W><CR>
 "
 " search related docsets
-nnoremap <silent> <Leader>K :call Dasht(dasht#cursor_search_terms())<Return>
+"nnoremap <silent> <Leader>K :call Dasht(dasht#cursor_search_terms())<Return>
 
 " search ALL the docsets
 nnoremap <silent> <Leader><Leader>K :call Dasht(dasht#cursor_search_terms(), '!')<Return>
