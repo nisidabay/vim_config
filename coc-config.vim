@@ -180,3 +180,6 @@ xnoremap <leader>u :s/^\/\/<CR>
 " Quick header switching for C
 nnoremap <leader>h :e %:r.h<CR>
 nnoremap <leader>c :e %:r.c<CR>
+
+" Autoformat ruby code
+autocmd BufWritePre *.rb :CocCommand format

@@ -40,33 +40,43 @@
       "initializationOptions": {
         "diagnostics": true,
         "completion": true,
-        "hover": true
+        "hover": true,
+        "formatting": true,
+        "autoformat": true,
+        "snippets": true,
+        "folding": true
+      },
+      "settings": {
+        "ruby.formatting.provider": "rufo"
       }
-    }
-  },
-  "clangd": {
-    "path": "clangd",
-    "arguments": [
-      "--background-index",
-      "--clang-tidy",
-      "--header-insertion=iwyu",
-      "--completion-style=detailed",
-      "--function-arg-placeholders"
-    ],
-    "filetypes": ["c", "cpp", "objc", "objcpp"]
-  },
-  "sh": {
-    "enable": true,
-    "filetypes": ["sh"],
-    "highlightParsingErrors": true,
-    "format": {
+    },
+    "clangd": {
+      "path": "clangd",
+      "arguments": [
+        "--background-index",
+        "--clang-tidy",
+        "--header-insertion=iwyu",
+        "--completion-style=detailed",
+        "--function-arg-placeholders"
+      ],
+      "filetypes": ["c", "cpp", "objc", "objcpp"]
+    },
+    "sh": {
       "enable": true,
-      "provider": "shfmt"
+      "filetypes": ["sh"],
+      "highlightParsingErrors": true,
+      "format": {
+        "enable": true,
+        "provider": "shfmt"
+      }
     }
   },
   "shfmt": {
     "executablePath": "shfmt",
     "args": ["-i", "2", "-ci", "-sr"]
   },
+  "editor.formatOnSave": true,
   "coc.preferences.extensionUpdateCheck": "daily"
+  "coc.preferences.formatOnSaveFiletypes": ["ruby"]
 }
+
