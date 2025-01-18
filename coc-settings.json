@@ -1,37 +1,26 @@
 {
   "languageserver": {
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
+    "sh": {
+      "formatting": {
+        "provider": "shfmt",
+        "command": "/usr/sbin/shfmt"
+        "args": ["-i", "2", "-ci", "-bn", "-sr"]
+      }
     },
     "golang": {
       "command": "gopls",
       "filetypes": ["go"],
       "rootPatterns": ["go.mod"],
       "settings": {
-        "completeUnimported": true
+        "gopls": {
+          "completeUnimported": true
+        }
       }
     },
     "kotlin": {
       "command": "/Users/nisidabay/.vim/lsp/server/bin/kotlin-language-server",
       "args": ["start"],
       "filetypes": ["kotlin"]
-    },
-    "python": {
-      "command": "pyright-langserver",
-      "args": ["--stdio"],
-      "filetypes": ["python"],
-      "settings": {
-        "python.analysis.typeCheckingMode": "basic",
-        "python.analysis.diagnosticMode": "workspace",
-        "python.analysis.useLibraryCodeForTypes": true,
-        "python.analysis.disableLanguageServices": false,
-        "python.analysis.disableOrganizeImports": false,
-        "python.analysis.reportMissingImports": true,
-        "python.analysis.reportMissingTypeStubs": false
-      }
     },
     "ruby": {
       "command": "solargraph",
@@ -41,18 +30,17 @@
         "diagnostics": true,
         "completion": true,
         "hover": true,
-        "formatting": true,
-        "autoformat": true,
-        "snippets": true,
-        "folding": true
+        "formatting": true
       },
       "settings": {
-        "ruby.formatting.provider": "rufo"
+        "solargraph": {
+          "formatting": true
+        }
       }
     },
     "clangd": {
-      "path": "clangd",
-      "arguments": [
+      "command": "clangd",
+      "args": [
         "--background-index",
         "--clang-tidy",
         "--header-insertion=iwyu",
@@ -60,23 +48,34 @@
         "--function-arg-placeholders"
       ],
       "filetypes": ["c", "cpp", "objc", "objcpp"]
-    },
-    "sh": {
-      "enable": true,
-      "filetypes": ["sh"],
-      "highlightParsingErrors": true,
-      "format": {
-        "enable": true,
-        "provider": "shfmt"
-      }
     }
   },
-  "shfmt": {
-    "executablePath": "shfmt",
-    "args": ["-i", "2", "-ci", "-sr"]
-  },
-  "editor.formatOnSave": true,
-  "coc.preferences.extensionUpdateCheck": "daily"
-  "coc.preferences.formatOnSaveFiletypes": ["ruby"]
-}
 
+  // Enable format on save for all languages
+  "coc.preferences.formatOnSaveFiletypes": ["ruby", "go", "cpp", "c", "kotlin,sh"],
+
+  // Ruby formatting with Rufo
+  "ruby.format.enable": true,
+  "ruby.format.provider": "rufo",
+  "rufo": {
+    "enable": true,
+    "executablePath": "rufo",
+    "args": []
+  },
+
+  // Go formatting with goimports
+  "go.formatTool": "goimports",
+  "go.formatOnSave": true,
+
+  // C/C++ formatting with clang-format
+  "clangd.arguments": ["--clang-tidy"],
+  "coc.source.clangd.format.enable": true,
+
+  // Kotlin formatting with ktlint
+  "kotlin.formatter": "ktlint",
+  "ktlint": {
+    "enable": true,
+    "executablePath": "ktlint",
+    "args": ["-F"]
+  }
+}

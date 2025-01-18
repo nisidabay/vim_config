@@ -1,12 +1,23 @@
-" May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
-" utf-8 byte sequence
+" ===========================
+" === General Settings ===
+" ===========================
+
+" Encoding for UTF-8 support
 set encoding=utf-8
+
+" Disable backup files to improve performance
 set nobackup
 set nowritebackup
 
-" Improve performance
+" Faster updates for CursorHold events
 set updatetime=300
+
+" Always show the sign column to prevent text shifting
 set signcolumn=yes
+
+" ===========================
+" === Completion Settings ===
+" ===========================
 
 " Tab completion
 inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : CheckBackspace() ? "\<Tab>" : coc#refresh()
@@ -15,27 +26,32 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " Accept completion with Enter
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+" Check for backspace to handle tab behavior
 function! CheckBackspace() abort
   let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+  return !col || getline('.')[col - 1] =~# '\s'
 endfunction
 
-" Trigger completion
+" Trigger completion with Ctrl+Space (compatible with Vim and Neovim)
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Diagnostic navigation
+" ===========================
+" === Navigation Mappings ===
+" ===========================
+
+" Navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" GoTo code navigation
+" Go to definition and references
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 
-" ✅ FIXED: Use K for documentation or man page
+" Show documentation
 function! ShowDocumentation()
   if &filetype ==# 'vim' || &filetype ==# 'help'
     execute 'h' expand('<cword>')
@@ -46,65 +62,79 @@ function! ShowDocumentation()
   endif
 endfunction
 
-" ✅ Remap K to use the fixed ShowDocumentation function
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
-" Highlight symbol on hold
+" Highlight symbol on cursor hold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Symbol renaming
+" ===========================
+" === Code Actions ===
+" ===========================
+
+" Rename symbol
 nmap <leader>rn <Plug>(coc-rename)
 
-" Format on save for Shell and Python
-augroup sh_py
-  autocmd!
-  autocmd BufWritePre *.sh,*.py call CocAction('format')
-augroup END
-
-" Apply code actions
+" Apply selected code actions
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-" Quickfix
+" Quickfix current issue
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" Refactor actions
+" Refactor code
 nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
 
-" Code lens action
+" Code lens actions
 nmap <leader>cl  <Plug>(coc-codelens-action)
 
-" Scroll float windows
+" ===========================
+" === Formatting ===
+" ===========================
+
+augroup coc_formatting
+  autocmd!
+  autocmd BufWritePre *.sh,*.rb,*.go,*.cpp,*.c,*.kt :silent! CocCommand editor.action.formatDocument
+augroup END
+
+" Organize imports
+command! -nargs=0 OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+" ===========================
+" === CoCList Mappings ===
+" ===========================
+
+" Quick access to diagnostics, extensions, etc.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<CR>
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<CR>
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<CR>
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<CR>
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<CR>
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" ===========================
+" === Scrolling in Floating Windows ===
+" ===========================
+
 if has('nvim-0.4.0') || has('patch-8.2.0750')
   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
-" Formatting command
-command! -nargs=0 Format :call CocActionAsync('format')
+" ===========================
+" === Statusline Integration ===
+" ===========================
 
-" Organize imports
-command! -nargs=0 OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
-
-" Statusline integration
+" Show Coc status in statusline
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" CoCList mappings
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" ===========================
+" === File Type Specific ===
+" ===========================
 
-" Commenting for C/C++
+" Comment/uncomment C/C++ code
 xnoremap <leader>c :s/^/\/\//<CR>
 xnoremap <leader>u :s/^\/\/<CR>
 
-" Quick header switching for C
+" Quick header switching for C/C++
 nnoremap <leader>h :e %:r.h<CR>
 nnoremap <leader>c :e %:r.c<CR>
-
-" Autoformat Ruby code
-autocmd BufWritePre *.rb :CocCommand format
-

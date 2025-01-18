@@ -174,3 +174,5 @@ let g:startify_bookmarks = [
     \ { 'v': '~/.vimrc' },
     \ ]
 
+autocmd BufWritePre *.sh :CocCommand shfmt
+

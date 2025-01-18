@@ -505,4 +505,5 @@ function! BoxAround()
 endfunction
 
 " format shell scripts
-nnoremap <Leader>fs :%!shfmt<CR>
+nnoremap <Leader>fs :!shellcheck %<CR>
+
