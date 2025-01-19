@@ -372,3 +372,20 @@ let g:rustfmt_autosave = 1
 " Dasht Configuration
 nmap <Leader>k <Plug>DashSearch
 nmap <Leader>kk <Plug>DashSearch
+
+" Translate selected text
+" Map in visual mode to translate selected text using Google Translate
+vnoremap <leader>tw y:call OpenInBrowser()<CR>
+
+function! OpenInBrowser()
+    let selected_text = @"
+    " Remove trailing newlines and whitespace
+    let clean_text = substitute(selected_text, '\n\+$', '', 'g')
+    " Replace spaces with %20 for basic URL encoding
+    let encoded_text = substitute(clean_text, ' ', '%20', 'g')
+    " Build the URL
+    let url = "https://translate.google.com/?sl=auto&tl=en&text=" . encoded_text
+    " Open the URL in the default browser
+    execute "silent !xdg-open '" . url . "'"
+endfunction
+

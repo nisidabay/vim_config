@@ -1,12 +1,5 @@
 {
   "languageserver": {
-    "sh": {
-      "formatting": {
-        "provider": "shfmt",
-        "command": "/usr/sbin/shfmt"
-        "args": ["-i", "2", "-ci", "-bn", "-sr"]
-      }
-    },
     "golang": {
       "command": "gopls",
       "filetypes": ["go"],
@@ -51,8 +44,6 @@
     }
   },
 
-  // Enable format on save for all languages
-  "coc.preferences.formatOnSaveFiletypes": ["ruby", "go", "cpp", "c", "kotlin,sh"],
 
   // Ruby formatting with Rufo
   "ruby.format.enable": true,
@@ -77,5 +68,14 @@
     "enable": true,
     "executablePath": "ktlint",
     "args": ["-F"]
+  },
+ 
+  "coc.preferences.formatOnSaveFiletypes": ["sh"],
+  "coc.source.formatter": {
+    "sh": {
+      "command": "/usr/sbin/shfmt",
+      "args": ["-w"]
+    }
   }
-}
+} 
+
