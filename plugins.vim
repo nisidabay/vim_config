@@ -359,6 +359,7 @@ nnoremap <silent> <leader>fm :FzfMarks<CR>
 nnoremap <silent> <leader>fM :FzfMaps<CR> 
 
 " File Finding Configuration
+
 set path+=**
 command! MakeTags !ctags -R .
 
