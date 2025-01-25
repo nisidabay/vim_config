@@ -93,7 +93,7 @@ nmap <leader>cl  <Plug>(coc-codelens-action)
 
 augroup coc_formatting
   autocmd!
-  autocmd BufWritePre *.rb,*.go,*.cpp,*.c,*.kt :silent! CocCommand editor.action.formatDocument
+  autocmd BufWritePre *.py,*.rb,*.go,*.cpp,*.c,*.kt :silent! CocCommand editor.action.formatDocument
 augroup END
 
 " Organize imports
