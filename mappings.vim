@@ -1,7 +1,7 @@
 " Vim  mappings
 " -------------
 
- " Autopep format for Python
+ " Black format for Python
 au FileType python setlocal formatprg=black\ -
 
 " Set leader key
