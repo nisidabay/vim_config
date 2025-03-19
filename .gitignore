@@ -19,6 +19,8 @@ syntax/*
 undodir/*
 view/*
 
+# Tags
+tags
 
 # Except the local_plugins directory
 !local_plugins/
