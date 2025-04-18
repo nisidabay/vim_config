@@ -7,8 +7,7 @@ call vundle#begin()
 " Plugin Manager
 Plugin 'VundleVim/Vundle.vim'
 
-" Documentation. Only for Mac(macOS)
-" Must have kapeli dash installed (https://kapeli.com/dash)
+" dash-vim
 Plugin 'rizzatti/dash.vim'
 
 " Syntax and Language Support
@@ -59,6 +58,34 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 "" Startify Vim
 Plug 'mhinz/vim-startify'
 
+" Vim-ai
+Plug 'madox2/vim-ai' 
+
+
+" vim-ai configuration for Ollama
+let g:vim_ai_chat = {
+      \ "options": {
+      \   "model": "llama3.2",
+      \   "endpoint_url": "http://localhost:11434/v1/chat/completions",
+      \   "enable_auth": 0,
+      \ },
+      \}
+
+" Use the same endpoint for AI Edit
+let g:vim_ai_edit = {
+      \ "options": {
+      \   "model": "llama3.2",
+      \   "endpoint_url": "http://localhost:11434/v1/chat/completions",
+      \   "enable_auth": 0,
+      \ },
+      \}
+
+" vim-ai roles configuration
+let g:vim_ai_roles_config_file = '~/.vim/roles.ini'
+
+" Debug settings for vim-ai
+let g:vim_ai_debug = 1
+let g:vim_ai_debug_log_file = "/tmp/vim_ai_debug.log"
 
 " Codeium
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
