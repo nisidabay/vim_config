@@ -507,12 +507,3 @@ endfunction
 " format shell scripts
 nnoremap <Leader>fs :!shellcheck %<CR>
 
-" AI plugin
-
-"ai key mappings
-nnoremap<leader>ai :AI<CR>
-xnoremap<leader>ai :AI<CR>
-nnoremap<leader>ae :AIEdit<Space>
-xnoremap<leader>ae :AIEdit<Space>
-nnoremap<leader>ac :AIChat<CR>
-nnoremap<leader>ar :AIRedo<CR>
