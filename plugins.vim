@@ -60,125 +60,15 @@ Plug 'mhinz/vim-startify'
 
 
 " Vim-ai
-Plug 'madox2/vim-ai' 
+Plug 'gergap/vim-ollama'
+" The model for code completions (ghost text)
+let g:ollama_model = 'llama3.2'
 
-" Ollama Integration - Simple Final Version
-" -----------------
+" The model for editing tasks
+let g:ollama_edit_model = 'llama3.2'
 
-" Function to send text to Ollama and display the response
-function! OllamaGenerate(prompt, model)
-  " Create a temporary file for the prompt
-  let l:prompt_file = tempname()
-  call writefile([a:prompt], l:prompt_file)
-  
-  " Create a temporary file for the output
-  let l:output_file = tempname()
-  
-  " Use a simpler shell command that correctly extracts the response
-  let l:cmd = "curl -s 'http://localhost:11434/api/generate' "
-  let l:cmd .= "-d '{\"model\":\"" . a:model . "\",\"prompt\":\"" . escape(a:prompt, '"\') . "\"}' > " . l:output_file
-  
-  " Run the command
-  call system(l:cmd)
-  
-  " Process the output file
-  let l:output = readfile(l:output_file)
-  let l:response = ""
-  
-  " Process each line to extract the response text
-  for l:line in l:output
-    let l:match = matchstr(l:line, '"response":"[^"]*"')
-    if !empty(l:match)
-      let l:text = substitute(l:match, '"response":"', '', '')
-      let l:text = substitute(l:text, '"$', '', '')
-      let l:response .= l:text
-    endif
-  endfor
-  
-  " Create a new buffer for the response
-  new
-  setlocal buftype=nofile
-  setlocal bufhidden=hide
-  setlocal noswapfile
-  setlocal filetype=markdown
-  
-  " Set the content - split by newlines properly
-  call setline(1, split(l:response, '\n'))
-  
-  " Set buffer name
-  execute "file Ollama_Response"
-  
-  " Clean up temporary files
-  call delete(l:prompt_file)
-  call delete(l:output_file)
-endfunction
-
-" Function to send selected text to Ollama
-function! OllamaGenerateSelection() range
-  let l:model = get(g:, 'ollama_model', 'llama3.2')
-  let l:selection = getline(a:firstline, a:lastline)
-  let l:text = join(l:selection, "\n")
-  call OllamaGenerate(l:text, l:model)
-endfunction
-
-" Function to prompt for input and send to Ollama
-function! OllamaPrompt()
-  let l:model = get(g:, 'ollama_model', 'llama3.2')
-  let l:prompt = input("Ollama (" . l:model . "): ")
-  if l:prompt != ""
-    call OllamaGenerate(l:prompt, l:model)
-  endif
-endfunction
-
-" Model change function
-function! OllamaChangeModel()
-  let l:models = []
-  let l:default_models = ['llama3.2', 'deepseek-coder']
-  
-  " Try to get the real model list but fall back to defaults if it fails
-  let l:raw = system("curl -s 'http://localhost:11434/api/tags'")
-  if v:shell_error == 0 && l:raw =~ '"name"'
-    let l:start = 0
-    while 1
-      let l:name_pos = match(l:raw, '"name":"', l:start)
-      if l:name_pos == -1
-        break
-      endif
-      
-      let l:name_start = l:name_pos + 8
-      let l:name_end = match(l:raw, '"', l:name_start)
-      let l:model_name = l:raw[l:name_start:l:name_end-1]
-      call add(l:models, l:model_name)
-      
-      let l:start = l:name_end
-    endwhile
-  else
-    let l:models = l:default_models
-  endif
-  
-  if empty(l:models)
-    echo "No models found, using defaults"
-    let l:models = l:default_models
-  endif
-  
-  let l:choice = inputlist(['Select Ollama model:'] + l:models)
-  if l:choice > 0 && l:choice <= len(l:models)
-    let g:ollama_model = l:models[l:choice-1]
-    echo "Model set to: " . g:ollama_model
-  endif
-endfunction
-
-" Set default model
-let g:ollama_model = "llama3.2"
-
-" Commands
-command! -nargs=1 Ollama call OllamaGenerate(<q-args>, g:ollama_model)
-command! OllamaModel call OllamaChangeModel()
-
-" Key mappings - using <leader>ll to avoid conflicts with FZF
-nnoremap <leader>ll :call OllamaPrompt()<CR>
-vnoremap <leader>ll :call OllamaGenerateSelection()<CR>
-nnoremap <leader>lm :OllamaModel<CR>
+" The model for the :OllamaChat command
+let g:ollama_chat_model = 'llama3.2'
 
 
 " Codeium
