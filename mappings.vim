@@ -288,12 +288,11 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
 " Toggle NERDTree with ot 
-nnoremap <silent><F5> :UndotreeToggle<CR>
+nnoremap <leader>ut :UndotreeToggle<CR>
 nnoremap <leader>nt :NERDTreeToggle<CR>
 
 " Tagbar settings
 let g:tagbar_autofocus = 1
-nnoremap <silent><F8> :TagbarToggle<CR>
 
 " Icon settings
 let g:webdevicons_enable = 1
