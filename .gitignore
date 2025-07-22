@@ -19,11 +19,6 @@ syntax/*
 undodir/*
 view/*
 
-# Tags
-tags
 
 # Except the local_plugins directory
 !local_plugins/
-
-# In case make repo public
-# codeium_auth.vim 
