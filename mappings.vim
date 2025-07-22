@@ -253,16 +253,34 @@ nnoremap <leader>sr :w !sudo tee <C-R>=input("Save to file: ")<CR> > /dev/null<E
 nnoremap <F2> :setlocal spell spelllang=es<CR>
 nnoremap <F3> :setlocal spell spelllang=en_us<CR>
 
+" Clipboard mappings based on OS
+if has('macunix')
+    " Clipboard for MacOS
+    vnoremap <silent> <C-c> :w !pbcopy<CR><CR>
+    nnoremap <silent> <C-v> :r !pbpaste<CR>
+elseif has('unix')
+    " Check if it's Wayland
+    if system('echo $XDG_SESSION_TYPE') =~? 'wayland'
+        " Clipboard for Wayland
+        vnoremap <silent> <C-c> :w !wl-copy<CR><CR>
+        nnoremap <silent> <C-v> :r !wl-paste<CR>
+    else
+        " Clipboard for Linux (X11)
+        vnoremap <silent> <C-c> :w !xclip -i -sel clipboard<CR><CR>
+        nnoremap <silent> <C-v> :r !xclip -o -sel clip<CR>
+    endif
+endif
+
 " Clipboard 
 " For using in Macos
-" vnoremap <leader>y :w !pbcopy<CR><CR>
-" nnoremap <leader>p :r !pbpaste<CR>
+vnoremap <silent> <C-c> :w !pbcopy<CR><CR>
+nnoremap <silent> <C-v> :r !pbpaste<CR>
 " vnoremap <leader>y :w !kitten clipboard<CR><CR>
 " nnoremap <leader>p :r !kitten clipboard --get-clipboard<CR>
 
 " Clipboard for Linux
-vnoremap <silent> <C-c> :w !xclip -i -sel clipboard<CR><CR>
-nnoremap <silent> <C-v> :r !xclip -o -sel clip<CR>
+" vnoremap <silent> <C-c> :w !xclip -i -sel clipboard<CR><CR>
+" nnoremap <silent> <C-v> :r !xclip -o -sel clip<CR>
 " Clipboard for wayland
 " vnoremap <silent> <C-c> :w !wl-copy<CR><CR>
 " nnoremap <silent> <C-v> :r !wl-paste<Esc>
@@ -506,3 +524,5 @@ endfunction
 " format shell scripts
 nnoremap <Leader>fs :!shellcheck %<CR>
 
+" Mapping to open Startify from any buffer
+nnoremap <silent> <leader>ss :Startify<CR>

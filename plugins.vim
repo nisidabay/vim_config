@@ -1,3 +1,4 @@
+
 "------------------------------------------------------------------------------
 " Vundle configuration 
 "------------------------------------------------------------------------------ 
@@ -47,7 +48,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 "Plugin 'puremourning/vimspector'
 
 call vundle#end()
-call glaive#Install()        
+call glaive#Install()       
 
 "------------------------------------------------------------------------------
 "  configuration 
@@ -278,7 +279,7 @@ let g:ale_fix_on_save = 0
 
 " NERDTree Configuration
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv[0] | wincmd p | ene | endif
 
 " devicons Configuration
 set guifont=DroidSansMono\ Nerd\ Font\ 14
@@ -292,8 +293,8 @@ augroup vimwikigroup
 augroup end
 let g:vimwiki_list = [
             \ {'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'},
-            \{'path': '~/personalwiki/', 'syntax': 'markdown', 'ext': '.md'}
-            \]
+            \ {'path': '~/personalwiki/', 'syntax': 'markdown', 'ext': '.md'}
+            \ ]
 
 let g:calendar_diary=$HOME.'/vimwiki/diary'
 let g:instant_markdown_autostart = 0
@@ -310,32 +311,27 @@ endfunction
 map <silent> <C-N> :call ToggleMarkdown()<CR>
 
 " FZF Configuration
-function! s:my_fzf_preview_command()
-  let l:preview_command = 'bat --color=always --style=plain --line-range=:100 {}'
-  return l:preview_command
-endfunction
-let g:fzf_command_prefix = 'Fzf'
-let g:fzf_preview_window = ['right:60%:wrap', 'ctrl-/']
-let g:fzf_action = {'enter': 'edit'}
-let $FZF_DEFAULT_OPTS = '--preview-window=right:60%:wrap --preview ' . shellescape(s:my_fzf_preview_command())
-let g:fzf_colors = { 'fg':      ['fg', 'Normal'],
-                   \ 'bg':      ['bg', 'Normal'],
-                   \ 'hl':      ['fg', 'Comment'],
-                   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-                   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-                   \ 'hl+':     ['fg', 'Statement'],
-                   \ 'info':    ['fg', 'PreProc'],
-                   \ 'border':  ['fg', 'Ignore'],
-                   \ 'prompt':  ['fg', 'Conditional'],
-                   \ 'pointer': ['fg', 'Exception'],
-                   \ 'marker':  ['fg', 'Keyword'],
-                   \ 'spinner': ['fg', 'Label'],
-                   \ 'header':  ['fg', 'Comment'] }
+" Initialize the main dictionary for fzf.vim settings
+let g:fzf_vim = {}
+
+" Use the fzf.vim command prefix 'Fzf' for all commands (e.g., FzfFiles)
+let g:fzf_vim.command_prefix = 'Fzf'
+
+" Configure the preview window. fzf.vim will automatically use a smart
+" previewer script for files, grep results, etc. Toggles with CTRL-/
+let g:fzf_vim.preview_window = ['right,50%', 'ctrl-/']
+
+" For :FzfMaps, disable the preview window since the output is not a file.
+let g:fzf_vim.maps_options = '--no-preview'
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_vim.buffers_jump = 1
 
 " Command to call the FzfManPages function
 " Ensure Man command is available
 runtime! ftplugin/man.vim
 
+" A pure man-page finder that searches for files directly.
 function! FzfManPages()
     let l:cmd = 'man -k . | sed "s/ *\([^ ]*\) *(\([^)]*\)) *- *\(.*\)/\1 [\2] - \3/"'
     call fzf#run({
@@ -354,13 +350,11 @@ function! s:OpenManPage(selection)
 endfunction
 
 command! FzfMan call FzfManPages()
-nnoremap <silent> <leader>fk :FzfMan<CR>
 
-" Mapping to trigger FzfMan
+" Mappings to trigger Fzf commands
 nnoremap <silent> <leader>fk :FzfMan<CR>
 nnoremap <silent> <leader>ff :FzfFiles<CR>
 nnoremap <silent> <leader>fb :FzfBuffers<CR> 
-nnoremap <silent> <leader>fl :FzfLines<CR> 
 nnoremap <silent> <leader>ft :FzfTags<CR> 
 nnoremap <silent> <leader>fT :FzfBTags<CR> 
 nnoremap <silent> <leader>fh :FzfHistory:<CR> 
@@ -369,8 +363,11 @@ nnoremap <silent> <leader>rg :FzfRg<CR>
 nnoremap <silent> <leader>fm :FzfMarks<CR> 
 nnoremap <silent> <leader>fM :FzfMaps<CR> 
 
-" File Finding Configuration
+" Insert mode completion mappings for fzf
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
+" File Finding Configuration
 set path+=**
 command! MakeTags !ctags -R .
 
@@ -400,4 +397,3 @@ function! OpenInBrowser()
     " Open the URL in the default browser
     execute "silent !xdg-open '" . url . "'"
 endfunction
-

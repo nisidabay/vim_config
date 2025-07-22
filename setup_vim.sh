@@ -89,6 +89,7 @@ CONFIG_FILES=(
     "plugins.vim"
     "coc-config.vim"
     "coc-settings.json"
+    "quotes.txt"
 )
 
 # Required files check
