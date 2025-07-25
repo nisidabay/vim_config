@@ -177,40 +177,10 @@ function! s:figlet(text)
   endif
 endfunction
 
-" Function to get the current Git branch
-function! s:get_git_branch()
-  let branch = system('git branch --show-current 2>/dev/null')
-  if v:shell_error == 0 && !empty(branch)
-    return ['   Git Branch: ' . trim(branch), '']
-  endif
-  return []
-endfunction
 
 " Function to get the current time
 function! s:get_current_time()
-    return ['   ' . strftime('%a %d %b %Y, %I:%M %p'), '']
-endfunction
-
-" Function to get a random quote, wrapped to 80 columns
-" REQUIRES you to create a file at ~/.vim/quotes.txt
-function! s:get_random_quote()
-  let quotes_file = expand('~/.vim/quotes.txt')
-  if filereadable(quotes_file)
-    let lines = readfile(quotes_file)
-    if !empty(lines)
-      let random_line = lines[localtime() % len(lines)]
-      " Wrap the quote text to about 65 characters to fit within 80 columns
-      let wrapped_quote = system('echo ' . shellescape(random_line) . ' | fold -s -w 65')
-      let quote_lines = split(wrapped_quote, '\n')
-      " Prepend the first line with 'Quote:' and indent subsequent lines
-      let quote_lines[0] = '   Quote: ' . quote_lines[0]
-      for i in range(1, len(quote_lines) - 1)
-        let quote_lines[i] = '' . quote_lines[i]
-      endfor
-      return quote_lines + ['']
-    endif
-  endif
-  return []
+    return ['' . strftime('%a %d %b %Y, %I:%M %p'), '']
 endfunction
 
 " --- Startify Configuration ---
@@ -219,8 +189,7 @@ endfunction
 let g:startify_custom_header = s:figlet('V i m')
     \ + [ '--------------------------------------------------------------------------', '' ]
     \ + s:get_current_time()
-    \ + s:get_git_branch()
-    \ + s:get_random_quote()
+    \ + [ '--------------------------------------------------------------------------', '' ]
     \ + ['Vim is not just a text editor, it''s a way of life!']
     \ + [ 'With Vim, you are not a user; you are a master of your text domain.', '' ]
     \ + [ '--------------------------------------------------------------------------', '' ]
@@ -240,7 +209,6 @@ let g:startify_commands = [
 let g:startify_lists = [
     \ { 'type': 'sessions',  'header': ['   Sessions']          },
     \ { 'type': 'files',     'header': ['   Recent Files']      },
-    \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
     \ { 'type': 'commands',  'header': ['   FZF Search']        },
     \ { 'type': 'bookmarks', 'header': ['   Bookmarks']         },
     \ ]
