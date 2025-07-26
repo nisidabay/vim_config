@@ -22,6 +22,3 @@ view/*
 
 # Except the local_plugins directory
 !local_plugins/
-
-# Tags
-tags

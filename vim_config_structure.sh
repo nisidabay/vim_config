@@ -1,4 +1,5 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env bash
+
 ################################################################################
 # This is a one-shot script to set up a new vim_config repo
 # Previously and empty repo was cloned from the vim_config repo
@@ -11,7 +12,7 @@
 
 ################################################################################
 # Clone your new repo
-git clone https://github.com/nisidabay/vim_config.git
+gh repo clone nisidabay/vim_confi
 cd vim_config || exit
 
 # Create directories
