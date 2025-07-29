@@ -12,16 +12,16 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'rizzatti/dash.vim'
 
 " Syntax and Language Support
-Plugin 'udalov/kotlin-vim'
-Plugin 'fwcd/kotlin-language-server'
+" Plugin 'udalov/kotlin-vim'
+" Plugin 'fwcd/kotlin-language-server'
 Plugin 'https://github.com/NLKNguyen/c-syntax.vim'
-Plugin 'rust-lang/rust.vim'
+" Plugin 'rust-lang/rust.vim'
 
 " Code Formatting and Linting
 Plugin 'google/vim-maktaba'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
-Plugin 'dense-analysis/ale'
+" Plugin 'dense-analysis/ale'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'vim-autoformat/vim-autoformat'
 
@@ -59,7 +59,6 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 "" Startify Vim
 Plug 'mhinz/vim-startify'
 
-
 " Vim-ai
 Plug 'gergap/vim-ollama'
 " The model for code completions (ghost text)
@@ -79,12 +78,13 @@ let g:codeium_filetypes = {
   \ 'lua': v:true,
   \ 'python': v:true,
   \ 'c': v:true,
+  \ 'go': v:true,
   \ }
 
 " Open Browser 
 Plug 'tyru/open-browser.vim'
 " Code Navigation
-Plug 'bfrg/vim-cpp-modern'
+" Plug 'bfrg/vim-cpp-modern'
 "Plug 'ludovicchabant/vim-gutentags'
 
 " Themes

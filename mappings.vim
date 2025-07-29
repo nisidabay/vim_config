@@ -450,7 +450,7 @@ endfunction
 nnoremap <Leader>ag :call GenerateCompileCommands()<CR>
 
 " Mappings for Codeium
-imap <script><silent><nowait><expr> <C-g> codeium#Accept()
+imap <script><silent><nowait><expr> <C-G> codeium#Accept()
 imap <script><silent><nowait><expr> <C-h> codeium#AcceptNextWord()
 imap <script><silent><nowait><expr> <C-j> codeium#AcceptNextLine()
 imap <C-;>   <Cmd>call codeium#CycleCompletions(1)<CR>
