@@ -2,6 +2,7 @@
 *.swp
 *.swo
 *~
+tags
 
 # Plugin directories that will be installed
 autoload/*
