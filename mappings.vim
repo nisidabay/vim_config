@@ -250,8 +250,8 @@ vnoremap <leader>s :w <C-R>=input("Save to file: ")<CR><Esc>
 nnoremap <leader>sr :w !sudo tee <C-R>=input("Save to file: ")<CR> > /dev/null<Esc>
 
 " Set language
-nnoremap <F2> :setlocal spell spelllang=es<CR>
-nnoremap <F3> :setlocal spell spelllang=en_us<CR>
+nnoremap <leader>sp :setlocal spell spelllang=es<CR>
+nnoremap <leader>se :setlocal spell spelllang=en_us<CR>
 
 " Clipboard mappings based on OS
 if has('macunix')
@@ -271,22 +271,9 @@ elseif has('unix')
     endif
 endif
 
-" Clipboard 
-" For using in Macos
-vnoremap <silent> <C-c> :w !pbcopy<CR><CR>
-nnoremap <silent> <C-v> :r !pbpaste<CR>
-" vnoremap <leader>y :w !kitten clipboard<CR><CR>
-" nnoremap <leader>p :r !kitten clipboard --get-clipboard<CR>
-
-" Clipboard for Linux
-" vnoremap <silent> <C-c> :w !xclip -i -sel clipboard<CR><CR>
-" nnoremap <silent> <C-v> :r !xclip -o -sel clip<CR>
-" Clipboard for wayland
-" vnoremap <silent> <C-c> :w !wl-copy<CR><CR>
-" nnoremap <silent> <C-v> :r !wl-paste<Esc>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/
-"
+
 
 " NERDTree settings
 let g:NERDTreeChDirMode=2
@@ -402,52 +389,7 @@ function! CopytoTab()
 endfunction
 
 " Map the function to F5 for visual mode
-vnoremap <F5> :call CopytoTab()<CR>
-
-" Generate ALE config file
-function! GenerateCompileCommands()
-    let l:root = getcwd()
-    let l:compile_commands_file = l:root . '/compile_commands.json'
-    let l:files = glob(l:root . '/**/*.c', 0, 1)
-    let l:compile_commands = []
-    let l:compiler_flags = '-Wall -Wextra -std=c11'
-
-    " Read existing compile_commands.json if it exists
-    if filereadable(l:compile_commands_file)
-        let l:existing_content = join(readfile(l:compile_commands_file), '\n')
-        let l:compile_commands = json_decode(l:existing_content)
-    endif
-
-    " Create a dictionary for quick lookup of existing entries
-    let l:existing_entries = {}
-    for entry in l:compile_commands
-        let l:existing_entries[entry.file] = entry
-    endfor
-
-    " Update or add entries for each .c file
-    for l:file in l:files
-        let l:rel_path = fnamemodify(l:file, ':.:r')
-        let l:command = printf('gcc %s -c %s.c -o %s.o', l:compiler_flags, l:rel_path, l:rel_path)
-        let l:entry = {
-            \ 'directory': l:root,
-            \ 'command': l:command,
-            \ 'file': l:file
-            \ }
-        
-        if has_key(l:existing_entries, l:file)
-            let l:index = index(l:compile_commands, l:existing_entries[l:file])
-            let l:compile_commands[l:index] = l:entry
-        else
-            call add(l:compile_commands, l:entry)
-        endif
-    endfor
-
-    " Write the updated compile_commands.json
-    call writefile([json_encode(l:compile_commands)], l:compile_commands_file)
-    echo "compile_commands.json updated successfully with compiler flags!"
-endfunction
-
-nnoremap <Leader>ag :call GenerateCompileCommands()<CR>
+vnoremap <ct> :call CopytoTab()<CR>
 
 " Mappings for Codeium
 imap <script><silent><nowait><expr> <C-G> codeium#Accept()
@@ -461,12 +403,9 @@ imap <C-x>   <Cmd>call codeium#Clear()<CR>
 nmap <silent> gx <Plug>(openbrowser-smart-search)
 vmap <silent> gx <Plug>(openbrowser-smart-search)
 
+"##############################################
 " Snippets mappings in the module configuration
-" nnoremap <silent> <leader>ssl :ListSnippets<CR>
-" nnoremap <silent> <leader>ssa :AddSnippet<CR>
-" nnoremap <silent> <leader>sse :EditSnippet<CR>
-" nnoremap <silent> <leader>ssd :DeleteSnippet<CR>
-" nnoremap <silent> <leader>ssi :InsertSnippet<CR>
+"##############################################
 "
 "
 " Search for a word under the cursor
