@@ -11,6 +11,8 @@ let loaded_snippets = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+let g:snippets_base_directory = expand("~/share_data/snippets")
+
 if !exists("g:snippets_base_directory")
     let g:snippets_base_directory = expand("~/share_data/snippets")
 endif
