@@ -12,7 +12,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 if !exists("g:snippets_base_directory")
-    let g:snippets_base_directory = expand("~/dotfiles/share_data/snippets")
+    let g:snippets_base_directory = expand("~/share_data/snippets")
 endif
 let s:snippet_filetype = ""
 
