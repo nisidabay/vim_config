@@ -8,12 +8,8 @@ call vundle#begin()
 " Plugin Manager
 Plugin 'VundleVim/Vundle.vim'
 
-" dash-vim
-" Plugin 'rizzatti/dash.vim'
 
 " Syntax and Language Support
-" Plugin 'udalov/kotlin-vim'
-" Plugin 'fwcd/kotlin-language-server'
 Plugin 'https://github.com/NLKNguyen/c-syntax.vim'
 " Plugin 'rust-lang/rust.vim'
 
@@ -21,7 +17,6 @@ Plugin 'https://github.com/NLKNguyen/c-syntax.vim'
 Plugin 'google/vim-maktaba'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
-" Plugin 'dense-analysis/ale'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'vim-autoformat/vim-autoformat'
 
@@ -89,7 +84,6 @@ Plug 'tyru/open-browser.vim'
 
 " Themes
 Plug 'sainnhe/everforest'
-Plug 'ghifarit53/tokyonight-vim'
 
 " Note-taking and Wiki
 Plug 'vimwiki/vimwiki'
@@ -134,33 +128,6 @@ call plug#end()
 " Plugin Configurations
 "------------------------------------------------------------------------------
 
-" ALE Configuration
-let g:ale_linters = {'c': ['clangd']}
-let g:ale_fixers = {'c': ['clang-format', 'clangtidy']}
-let g:ale_c_gcc_options = '-Wall -Wextra -Wpedantic'
-let g:ale_fix_on_save = 1
-let g:ale_lsp_suggestions = 1
-let g:ale_completion_enabled = 1
-let g:ale_completion_autoimport = 1
-let g:ale_c_clangd_options = '--background-index --compile-commands-dir=' . getcwd()
-let g:ale_completion_enabled = 1
-let g:ale_completion_tsserver_autoimport = 1
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_virtualtext_cursor = 'current'
-let g:ale_c_parse_compile_commands = 1
-let g:ale_fix_on_save = 1
-let g:ale_virtualtext_cursor = 1
-let g:ale_virtualtext_prefix = '🔎 '
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
-
-" ALE Mappings
-nmap <silent> [e <Plug>(ale_previous_wrap)
-nmap <silent> ]e <Plug>(ale_next_wrap)
-nmap <silent> <leader>d :ALEDetail<CR>
-nmap <silent> <leader>f <Plug>(ale_fix)
-
-
 " vim-gutentags Configuration
 "let g:gutentags_ctags_extra_args = ['-c', '.ctags.cnf']
 
@@ -196,7 +163,6 @@ let g:airline#extensions#tagbar#enabled = 1  " Show tagbar integration
 let g:airline_powerline_fonts = 1 
 let g:airline_theme='everforest' " Match your colorscheme
 
-"let g:airline_theme='tokyonight' " Match your colorscheme
 
 " Color Scheme Configuration
 if has('termguicolors')
@@ -216,17 +182,6 @@ let g:everforest_sign_column_background = 'none'
 " Load colorscheme after settings
 colorscheme everforest
 
-
-" Configuration for tokyonight
-" let g:tokyonight_style = 'night'  " Available: storm, day, night
-" let g:tokyonight_enable_italic = 1
-" let g:tokyonight_enable_bold = 1
-" let g:tokyonight_disable_italic_comment = 1
-" let g:tokyonight_transparent_background = 1  " Values 0 or 1
-" let g:tokyonight_transparent_sidebar = 1  " Values 0 or 1
-" let g:tokyonight_current_word = 'bold'
-
-" colorscheme tokyonight
 
 " " Force transparency after colorscheme
 "highlight Normal guibg=NONE ctermbg=NONE
@@ -273,9 +228,6 @@ augroup c_cpp_settings
     " C files use Linux kernel style
     autocmd FileType c setlocal tabstop=8 shiftwidth=8 noexpandtab softtabstop=8
 augroup END
-
-" Disable ALE's auto-formatting
-let g:ale_fix_on_save = 0
 
 " NERDTree Configuration
 autocmd StdinReadPre * let s:std_in=1
@@ -371,29 +323,5 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 set path+=**
 command! MakeTags !ctags -R .
 
-" Kotlin Configuration
-autocmd BufReadPost *.kt setlocal filetype=kotlin
-let g:LanguageClient_serverCommands = { 'kotlin': ["kotlin-language-server"] }
-
 " Rust Configuration
-let g:rustfmt_autosave = 1
-
-" Dasht Configuration
-nmap <Leader>k <Plug>DashSearch
-nmap <Leader>kk <Plug>DashSearch
-
-" Translate selected text
-" Map in visual mode to translate selected text using Google Translate
-vnoremap <leader>tw y:call OpenInBrowser()<CR>
-
-function! OpenInBrowser()
-    let selected_text = @"
-    " Remove trailing newlines and whitespace
-    let clean_text = substitute(selected_text, '\n\+$', '', 'g')
-    " Replace spaces with %20 for basic URL encoding
-    let encoded_text = substitute(clean_text, ' ', '%20', 'g')
-    " Build the URL
-    let url = "https://translate.google.com/?sl=auto&tl=en&text=" . encoded_text
-    " Open the URL in the default browser
-    execute "silent !xdg-open '" . url . "'"
-endfunction
+" let g:rustfmt_autosave = 1
