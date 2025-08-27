@@ -54,17 +54,6 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 "" Startify Vim
 Plug 'mhinz/vim-startify'
 
-" Vim-ai
-Plug 'gergap/vim-ollama'
-" The model for code completions (ghost text)
-let g:ollama_model = 'llama3.2'
-
-" The model for editing tasks
-let g:ollama_edit_model = 'llama3.2'
-
-" The model for the :OllamaChat command
-let g:ollama_chat_model = 'llama3.2'
-
 
 " Codeium
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
