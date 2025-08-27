@@ -70,7 +70,7 @@
     "args": ["-F"]
   },
  
-  "coc.preferences.formatOnSaveFiletypes": ["sh"],
+  "coc.preferences.formatOnSaveFiletypes": ["sh", "go"],
   "coc.source.formatter": {
     "sh": {
       "command": "/usr/sbin/shfmt",
