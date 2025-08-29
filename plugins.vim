@@ -11,7 +11,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Syntax and Language Support
 Plugin 'https://github.com/NLKNguyen/c-syntax.vim'
-" Plugin 'rust-lang/rust.vim'
+Plugin 'rust-lang/rust.vim'
 
 " Code Formatting and Linting
 Plugin 'google/vim-maktaba'
@@ -313,4 +313,4 @@ set path+=**
 command! MakeTags !ctags -R .
 
 " Rust Configuration
-" let g:rustfmt_autosave = 1
+let g:rustfmt_autosave = 1
