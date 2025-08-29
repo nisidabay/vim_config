@@ -10,11 +10,6 @@
         }
       }
     },
-    "kotlin": {
-      "command": "/Users/nisidabay/.vim/lsp/server/bin/kotlin-language-server",
-      "args": ["start"],
-      "filetypes": ["kotlin"]
-    },
     "ruby": {
       "command": "solargraph",
       "args": ["stdio"],
@@ -61,14 +56,6 @@
   // C/C++ formatting with clang-format
   "clangd.arguments": ["--clang-tidy"],
   "coc.source.clangd.format.enable": true,
-
-  // Kotlin formatting with ktlint
-  "kotlin.formatter": "ktlint",
-  "ktlint": {
-    "enable": true,
-    "executablePath": "ktlint",
-    "args": ["-F"]
-  },
  
   "coc.preferences.formatOnSaveFiletypes": ["sh", "go"],
   "coc.source.formatter": {
