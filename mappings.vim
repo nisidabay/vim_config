@@ -215,8 +215,6 @@ inoremap <leader>9 <Esc>yyp<c-v>$r-A<CR>
 
 " Compile current rust file
 nnoremap <leader>rc :!rustc %<CR>
-" Run rust file
-nnoremap <leader>rr :!./main <CR>
 
 " Run python code
 nnoremap <leader>rp :!python3 %<Esc>
