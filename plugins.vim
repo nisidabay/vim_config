@@ -25,9 +25,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
 
 " Visual Enhancements
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 Plugin 'Yggdroot/indentLine'
+Plugin 'itchyny/lightline.vim'
 
 " Editing Enhancements
 Plugin 'Raimondi/delimitMate'
@@ -54,6 +53,8 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 "" Startify Vim
 Plug 'mhinz/vim-startify'
 
+" Markdown
+Plug 'gabrielelana/vim-markdown'
 
 " Codeium
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
@@ -72,7 +73,8 @@ Plug 'tyru/open-browser.vim'
 "Plug 'ludovicchabant/vim-gutentags'
 
 " Themes
-Plug 'sainnhe/everforest'
+" Plug 'sainnhe/everforest'
+Plug 'wadackel/vim-dogrun'
 
 " Note-taking and Wiki
 Plug 'vimwiki/vimwiki'
@@ -129,50 +131,19 @@ nmap ( <Plug>(GitGutterPrevHunk)
 let g:gitgutter_enabled = 1
 let g:gitgutter_map_keys = 0
 
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.dirty='⚡'
-let g:airline_section_b = '%{getcwd()}'  " Current directory in section B
-let g:airline_section_c = '%t'  " Just the tail of the filename
-let g:airline_section_x = '%{&filetype}'  " Filetype in section X
-let g:airline_section_y = '%{strftime("%H:%M")}'  " Current time in section Y
-let g:airline_section_z = 'ln:%l/%L col:%c'  " Custom line/column display
-let g:airline#extensions#ale#enabled = 1  " Show ALE errors in airline
-let g:airline#extensions#branch#enabled = 1  " Show git branch
-let g:airline#extensions#tagbar#enabled = 1  " Show tagbar integration
-let g:airline_powerline_fonts = 1 
-let g:airline_theme='everforest' " Match your colorscheme
-
-
 " Color Scheme Configuration
 if has('termguicolors')
     set termguicolors
 endif
 
 set background=dark
-" Configuration for everforest
-" " Everforest settings - important: set transparency BEFORE loading colorscheme
-let g:everforest_background = 'soft'
-let g:everforest_better_performance = 1
-let g:everforest_enable_italic = 1
-let g:everforest_disable_italic_comment = 1
-let g:everforest_transparent_background = 2  " Changed from 1 to 2 for full transparency
-let g:everforest_sign_column_background = 'none'
 
-" Load colorscheme after settings
-colorscheme everforest
+colorscheme dogrun
 
-
-" " Force transparency after colorscheme
+let g:lightline = {
+  \ 'colorscheme': 'dogrun',
+  \ }
+" Force transparency after colorscheme
 "highlight Normal guibg=NONE ctermbg=NONE
 
 " Font settings. Patched italic font, set in st terminal
