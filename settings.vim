@@ -2,10 +2,8 @@
 " Settings
 "------------------------------------------------------------------------------
 " Language settings
-" language messages en_US.UTF-8
-" set langmenu=en_US.UTF-8
 set encoding=utf-8
-set fileencodings=utf-8,latin1
+set fileencodings=utf-8
   
 " Undodirectory
 set undodir=$HOME/.vim/undodir
