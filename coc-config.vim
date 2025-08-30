@@ -44,8 +44,8 @@ endif
 " ===========================
 
 " Navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> gp <Plug>(coc-diagnostic-prev)
+nmap <silent> gP <Plug>(coc-diagnostic-next)
 
 " Go to definition and references
 nmap <silent> gd <Plug>(coc-definition)
@@ -93,7 +93,7 @@ nmap <leader>cl  <Plug>(coc-codelens-action)
 
 augroup coc_formatting
   autocmd!
-  autocmd BufWritePre *.rb,*.go,*.rs,*.c,:silent! CocCommand editor.action.formatDocument
+  autocmd BufWritePre *.rb,*.go,*.rs,*.c,*.py:silent! CocCommand editor.action.formatDocument
 augroup END
 
 " Organize imports
