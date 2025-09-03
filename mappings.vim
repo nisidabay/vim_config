@@ -463,3 +463,7 @@ nnoremap <Leader>fs :!shellcheck %<CR>
 
 " Mapping to open Startify from any buffer
 nnoremap <silent> <leader>ss :Startify<CR>
+
+" Mapping to insert emojis
+nnoremap <buffer> <silent> <leader>jj :!emoji_insert.sh %<CR>"
+
