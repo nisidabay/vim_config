@@ -63,6 +63,9 @@ let g:codeium_filetypes = {
   \ 'go': v:true,
   \ }
 
+" Ollama
+Plug 'gergap/vim-ollama'
+
 " Open Browser 
 Plug 'tyru/open-browser.vim'
 " Code Navigation
