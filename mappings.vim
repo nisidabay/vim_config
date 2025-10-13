@@ -1,6 +1,7 @@
 " Vim  mappings
 " -------------
 
+
  " Black format for Python
 au FileType python setlocal formatprg=black\ -
 
@@ -26,7 +27,7 @@ ino <up> <Nop>
 ino <left> <Nop>
 ino <right> <Nop>
 
-vno <down> <Nop>
+vno <down> <Nopo
 vno <up> <Nop>
 vno <left> <Nop>
 vno <right> <Nop>
@@ -271,6 +272,7 @@ endif
 
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/
+
 
 
 " NERDTree settings
