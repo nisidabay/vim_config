@@ -53,16 +53,6 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 "" Startify Vim
 Plug 'mhinz/vim-startify'
 
-" Codeium
-Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
-let g:codeium_filetypes = {
-  \ 'bash': v:true,
-  \ 'lua': v:true,
-  \ 'python': v:true,
-  \ 'c': v:true,
-  \ 'go': v:true,
-  \ }
-
 
 " Open Browser 
 Plug 'tyru/open-browser.vim'
