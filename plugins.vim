@@ -1,56 +1,14 @@
+" vim: set foldmethod=marker:
+"
+" ==============================================================================
+"  This file has been refactored to use a single plugin manager (vim-plug)
+"  and incorporates best-practice configurations for your setup.
+" ==============================================================================
 
-"------------------------------------------------------------------------------
-" Vundle configuration 
-"------------------------------------------------------------------------------ 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" --- VIM-PLUG START -----------------------------------------------------------
+call plug#begin('~/.vim/plugged')
 
-" Plugin Manager
-Plugin 'VundleVim/Vundle.vim'
-
-
-" Syntax and Language Support
-Plugin 'https://github.com/NLKNguyen/c-syntax.vim'
-Plugin 'rust-lang/rust.vim'
-
-" Code Formatting and Linting
-Plugin 'google/vim-maktaba'
-Plugin 'google/vim-codefmt'
-Plugin 'google/vim-glaive'
-Plugin 'rhysd/vim-clang-format'
-Plugin 'vim-autoformat/vim-autoformat'
-
-" File Navigation and Project Management
-Plugin 'scrooloose/nerdtree'
-Plugin 'majutsushi/tagbar'
-
-" Visual Enhancements
-Plugin 'Yggdroot/indentLine'
-Plugin 'itchyny/lightline.vim'
-
-" Editing Enhancements
-Plugin 'Raimondi/delimitMate'
-Plugin 'kshenoy/vim-signature'
-
-" Utilities
-Plugin 'instant-markdown/vim-instant-markdown'
-Plugin 'mattn/calendar-vim'
-Plugin 'chrisbra/unicode.vim'
-
-" Integration and Navigation
-Plugin 'christoomey/vim-tmux-navigator'
-"Plugin 'puremourning/vimspector'
-
-call vundle#end()
-call glaive#Install()       
-
-"------------------------------------------------------------------------------
-"  configuration 
-"------------------------------------------------------------------------------
-call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
-
-
-"" Startify Vim
+"----[ General & UI ]----------------------------------------------------------
 Plug 'mhinz/vim-startify'
 
 
@@ -74,166 +32,102 @@ Plug 'neoclide/coc-snippets'
 Plug 'honza/vim-snippets'
 
 " File Icons
+=======
+Plug 'itchyny/lightline.vim'
+Plug 'wadackel/vim-dogrun' " Your theme
+>>>>>>> bc68056 (Modify plugins.vim)
 Plug 'ryanoasis/vim-devicons'
+Plug 'Yggdroot/indentLine'
+Plug 'chrisbra/Colorizer'
 
-" Fuzzy Finder
+"----[ File & Project Navigation ]---------------------------------------------
+Plug 'scrooloose/nerdtree'
+Plug 'majutsushi/tagbar'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
-" Undo Tree
-Plug 'mbbill/undotree'
-
-" Text Manipulation
+"----[ Editing Enhancements ]--------------------------------------------------
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'Raimondi/delimitMate'
+Plug 'mbbill/undotree'
+Plug 'kshenoy/vim-signature'
 
-" Language Support
+"----[ Git Integration ]-------------------------------------------------------
+Plug 'airblade/vim-gitgutter'
+" The best Git wrapper for Vim
+Plug 'tpope/vim-fugitive'
+
+"----[ Language Intelligence & Completion ]------------------------------------
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'honza/vim-snippets'
+Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
+
+"----[ Language Specific ]-----------------------------------------------------
+" C & C++
+Plug 'NLKNguyen/c-syntax.vim'
+" Bash
+Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
+" Nim (Official language support)
+Plug 'zah/nim.vim'
+" Rust
+Plug 'rust-lang/rust.vim'
+" Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" Markdown Support
+"----[ Notes & Markdown ]------------------------------------------------------
+Plug 'vimwiki/vimwiki'
 Plug 'dhruvasagar/vim-table-mode'
+" Modern Markdown previewer
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'mattn/calendar-vim'
 
-" Shell Formatting
-Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
+"----[ Utilities ]-------------------------------------------------------------
+Plug 'tyru/open-browser.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'chrisbra/unicode.vim'
 
-" Git Integration
-Plug 'airblade/vim-gitgutter'
-
-" Documentation
-" Plug 'sunaku/vim-dasht'
 call plug#end()
+" --- VIM-PLUG END -------------------------------------------------------------
 
-"------------------------------------------------------------------------------
-" Plugin Configurations
-"------------------------------------------------------------------------------
 
-" vim-gutentags Configuration
-"let g:gutentags_ctags_extra_args = ['-c', '.ctags.cnf']
+" ==============================================================================
+" --- Plugin Configurations {{{ 
+" ==============================================================================
 
-" Git Gutter Configuration
-highlight GitGutterAdd guifg=#009900 ctermfg=Green
-highlight GitGutterChange guifg=#bbbb00 ctermfg=Yellow
-highlight GitGutterDelete guifg=#ff2222 ctermfg=Red
-nmap ) <Plug>(GitGutterNextHunk)
-nmap ( <Plug>(GitGutterPrevHunk)
-let g:gitgutter_enabled = 1
-let g:gitgutter_map_keys = 0
-
-" Color Scheme Configuration
+" --- UI & Theme ----------------------------------------------------------- {{{ 
 if has('termguicolors')
     set termguicolors
 endif
-
 set background=dark
-
 colorscheme dogrun
 
+" Lightline configuration with Git and CoC integration
 let g:lightline = {
-  \ 'colorscheme': 'dogrun',
-  \ }
-" Force transparency after colorscheme
-"highlight Normal guibg=NONE ctermbg=NONE
+      \ 'colorscheme': 'dogrun',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'coc_status', 'gitbranch' ],
+      \             [ 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head',
+      \   'coc_status': 'coc#status'
+      \ }
+      \ }
 
-" Font settings. Patched italic font, set in st terminal
-set guifont=Fisa\ Code:h14
-
-
-" UltiSnips Configuration
-let g:UltiSnipsExpandTrigger="<c-l>"
-
-" Python formatting
-autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4 
-
-" C formatting
-let g:codefmt_enabled = 0
-" Define the Linux kernel style (used by ftplugin/c.vim)
-let g:linux_kernel_style = 
-    \ '{BasedOnStyle: LLVM, ' .
-    \ 'IndentWidth: 8, ' .
-    \ 'UseTab: Always, ' .
-    \ 'TabWidth: 8, ' .
-    \ 'ContinuationIndentWidth: 8, ' .
-    \ 'BreakBeforeBraces: Linux, ' .
-    \ 'AllowShortIfStatementsOnASingleLine: Never, ' .
-    \ 'AllowShortLoopsOnASingleLine: false, ' .
-    \ 'AllowShortFunctionsOnASingleLine: None, ' .
-    \ 'AllowShortBlocksOnASingleLine: Never, ' .
-    \ 'IndentCaseLabels: false, ' .
-    \ 'AlignAfterOpenBracket: DontAlign, ' .
-    \ 'DerivePointerAlignment: false, ' .
-    \ 'PointerAlignment: Right, ' .
-    \ 'SpaceBeforeParens: ControlStatements, ' .
-    \ 'MaxEmptyLinesToKeep: 2, ' .
-    \ 'KeepEmptyLinesAtTheStartOfBlocks: false, ' .
-    \ 'AlignTrailingComments: false, ' .
-    \ 'ReflowComments: false, ' .
-    \ 'SortIncludes: Never, ' .
-    \ 'ColumnLimit: 80}'
-
-" Ensure proper indentation settings
-augroup c_cpp_settings
-    autocmd!
-    " C files use Linux kernel style
-    autocmd FileType c setlocal tabstop=8 shiftwidth=8 noexpandtab softtabstop=8
-augroup END
-
-" NERDTree Configuration
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv[0] | wincmd p | ene | endif
-
-" devicons Configuration
 set guifont=DroidSansMono\ Nerd\ Font\ 14
-
-" Vimwiki Configuration
-let g:vimkwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-command! Diary VimwikiDiaryIndex
-augroup vimwikigroup
-  autocmd!
-  autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
-augroup end
-let g:vimwiki_list = [
-            \ {'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'},
-            \ {'path': '~/personalwiki/', 'syntax': 'markdown', 'ext': '.md'}
-            \ ]
-
-let g:calendar_diary=$HOME.'/vimwiki/diary'
-let g:instant_markdown_autostart = 0
-let g:vimwiki_global_ext = 0
-
-" Markdown Toggle Function
-function! ToggleMarkdown()
-  if &filetype == 'vimwiki'
-    set ft=markdown
-  elseif &filetype == 'markdown'
-    set ft=vimwiki
-  endif
-endfunction
-map <silent> <C-N> :call ToggleMarkdown()<CR>
-
-" FZF Configuration
-" Initialize the main dictionary for fzf.vim settings
+" }}} 
+" --- FZF (Fuzzy Finder) --------------------------------------------------- {{{ 
 let g:fzf_vim = {}
-
-" Use the fzf.vim command prefix 'Fzf' for all commands (e.g., FzfFiles)
 let g:fzf_vim.command_prefix = 'Fzf'
-
-" Configure the preview window. fzf.vim will automatically use a smart
-" previewer script for files, grep results, etc. Toggles with CTRL-/
 let g:fzf_vim.preview_window = ['right,50%', 'ctrl-/']
-
-" For :FzfMaps, disable the preview window since the output is not a file.
 let g:fzf_vim.maps_options = '--no-preview'
-
-" [Buffers] Jump to the existing window if possible
 let g:fzf_vim.buffers_jump = 1
 
-" Command to call the FzfManPages function
-" Ensure Man command is available
 runtime! ftplugin/man.vim
-
-" A pure man-page finder that searches for files directly.
 function! FzfManPages()
-    let l:cmd = 'man -k . | sed "s/ *\([^ ]*\) *(\([^)]*\)) *- *\(.*\)/\1 [\2] - \3/"'
+    let l:cmd = 'man -k . | sed "s/ *\([^ ]*\) *\([^)]*\)) *- *\(.*\)/\1 [\2] - \3/"'
     call fzf#run({
         \ 'source': l:cmd,
         \ 'sink': function('s:OpenManPage'),
@@ -245,13 +139,13 @@ endfunction
 function! s:OpenManPage(selection)
     let l:parts = split(a:selection)
     let l:page = l:parts[0]
-    let l:section = substitute(l:parts[1], '[\[\]]', '', 'g')
+    let l:section = substitute(l:parts[1], '[\\\[\\\]]', '', 'g')
     execute 'Man ' . l:section . ' ' . l:page
 endfunction
 
 command! FzfMan call FzfManPages()
 
-" Mappings to trigger Fzf commands
+" Your existing FZF mappings are great.
 nnoremap <silent> <leader>fk :FzfMan<CR>
 nnoremap <silent> <leader>ff :FzfFiles<CR>
 nnoremap <silent> <leader>fb :FzfBuffers<CR> 
@@ -263,13 +157,106 @@ nnoremap <silent> <leader>rg :FzfRg<CR>
 nnoremap <silent> <leader>fm :FzfMarks<CR> 
 nnoremap <silent> <leader>fM :FzfMaps<CR> 
 
-" Insert mode completion mappings for fzf
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+" }}} 
+" --- Language Specific Settings ------------------------------------------- {{{ 
+" C / C++
+" Using clang-format via coc.nvim is recommended (see coc-settings.json).
+let g:linux_kernel_style = '{BasedOnStyle: LLVM, ' 
+    \ . 'IndentWidth: 8, ' 
+    \ . 'UseTab: Always, ' 
+    \ . 'TabWidth: 8, ' 
+    \ . 'ContinuationIndentWidth: 8, ' 
+    \ . 'BreakBeforeBraces: Linux, ' 
+    \ . 'AllowShortIfStatementsOnASingleLine: Never, ' 
+    \ . 'AllowShortLoopsOnASingleLine: false, ' 
+    \ . 'AllowShortFunctionsOnASingleLine: None, ' 
+    \ . 'AllowShortBlocksOnASingleLine: Never, ' 
+    \ . 'IndentCaseLabels: false, ' 
+    \ . 'AlignAfterOpenBracket: DontAlign, ' 
+    \ . 'DerivePointerAlignment: false, ' 
+    \ . 'PointerAlignment: Right, ' 
+    \ . 'SpaceBeforeParens: ControlStatements, ' 
+    \ . 'MaxEmptyLinesToKeep: 2, ' 
+    \ . 'KeepEmptyLinesAtTheStartOfBlocks: false, ' 
+    \ . 'AlignTrailingComments: false, ' 
+    \ . 'ReflowComments: false, ' 
+    \ . 'SortIncludes: Never, ' 
+    \ . 'ColumnLimit: 80}'
 
-" File Finding Configuration
+augroup c_cpp_settings
+    autocmd!
+    autocmd FileType c setlocal tabstop=8 shiftwidth=8 noexpandtab softtabstop=8
+augroup END
+
+" Python
+autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4 
+
+" Rust
+let g:rustfmt_autosave = 1
+
+" Codeium
+let g:codeium_filetypes = {
+  \ 'bash': v:true,
+  \ 'lua': v:true,
+  \ 'python': v:true,
+  \ 'c': v:true,
+  \ 'go': v:true,
+  \ }
+" }}} 
+" --- Other Plugin Settings ------------------------------------------------ {{{ 
+" Git Gutter
+highlight GitGutterAdd guifg=#009900 ctermfg=Green
+highlight GitGutterChange guifg=#bbbb00 ctermfg=Yellow
+highlight GitGutterDelete guifg=#ff2222 ctermfg=Red
+nmap ) <Plug>(GitGutterNextHunk)
+nmap ( <Plug>(GitGutterPrevHunk)
+let g:gitgutter_enabled = 1
+let g:gitgutter_map_keys = 0
+
+" NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv[0] | wincmd p | ene | endif
+
+" Vimwiki
+let g:vimwiki_list = [
+            \ {'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'},
+            \ {'path': '~/personalwiki/', 'syntax': 'markdown', 'ext': '.md'}
+            \ ]
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+let g:vimwiki_global_ext = 0
+let g:calendar_diary=$HOME.'/vimwiki/diary'
+command! Diary VimwikiDiaryIndex
+augroup vimwikigroup
+  autocmd!
+  autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
+augroup end
+
+function! ToggleMarkdown()
+  if &filetype == 'vimwiki'
+    set ft=markdown
+  elseif &filetype == 'markdown'
+    set ft=vimwiki
+  endif
+endfunction
+map <silent> <C-N> :call ToggleMarkdown()<CR>
+
+" Markdown Preview
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 1
+let g:mkdp_refresh_slow = 0
+
+" UltiSnips (if you decide to use it over CoC snippets)
+" Plug 'SirVer/ultisnips'
+" let g:UltiSnipsExpandTrigger="<c-l>"
+" }}} 
+" ==============================================================================
+" --- General Settings & Commands {{{ 
+" ==============================================================================
 set path+=**
 command! MakeTags !ctags -R .
-
-" Rust Configuration
-let g:rustfmt_autosave = 1
+" }}} 
+" ==============================================================================
+" --- End of File
+" ==============================================================================
