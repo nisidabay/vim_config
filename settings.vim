@@ -138,13 +138,13 @@ set ttymouse=sgr
 " Load termdebug
 packadd! termdebug
 
-" Set the terminal position
-augroup TerminalWindow
-  autocmd!
-  autocmd TerminalOpen * if &buftype == 'terminal' | wincmd L | endif
-augroup END
+" 1. Command to open terminal on the RIGHT
+" Usage: :TermRight
 command! TermRight vertical terminal
 
+" 2. Command to open terminal at the BOTTOM
+" Usage: :TermBottom
+command! TermBottom belowright terminal
 
 " Mapping to open Startify from any buffer
 nnoremap <silent> <leader>ss :Startify<CR>
@@ -154,17 +154,17 @@ nnoremap <silent> <leader>ss :Startify<CR>
 " ------------------------------------------------------------------------------
 
 " --- Startify Helper Functions ---
-function! s:figlet(text)
-  if executable('figlet')
-    return split(system('figlet -f standard ' . shellescape(a:text)), '\n')
-  else
-    return [ '-> Figlet command not found. Please install it. <-', '' ]
-  endif
-endfunction
+" function! s:figlet(text)
+"   if executable('figlet')
+"     return split(system('figlet -f standard ' . shellescape(a:text)), '\n')
+"   else
+"     return [ '-> Figlet command not found. Please install it. <-', '' ]
+"   endif
+" endfunction
 
-function! s:get_current_time()
-    return ['' . strftime('%a %d %b %Y, %I:%M %p'), '']
-endfunction
+" function! s:get_current_time()
+"     return ['' . strftime('%a %d %b %Y, %I:%M %p'), '']
+" endfunction
 
 " --- Startify Configuration ---
 " NOTE: Rewritten with extend() to be more robust than using '+'
