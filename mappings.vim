@@ -144,7 +144,7 @@ nnoremap <leader>gl :!go run %<CR>
 nnoremap <leader>rb :!bash %<Esc>
 nnoremap <leader>rc :!rustc %<CR>
 nnoremap <leader>rl :!lua %<Esc>
-nnoremap <leader>rn :!nim -r c %<Esc>
+nnoremap <leader>nr :!nim -r c %<Esc>
 nnoremap <leader>rp :!python3 %<Esc>
 nnoremap <leader>rr :!ruby %<Esc>
 
