@@ -195,10 +195,12 @@ let g:startify_lists = [
     \ ]
 
 let g:startify_bookmarks = [
+    \ { 'D': '~/Downloads'},
     \ { 'b': '~/bin' },
-    \ { 'd': '~/_dotfiles' },
-    \ { 'g': '~/Downloads/Refactor/go_practice'},
-    \ { 'p': '~/proyectos_git' },
-    \ { 'r': '~/Downloads/Refactor/curso_c'},
+    \ { 'd': '~/dotfiles' },
+    \ { 'n': '~/nim_projects' },
+    \ { 'r': '~/Downloads/Refactor'},
+    \ { 't': '~/temp' },
     \ { 'v': '~/.vimrc' },
+    \ { 'z': '~/Downloads/zlibrary/' },
     \ ]
