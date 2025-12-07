@@ -27,7 +27,7 @@ ino <up> <Nop>
 ino <left> <Nop>
 ino <right> <Nop>
 
-vno <down> <Nopo
+vno <down> <Nop>
 vno <up> <Nop>
 vno <left> <Nop>
 vno <right> <Nop>
@@ -106,10 +106,6 @@ nnoremap <leader>t :term<CR>
 " Switch from terminal mode to normal mode
 tnoremap <C-x> <C-\><C-n> 
 
-" NOTE: This mapping was for a plugin that has been replaced.
-" The new plugin 'markdown-preview.nvim' uses the command :MarkdownPreview
-" map <leader>md :InstantMarkdownPreview<CR> 
-
 " Easy expansion of the active file directory
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%' 
 
@@ -121,7 +117,7 @@ nnoremap <leader>rv :source $MYVIMRC"<CR>
 nnoremap <leader>cv :!cp ~/.vimrc vimrc_copy<CR> 
 
 " Show working directory
-nnoremap <leader>. :lcd %:p:h<CR> 
+nnoremap <leader>. :lcd %:p:h<CR>:pwd<CR>
 " Change directory to the current file
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR> 
 
@@ -142,17 +138,15 @@ nnoremap <leader>nh :nohls<CR>
 vmap < <gv
 vmap > >gv
 
-" Move visual selection one line below
-vnorem <leader>9 <Esc>yyp<c-v>$r-A<CR>
-
 " Compile/Run Mappings
+nnoremap <leader>gb :!go build %<CR>
+nnoremap <leader>gl :!go run %<CR>
+nnoremap <leader>rb :!bash %<Esc>
 nnoremap <leader>rc :!rustc %<CR>
+nnoremap <leader>rl :!lua %<Esc>
+nnoremap <leader>rn :!nim -r c %<Esc>
 nnoremap <leader>rp :!python3 %<Esc>
 nnoremap <leader>rr :!ruby %<Esc>
-nnoremap <leader>rl :!lua %<Esc>
-nnoremap <leader>rb :!bash %<Esc>
-nnoremap <leader>gl :!go run %<CR>
-nnoremap <leader>gb :!go build %<CR>
 
 " Make file executable
 nnoremap <leader>x :!chmod +x %<CR>
@@ -236,37 +230,21 @@ nnoremap <leader>k :<c-u>let save_isk = &iskeyword \|
 " Mapping for Man pages above the cursor
 nnoremap <leader>M :Man <C-R><C-W><CR>
 "
-" search related docsets
-"nnoremap <silent> <Leader>K :call Dasht(dasht#cursor_search_terms())<Return>
-
-" search ALL the docsets
-"nnoremap <silent> <Leader><Leader>K :call Dasht(dasht#cursor_search_terms(), '!')<Return>
-" search related docsets
-"vnoremap <silent> <Leader>K y:<C-U>call Dasht(getreg(0))<Return>
-
-" search ALL the docsets
-"vnoremap <silent> <Leader><Leader>K y:<C-U>call Dasht(getreg(0), '!')<Return>
-
-" NOTE: Redundant diagnostic mappings removed.
-" 'gp' and 'gP' are already mapped in coc-config.vim.
-" nnoremap <silent> <leader> dp: <plug>(coc-diagnostic-prev)
-" nnoremap <silent> <leader> dn: <plug>(coc-diagnostic-next)
-
 " Load termdebug
 let g:termdebug_wide=1
 
-" Vimspector (plugin is commented out, mappings preserved for reference)
-nnoremap <Leader>ds :call vimspector#Launch()<CR>
-nnoremap <Leader>dr :call vimspector#Reset()<CR>
-nmap <Leader>dR <Plug>VimspectorRestart
+" Vimspector (plugin is commented)
+" nnoremap <Leader>ds :call vimspector#Launch()<CR>
+" nnoremap <Leader>dr :call vimspector#Reset()<CR>
+" nmap <Leader>dR <Plug>VimspectorRestart
 
-nnoremap <Leader>db :call vimspector#ToggleBreakpoint()<CR>
-nnoremap <Leader>dB :call vimspector#ClearBreakpoints()<CR>
+" nnoremap <Leader>db :call vimspector#ToggleBreakpoint()<CR>
+" nnoremap <Leader>dB :call vimspector#ClearBreakpoints()<CR>
 
-nnoremap <Leader>dc :call vimspector#Continue()<CR>
-nmap <Leader>dh <Plug>VimspectorStepOut
-nmap <Leader>dl <Plug>VimspectorStepInto
-nmap <Leader>dk <Plug>VimspectorStepOver
+" nnoremap <Leader>dc :call vimspector#Continue()<CR>
+" nmap <Leader>dh <Plug>VimspectorStepOut
+" nmap <Leader>dl <Plug>VimspectorStepInto
+" nmap <Leader>dk <Plug>VimspectorStepOver
 
 " Copy selected code in new tab
 function! CopytoTab()
@@ -320,11 +298,6 @@ imap <C-x>   <Cmd>call codeium#Clear()<CR>
 " nmap <silent> gx <Plug>(openbrowser-smart-search)
 vmap <silent> gx <Plug>(openbrowser-smart-search)
 
-"##############################################
-" Snippets mappings in the module configuration
-"##############################################
-"
-"
 " Search for a word under the cursor
 function! SearchInFirefox(type, ...)
     let sel_save = &selection
