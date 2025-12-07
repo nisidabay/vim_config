@@ -168,13 +168,13 @@ endfunction
 
 " --- Startify Configuration ---
 " NOTE: Rewritten with extend() to be more robust than using '+'
-let g:startify_custom_header = s:figlet('V i m')
-call extend(g:startify_custom_header, [ '--------------------------------------------------------------------------', '' ])
-call extend(g:startify_custom_header, s:get_current_time())
-call extend(g:startify_custom_header, [ '--------------------------------------------------------------------------', '' ])
-call extend(g:startify_custom_header, ['Vim is not just a text editor, it is a way of life!'])
-call extend(g:startify_custom_header, [ 'With Vim, you are not a user; you are a master of your text domain.', '' ])
-call extend(g:startify_custom_header, [ '--------------------------------------------------------------------------', '' ])
+" let g:startify_custom_header = s:figlet('V i m')
+" call extend(g:startify_custom_header, [ '--------------------------------------------------------------------------', '' ])
+" call extend(g:startify_custom_header, s:get_current_time())
+" call extend(g:startify_custom_header, [ '--------------------------------------------------------------------------', '' ])
+" call extend(g:startify_custom_header, ['Vim is not just a text editor, it is a way of life!'])
+" call extend(g:startify_custom_header, [ 'With Vim, you are not a user; you are a master of your text domain.', '' ])
+" call extend(g:startify_custom_header, [ '--------------------------------------------------------------------------', '' ])
 
 
 let g:startify_commands = [
