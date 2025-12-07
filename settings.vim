@@ -24,7 +24,7 @@ set foldmethod=syntax
 
 " Save the folds
 augroup remember_folds
-autocmd!
+autocmd! 
 autocmd BufWinLeave, BufLeave ?* silent! mkview
 autocmd BufWinEnter *.* silent! loadview 
 augroup END
@@ -41,9 +41,6 @@ syntax on
 
 " Smart auto indentation
 filetype plugin indent on    
-
-" Default encoding
-set encoding=utf-8
 
 " Set the backspace for deletion
 set backspace=indent,eol,start
@@ -114,7 +111,7 @@ set wildmenu
 set wildoptions=pum
 
 " Don't show this files
-set wildignore=*.swp,*.bak,.git,*.pyc
+set wildignore=*.swp,*.bak,.git,*.pyc,*/tmp/*,*.so,*.zip,*.db,*.sqlite,*node_modules/
 
 " Maximum number of tab pages that can be opened from command line
 set tabpagemax=40
@@ -150,23 +147,13 @@ command! TermRight vertical terminal
 
 
 " Mapping to open Startify from any buffer
-nnoremap <silent> <leader>fk :FzfMan<CR>
-nnoremap <silent> <leader>ff :FzfFiles<CR>
-nnoremap <silent> <leader>fb :FzfBuffers<CR>
-nnoremap <silent> <leader>ft :FzfTags<CR>
-nnoremap <silent> <leader>fT :FzfBTags<CR>
-nnoremap <silent> <leader>fh :FzfHistory:<CR>
-nnoremap <silent> <leader>fg :FzfGFiles<CR>
-nnoremap <silent> <leader>rg :FzfRg<CR>
-nnoremap <silent> <leader>fm :FzfMarks<CR>
-nnoremap <silent> <leader>fM :FzfMaps<CR>
-
-" Mapping to open Startify from any buffer
 nnoremap <silent> <leader>ss :Startify<CR>
 
-" --- Startify Helper Functions ---
+" ------------------------------------------------------------------------------
+" --- Startify Configuration
+" ------------------------------------------------------------------------------
 
-" Function to generate Figlet ASCII art
+" --- Startify Helper Functions ---
 function! s:figlet(text)
   if executable('figlet')
     return split(system('figlet -f standard ' . shellescape(a:text)), '\n')
@@ -175,24 +162,21 @@ function! s:figlet(text)
   endif
 endfunction
 
-
-" Function to get the current time
 function! s:get_current_time()
     return ['' . strftime('%a %d %b %Y, %I:%M %p'), '']
 endfunction
 
 " --- Startify Configuration ---
-
-" Build the custom header by combining elements
+" NOTE: Rewritten with extend() to be more robust than using '+'
 let g:startify_custom_header = s:figlet('V i m')
-    \ + [ '--------------------------------------------------------------------------', '' ]
-    \ + s:get_current_time()
-    \ + [ '--------------------------------------------------------------------------', '' ]
-    \ + ['Vim is not just a text editor, it''s a way of life!']
-    \ + [ 'With Vim, you are not a user; you are a master of your text domain.', '' ]
-    \ + [ '--------------------------------------------------------------------------', '' ]
+call extend(g:startify_custom_header, [ '--------------------------------------------------------------------------', '' ])
+call extend(g:startify_custom_header, s:get_current_time())
+call extend(g:startify_custom_header, [ '--------------------------------------------------------------------------', '' ])
+call extend(g:startify_custom_header, ['Vim is not just a text editor, it is a way of life!'])
+call extend(g:startify_custom_header, [ 'With Vim, you are not a user; you are a master of your text domain.', '' ])
+call extend(g:startify_custom_header, [ '--------------------------------------------------------------------------', '' ])
 
-" Define the custom commands for the FZF list
+
 let g:startify_commands = [
     \ [ 'Find Files - <leader>ff',     'FzfFiles' ],
     \ [ 'Find Buffers - <leader>fb',   'FzfBuffers' ],
@@ -200,10 +184,9 @@ let g:startify_commands = [
     \ [ 'Ripgrep - <leader>rg',        'FzfRg' ],
     \ [ 'History - <leader>fh',       'FzfHistory:' ],
     \ [ 'Maps - <leader>fM',          'FzfMaps' ],
-    \ [ 'Marks - <leader>fm',         'FzfMarks' ],
+    \ [ 'Marks - <leader>fm',          'FzfMarks' ],
     \ ]
 
-" Define the lists to display
 let g:startify_lists = [
     \ { 'type': 'sessions',  'header': ['   Sessions']          },
     \ { 'type': 'files',     'header': ['   Recent Files']      },
@@ -211,7 +194,6 @@ let g:startify_lists = [
     \ { 'type': 'bookmarks', 'header': ['   Bookmarks']         },
     \ ]
 
-" Your existing bookmarks
 let g:startify_bookmarks = [
     \ { 'b': '~/bin' },
     \ { 'd': '~/_dotfiles' },
