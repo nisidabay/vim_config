@@ -11,7 +11,7 @@
   "sh.formatter": "shfmt",
   "languageserver": {
     "nim": {
-      "command": "nimlangserver",
+      "command": "nimlsp",
       "filetypes": [
         "nim",
         "nims"
