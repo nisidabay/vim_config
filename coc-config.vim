@@ -88,13 +88,8 @@ nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
 nmap <leader>cl  <Plug>(coc-codelens-action)
 
 " ===========================
-" === Formatting ===
+" === Commands ===
 " ===========================
-
-augroup coc_formatting
-  autocmd!
-  autocmd BufWritePre *.rb,*.go,*.rs,*.c,*.py,*sh:silent! CocCommand editor.action.formatDocument
-augroup END
 
 " Organize imports
 command! -nargs=0 OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
@@ -119,13 +114,6 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
-
-" ===========================
-" === Statusline Integration ===
-" ===========================
-
-" Show Coc status in statusline
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " ===========================
 " === File Type Specific ===
