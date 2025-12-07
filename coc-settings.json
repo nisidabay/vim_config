@@ -1,68 +1,25 @@
 {
+  "coc.preferences.formatOnSaveFiletypes": [
+    "nim",
+    "python",
+    "c",
+    "cpp",
+    "sh",
+    "markdown"
+  ],
+  "python.formatting.provider": "black",
+  "sh.formatter": "shfmt",
   "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "filetypes": ["go"],
-      "rootPatterns": ["go.mod"],
-      "settings": {
-        "gopls": {
-          "completeUnimported": true
-        }
-      }
-    },
-    "ruby": {
-      "command": "solargraph",
-      "args": ["stdio"],
-      "filetypes": ["ruby"],
-      "initializationOptions": {
-        "diagnostics": true,
-        "completion": true,
-        "hover": true,
-        "formatting": true
-      },
-      "settings": {
-        "solargraph": {
-          "formatting": true
-        }
-      }
-    },
-    "clangd": {
-      "command": "clangd",
-      "args": [
-        "--background-index",
-        "--clang-tidy",
-        "--header-insertion=iwyu",
-        "--completion-style=detailed",
-        "--function-arg-placeholders"
+    "nim": {
+      "command": "nimlangserver",
+      "filetypes": [
+        "nim",
+        "nims"
       ],
-      "filetypes": ["c", "cpp", "objc", "objcpp"]
-    }
-  },
-
-
-  // Ruby formatting with Rufo
-  "ruby.format.enable": true,
-  "ruby.format.provider": "rufo",
-  "rufo": {
-    "enable": true,
-    "executablePath": "rufo",
-    "args": []
-  },
-
-  // Go formatting with goimports
-  "go.formatTool": "goimports",
-  "go.formatOnSave": true,
-
-  // C/C++ formatting with clang-format
-  "clangd.arguments": ["--clang-tidy"],
-  "coc.source.clangd.format.enable": true,
- 
-  "coc.preferences.formatOnSaveFiletypes": ["sh", "go"],
-  "coc.source.formatter": {
-    "sh": {
-      "command": "/usr/sbin/shfmt",
-      "args": ["-w"]
+      "rootPatterns": [
+        "*.nimble",
+        ".git"
+      ]
     }
   }
-} 
-
+}
