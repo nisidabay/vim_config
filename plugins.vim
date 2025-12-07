@@ -32,10 +32,8 @@ Plug 'neoclide/coc-snippets'
 Plug 'honza/vim-snippets'
 
 " File Icons
-=======
 Plug 'itchyny/lightline.vim'
 Plug 'wadackel/vim-dogrun' " Your theme
->>>>>>> bc68056 (Modify plugins.vim)
 Plug 'ryanoasis/vim-devicons'
 Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer'
