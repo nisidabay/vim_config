@@ -11,7 +11,6 @@ call plug#begin('~/.vim/plugged')
 "----[ General & UI ]----------------------------------------------------------
 Plug 'mhinz/vim-startify'
 
-
 " Open Browser 
 Plug 'tyru/open-browser.vim'
 " Code Navigation
@@ -20,7 +19,9 @@ Plug 'tyru/open-browser.vim'
 
 " Themes
 " Plug 'sainnhe/everforest'
-Plug 'wadackel/vim-dogrun'
+" Plug 'wadackel/vim-dogrun'
+" Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'danilo-augusto/vim-afterglow'
 
 " Note-taking and Wiki
 Plug 'vimwiki/vimwiki'
@@ -98,7 +99,7 @@ if has('termguicolors')
     set termguicolors
 endif
 set background=dark
-colorscheme dogrun
+colorscheme afterglow
 
 " Lightline configuration with Git and CoC integration
 let g:lightline = {
