@@ -103,7 +103,7 @@ colorscheme afterglow
 
 " Lightline configuration with Git and CoC integration
 let g:lightline = {
-      \ 'colorscheme': 'afterglow',
+      \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'coc_status', 'gitbranch' ],
