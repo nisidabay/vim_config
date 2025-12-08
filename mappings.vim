@@ -330,4 +330,4 @@ nnoremap<leader>kal :Calendar<CR>
 nnoremap<leader>rw :VimwikiRenameFile<ESC>
 
 " Emoji insert
-nnoremap<leader>ei :!emoji_insert.sh<CR>
+nnoremap<leader>ie :!emoji_insert.sh<CR>
