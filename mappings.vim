@@ -328,3 +328,6 @@ nnoremap <silent> <Leader>sw :set opfunc=SearchInFirefox<CR>g@
 nnoremap<leader>di :VimwikiDiaryIndex<CR>
 nnoremap<leader>kal :Calendar<CR>
 nnoremap<leader>rw :VimwikiRenameFile<ESC>
+
+" Emoji insert
+nnoremap<leader>ei :!emoji_insert.sh<CR>
