@@ -17,6 +17,9 @@ Plug 'tyru/open-browser.vim'
 " Plug 'bfrg/vim-cpp-modern'
 "Plug 'ludovicchabant/vim-gutentags'
 
+" Translation
+Plug 'voldikss/vim-translator'
+
 " Themes
 " Plug 'sainnhe/everforest'
 " Plug 'wadackel/vim-dogrun'
@@ -250,6 +253,27 @@ let g:mkdp_refresh_slow = 0
 " Plug 'SirVer/ultisnips'
 " let g:UltiSnipsExpandTrigger="<c-l>"
 " }}} 
+
+" Translator
+" Set target language to Spanish
+let g:translator_target_lang = 'es'
+
+" Use Google Translate
+let g:translator_default_engines = ['google']
+
+" Use a popup window (requires Vim 8.1+)
+let g:translator_window_type = 'popup'
+
+" Customize border (optional, standard Vim borders)
+let g:translator_window_borderchars = ['─', '│', '─', '│', '╭', '╮', '╯', '╰']
+
+" --- Key Mappings ---
+" Normal Mode: <Leader>k translates the word under cursor in a popup
+nmap <Leader>gt <Plug>TranslateW
+
+" Visual Mode: <Leader>k translates the selection in a popup
+vmap <Leader>gt <Plug>TranslateWV
+
 " ==============================================================================
 " --- General Settings & Commands {{{ 
 " ==============================================================================
