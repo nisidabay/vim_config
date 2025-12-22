@@ -101,12 +101,19 @@ call plug#end()
 if has('termguicolors')
     set termguicolors
 endif
-set background=dark
-colorscheme afterglow
+
+" Set the specific style (Options: 'storm', 'night')
+let g:tokyonight_style = 'night'
+let g:tokyonight_transparent_background = 1
+" let g:tokyonight_enable_italic = 0
+
+" Enable the colorscheme
+colorscheme tokyonight
+
 
 " Lightline configuration with Git and CoC integration
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'tokyonight',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'coc_status', 'gitbranch' ],
