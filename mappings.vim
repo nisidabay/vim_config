@@ -185,6 +185,10 @@ elseif has('unix')
     endif
 endif
 
+" Copy the whole buffer
+" Map <leader>ya in Normal mode to yank the whole file
+nnoremap <leader>ya :%y<CR>
+
 " NERDTree settings
 let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['node_modules','\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
