@@ -168,22 +168,20 @@ nnoremap <leader>sp :setlocal spell spelllang=es<CR>
 nnoremap <leader>se :setlocal spell spelllang=en_us<CR>
 
 " Clipboard mappings based on OS
-if has('macunix')
-    " Clipboard for MacOS
-    vnoremap <silent> <C-c> :w !pbcopy<CR><CR>
-    nnoremap <silent> <C-v> :r !pbpaste<CR>
-elseif has('unix')
-    " Check if it's Wayland
-    if system('echo $XDG_SESSION_TYPE') =~? 'wayland'
-        " Clipboard for Wayland
+" --- Improved Clipboard Mappings ---
+if has('unix')
+    " Check for Wayland directly by looking for the socket
+    if !empty($WAYLAND_DISPLAY)
+        " Wayland (Niri/Wayland-Satellite)
         vnoremap <silent> <C-c> :w !wl-copy<CR><CR>
         nnoremap <silent> <C-v> :r !wl-paste<CR>
-    else
-        " Clipboard for Linux (X11)
+    elseif !empty($DISPLAY)
+        " X11
         vnoremap <silent> <C-c> :w !xclip -i -sel clipboard<CR><CR>
         nnoremap <silent> <C-v> :r !xclip -o -sel clip<CR>
     endif
 endif
+
 
 " Copy the whole buffer
 " Map <leader>ya in Normal mode to yank the whole file
