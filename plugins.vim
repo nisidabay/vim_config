@@ -24,8 +24,9 @@ Plug 'voldikss/vim-translator'
 " Plug 'sainnhe/everforest'
 " Plug 'wadackel/vim-dogrun'
 " Plug 'catppuccin/vim', { 'as': 'catppuccin' }
-Plug 'danilo-augusto/vim-afterglow'
-
+"Plug 'danilo-augusto/vim-afterglow'
+Plug 'ghifarit53/tokyonight-vim'
+"
 " Note-taking and Wiki
 Plug 'vimwiki/vimwiki'
 
@@ -41,7 +42,6 @@ Plug 'wadackel/vim-dogrun' " Your theme
 Plug 'ryanoasis/vim-devicons'
 Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer'
-
 "----[ File & Project Navigation ]---------------------------------------------
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
@@ -75,8 +75,6 @@ Plug 'zah/nim.vim'
 " Rust
 Plug 'rust-lang/rust.vim'
 " Go
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
 "----[ Notes & Markdown ]------------------------------------------------------
 Plug 'vimwiki/vimwiki'
 Plug 'dhruvasagar/vim-table-mode'
