@@ -168,20 +168,26 @@ nnoremap <leader>sp :setlocal spell spelllang=es<CR>
 nnoremap <leader>se :setlocal spell spelllang=en_us<CR>
 
 " Clipboard mappings based on OS
-" --- Improved Clipboard Mappings ---
-if has('unix')
-    " Check for Wayland directly by looking for the socket
-    if !empty($WAYLAND_DISPLAY)
-        " Wayland (Niri/Wayland-Satellite)
-        vnoremap <silent> <C-c> :w !wl-copy<CR><CR>
-        nnoremap <silent> <C-v> :r !wl-paste<CR>
-    elseif !empty($DISPLAY)
-        " X11
-        vnoremap <silent> <C-c> :w !xclip -i -sel clipboard<CR><CR>
-        nnoremap <silent> <C-v> :r !xclip -o -sel clip<CR>
+if has('macunix')
+    " Clipboard for MacOS
+    vnoremap <silent> <C-c> y:call system('pbcopy', @")<CR>
+    nnoremap <silent> <C-v> :let @"=system('pbpaste')<CR>p
+elseif has('unix')
+    " Check if wl-copy is installed (More reliable than checking Session Type)
+    if executable('wl-copy')
+        " Clipboard for Wayland
+        
+        " COPY: Yank current selection into register " then pass that register to wl-copy
+        vnoremap <silent> <C-c> y:call system('wl-copy', @")<CR>
+        
+        " PASTE: Read wl-paste into register " then paste normal style
+        nnoremap <silent> <C-v> :let @"=system('wl-paste --no-newline')<CR>p
+    else
+        " Fallback for Linux (X11) / xclip
+        vnoremap <silent> <C-c> y:call system('xclip -i -sel clipboard', @")<CR>
+        nnoremap <silent> <C-v> :let @"=system('xclip -o -sel clip')<CR>p
     endif
 endif
-
 
 " Copy the whole buffer
 " Map <leader>ya in Normal mode to yank the whole file
