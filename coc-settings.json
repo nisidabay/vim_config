@@ -8,54 +8,37 @@
     "markdown",
     "rust"
   ],
-  "python.formatting.provider": "black",
-  "sh.formatter": "shfmt",
   "languageserver": {
     "nim": {
       "command": "nimlsp",
-      "filetypes": [
-        "nim",
-        "nims"
-      ],
-      "rootPatterns": [
-        "*.nimble",
-        ".git"
-      ]
+      "filetypes": ["nim", "nims"],
+      "rootPatterns": ["*.nimble", ".git"]
     },
-    "ccls": {
+    "clangd": {
       "command": "clangd",
-      "filetypes": [
-        "c",
-        "cpp",
-        "objc",
-        "objcpp"
-      ],
-      "rootPatterns": [
-        ".ccls",
-        "compile_commands.json",
-        ".git"
-      ]
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [".clangd", "compile_commands.json", ".git"]
     },
     "rust": {
       "command": "rust-analyzer",
-      "filetypes": [
-        "rust"
-      ],
-      "rootPatterns": [
-        "Cargo.toml"
-      ]
+      "filetypes": ["rust"],
+      "rootPatterns": ["Cargo.toml"]
     },
     "bash": {
       "command": "bash-language-server",
-      "args": [
-        "start"
-      ],
-      "filetypes": [
-        "sh"
-      ],
-      "ignoredRootPaths": [
-        "~"
-      ]
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "python": {
+      "command": "pylsp",
+      "filetypes": ["python"],
+      "rootPatterns": ["pyproject.toml", "setup.py", ".git"]
+    },
+    "markdown": {
+      "command": "marksman",
+      "filetypes": ["markdown", "markdown.mdx"],
+      "rootPatterns": [".git", ".marksman.toml"]
     }
   }
 }
