@@ -5,7 +5,8 @@
     "c",
     "cpp",
     "sh",
-    "markdown"
+    "markdown",
+    "rust"
   ],
   "python.formatting.provider": "black",
   "sh.formatter": "shfmt",
@@ -19,6 +20,41 @@
       "rootPatterns": [
         "*.nimble",
         ".git"
+      ]
+    },
+    "ccls": {
+      "command": "clangd",
+      "filetypes": [
+        "c",
+        "cpp",
+        "objc",
+        "objcpp"
+      ],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".git"
+      ]
+    },
+    "rust": {
+      "command": "rust-analyzer",
+      "filetypes": [
+        "rust"
+      ],
+      "rootPatterns": [
+        "Cargo.toml"
+      ]
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": [
+        "start"
+      ],
+      "filetypes": [
+        "sh"
+      ],
+      "ignoredRootPaths": [
+        "~"
       ]
     }
   }
