@@ -338,4 +338,7 @@ nnoremap<leader>kal :Calendar<CR>
 nnoremap<leader>rw :VimwikiRenameFile<ESC>
 
 " Emoji insert
-nnoremap<leader>ie :!emoji_insert.sh<CR>
+noremap<leader>ie :!emoji_insert.sh<CR>
+"
+" Mapping to open Startify from any buffer
+nnoremap <silent> <leader>fy :Startify<CR>
