@@ -13,7 +13,7 @@ set undofile
 set shell=/bin/zsh
 
 " Keypressed speed
-set timeoutlen=500
+set timeoutlen=250
 
 " Vim required
 set nocompatible              
@@ -135,6 +135,9 @@ set splitright
 " Fixes mouse issues using Alacritty terminal
 set ttymouse=sgr
 
+" Display the match number of the search
+set shortmess-=S
+
 " Load termdebug
 packadd! termdebug
 
@@ -146,36 +149,10 @@ command! TermRight vertical terminal
 " Usage: :TermBottom
 command! TermBottom belowright terminal
 
-" Mapping to open Startify from any buffer
-nnoremap <silent> <leader>ss :Startify<CR>
 
 " ------------------------------------------------------------------------------
 " --- Startify Configuration
 " ------------------------------------------------------------------------------
-
-" --- Startify Helper Functions ---
-" function! s:figlet(text)
-"   if executable('figlet')
-"     return split(system('figlet -f standard ' . shellescape(a:text)), '\n')
-"   else
-"     return [ '-> Figlet command not found. Please install it. <-', '' ]
-"   endif
-" endfunction
-
-" function! s:get_current_time()
-"     return ['' . strftime('%a %d %b %Y, %I:%M %p'), '']
-" endfunction
-
-" --- Startify Configuration ---
-" NOTE: Rewritten with extend() to be more robust than using '+'
-" let g:startify_custom_header = s:figlet('V i m')
-" call extend(g:startify_custom_header, [ '--------------------------------------------------------------------------', '' ])
-" call extend(g:startify_custom_header, s:get_current_time())
-" call extend(g:startify_custom_header, [ '--------------------------------------------------------------------------', '' ])
-" call extend(g:startify_custom_header, ['Vim is not just a text editor, it is a way of life!'])
-" call extend(g:startify_custom_header, [ 'With Vim, you are not a user; you are a master of your text domain.', '' ])
-" call extend(g:startify_custom_header, [ '--------------------------------------------------------------------------', '' ])
-
 
 let g:startify_commands = [
     \ [ 'Find Files - <leader>ff',     'FzfFiles' ],
