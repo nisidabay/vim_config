@@ -13,7 +13,7 @@ set undofile
 set shell=/bin/zsh
 
 " Keypressed speed
-set timeoutlen=250
+set timeoutlen=500
 
 " Vim required
 set nocompatible              
