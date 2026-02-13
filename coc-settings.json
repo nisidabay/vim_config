@@ -39,6 +39,16 @@
       "command": "marksman",
       "filetypes": ["markdown", "markdown.mdx"],
       "rootPatterns": [".git", ".marksman.toml"]
+    },
+    "ruby": {
+      "command": "solargraph",
+      "args": ["stdio"],
+      "filetypes": ["ruby"],
+      "initializationOptions": {
+        "diagnostics": true,
+        "completion": true,
+        "hover": true
+      }
     }
-  }
+  },
 }
