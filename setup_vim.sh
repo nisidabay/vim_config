@@ -89,6 +89,12 @@ check_required_repo_files() {
 }
 
 backup_existing_config() {
+    # Check if it's already our config, skip backup if true to preserve plugins
+    if [ -L "$VIM_DIR/settings.vim" ] && [ "$(readlink "$VIM_DIR/settings.vim")" = "$VIM_CONFIG_DIR/settings.vim" ]; then
+        log "info" "Vim configuration already belongs to $VIM_CONFIG_DIR. Skipping backup phase."
+        return
+    fi
+
     if [ -d "$VIM_DIR" ] || [ -f "$HOME/.vimrc" ]; then
         local backup_dir="$HOME/vim_backup_$(date +%Y%m%d_%H%M%S)"
         log "warning" "Existing Vim configuration found. Backing it up to $backup_dir"
@@ -101,11 +107,9 @@ backup_existing_config() {
 }
 
 create_vim_structure() {
-    log "info" "Creating new ~/.vim directory structure..."
-    # Wipe any remaining config
-    rm -rf "$VIM_DIR" "$HOME/.vimrc" "$HOME/.viminfo"
+    log "info" "Creating/verifying ~/.vim directory structure..."
 
-    # Create all standard directories
+    # Create all standard directories without deleting existing plugins
     mkdir -p "$VIM_DIR/autoload" \
         "$VIM_DIR/plugin" \
         "$VIM_DIR/ftplugin" \
@@ -113,7 +117,7 @@ create_vim_structure() {
         "$VIM_DIR/indent" \
         "$VIM_DIR/sessions" \
         "$VIM_DIR/undodir"
-    log "success" "Created standard Vim directories."
+    log "success" "Verified standard Vim directories."
 }
 
 install_vim_plug() {
@@ -126,7 +130,7 @@ install_vim_plug() {
 link_and_copy_files() {
     log "info" "Linking configuration files..."
     for file in "${CONFIG_FILES[@]}"; do
-        ln -s "$VIM_CONFIG_DIR/$file" "$VIM_DIR/$file"
+        ln -sf "$VIM_CONFIG_DIR/$file" "$VIM_DIR/$file"
         log "success" "Linked $VIM_DIR/$file"
     done
 

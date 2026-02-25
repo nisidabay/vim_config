@@ -1,115 +1,73 @@
-" vim: set foldmethod=marker:
-"
 " ==============================================================================
-"  This file has been refactored to use a single plugin manager (vim-plug)
-"  and incorporates best-practice configurations for your setup.
+" Vim-Plug Configuration and Plugin Settings
 " ==============================================================================
 
-" --- VIM-PLUG START -----------------------------------------------------------
+" --- VIM-PLUG DECLARATION -----------------------------------------------------
 call plug#begin('~/.vim/plugged')
 
-"----[ General & UI ]----------------------------------------------------------
+" --- General & UI ---
 Plug 'mhinz/vim-startify'
-
-" Open Browser 
-Plug 'tyru/open-browser.vim'
-" Code Navigation
-" Plug 'bfrg/vim-cpp-modern'
-"Plug 'ludovicchabant/vim-gutentags'
-
-" Translation
 Plug 'voldikss/vim-translator'
-
-" Themes
-" Plug 'sainnhe/everforest'
-" Plug 'wadackel/vim-dogrun'
-" Plug 'catppuccin/vim', { 'as': 'catppuccin' }
-"Plug 'danilo-augusto/vim-afterglow'
 Plug 'ghifarit53/tokyonight-vim'
-"
-" Note-taking and Wiki
-Plug 'vimwiki/vimwiki'
-
-" Code Completion and Snippets
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-snippets'
-"Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
-" File Icons
 Plug 'itchyny/lightline.vim'
-Plug 'wadackel/vim-dogrun' " Your theme
 Plug 'ryanoasis/vim-devicons'
 Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer'
-"----[ File & Project Navigation ]---------------------------------------------
-Plug 'scrooloose/nerdtree'
-Plug 'majutsushi/tagbar'
+
+" --- File & Project Navigation ---
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'christoomey/vim-tmux-navigator'
 
-"----[ Editing Enhancements ]--------------------------------------------------
+" --- Editing Enhancements ---
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'Raimondi/delimitMate'
-Plug 'mbbill/undotree'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'kshenoy/vim-signature'
+Plug 'chrisbra/unicode.vim'
 
-"----[ Git Integration ]-------------------------------------------------------
-Plug 'airblade/vim-gitgutter'
-" The best Git wrapper for Vim
+" --- Git Integration ---
 Plug 'tpope/vim-fugitive'
 
-"----[ Language Intelligence & Completion ]------------------------------------
+" --- Language Intelligence & Completion ---
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-snippets'
 Plug 'honza/vim-snippets'
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 
-"----[ Language Specific ]-----------------------------------------------------
-" C & C++
+" --- Language Specific & Syntax ---
 Plug 'NLKNguyen/c-syntax.vim'
-" Bash
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
-" Nim (Official language support)
 Plug 'zah/nim.vim'
-" Rust
 Plug 'rust-lang/rust.vim'
-" Go
-"----[ Notes & Markdown ]------------------------------------------------------
+
+" --- Notes & Markdown ---
 Plug 'vimwiki/vimwiki'
 Plug 'dhruvasagar/vim-table-mode'
-" Modern Markdown previewer
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': ['markdown', 'vimwiki'] }
 Plug 'mattn/calendar-vim'
-
-"----[ Utilities ]-------------------------------------------------------------
 Plug 'tyru/open-browser.vim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'chrisbra/unicode.vim'
 
 call plug#end()
 " --- VIM-PLUG END -------------------------------------------------------------
 
-
 " ==============================================================================
-" --- Plugin Configurations {{{ 
+" Plugin Configurations
 " ==============================================================================
 
-" --- UI & Theme ----------------------------------------------------------- {{{ 
+" --- UI & Theme ---
 if has('termguicolors')
     set termguicolors
 endif
 
-" Set the specific style (Options: 'storm', 'night')
 let g:tokyonight_style = 'night'
 let g:tokyonight_transparent_background = 0
-" let g:tokyonight_enable_italic = 0
-
-" Enable the colorscheme
 colorscheme tokyonight
 
-
-" Lightline configuration with Git and CoC integration
+" --- Lightline Integration ---
 let g:lightline = {
       \ 'colorscheme': 'tokyonight',
       \ 'active': {
@@ -124,8 +82,8 @@ let g:lightline = {
       \ }
 
 set guifont=DroidSansMono\ Nerd\ Font\ 14
-" }}} 
-" --- FZF (Fuzzy Finder) --------------------------------------------------- {{{ 
+
+" --- FZF (Fuzzy Finder) ---
 let g:fzf_vim = {}
 let g:fzf_vim.command_prefix = 'Fzf'
 let g:fzf_vim.preview_window = ['right,50%', 'ctrl-/']
@@ -152,7 +110,6 @@ endfunction
 
 command! FzfMan call FzfManPages()
 
-" Your existing FZF mappings are great.
 nnoremap <silent> <leader>fk :FzfMan<CR>
 nnoremap <silent> <leader>ff :FzfFiles<CR>
 nnoremap <silent> <leader>fb :FzfBuffers<CR> 
@@ -166,31 +123,10 @@ nnoremap <silent> <leader>fM :FzfMaps<CR>
 
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
-" }}} 
-" --- Language Specific Settings ------------------------------------------- {{{ 
+
+" --- Language Specific Formatting ---
 " C / C++
-" Using clang-format via coc.nvim is recommended (see coc-settings.json).
-let g:linux_kernel_style = '{BasedOnStyle: LLVM, ' 
-    \ . 'IndentWidth: 8, ' 
-    \ . 'UseTab: Always, ' 
-    \ . 'TabWidth: 8, ' 
-    \ . 'ContinuationIndentWidth: 8, ' 
-    \ . 'BreakBeforeBraces: Linux, ' 
-    \ . 'AllowShortIfStatementsOnASingleLine: Never, ' 
-    \ . 'AllowShortLoopsOnASingleLine: false, ' 
-    \ . 'AllowShortFunctionsOnASingleLine: None, ' 
-    \ . 'AllowShortBlocksOnASingleLine: Never, ' 
-    \ . 'IndentCaseLabels: false, ' 
-    \ . 'AlignAfterOpenBracket: DontAlign, ' 
-    \ . 'DerivePointerAlignment: false, ' 
-    \ . 'PointerAlignment: Right, ' 
-    \ . 'SpaceBeforeParens: ControlStatements, ' 
-    \ . 'MaxEmptyLinesToKeep: 2, ' 
-    \ . 'KeepEmptyLinesAtTheStartOfBlocks: false, ' 
-    \ . 'AlignTrailingComments: false, ' 
-    \ . 'ReflowComments: false, ' 
-    \ . 'SortIncludes: Never, ' 
-    \ . 'ColumnLimit: 80}'
+let g:linux_kernel_style = '{BasedOnStyle: LLVM, IndentWidth: 8, UseTab: Always, TabWidth: 8, ContinuationIndentWidth: 8, BreakBeforeBraces: Linux, AllowShortIfStatementsOnASingleLine: Never, AllowShortLoopsOnASingleLine: false, AllowShortFunctionsOnASingleLine: None, AllowShortBlocksOnASingleLine: Never, IndentCaseLabels: false, AlignAfterOpenBracket: DontAlign, DerivePointerAlignment: false, PointerAlignment: Right, SpaceBeforeParens: ControlStatements, MaxEmptyLinesToKeep: 2, KeepEmptyLinesAtTheStartOfBlocks: false, AlignTrailingComments: false, ReflowComments: false, SortIncludes: Never, ColumnLimit: 80}'
 
 augroup c_cpp_settings
     autocmd!
@@ -211,22 +147,31 @@ let g:codeium_filetypes = {
   \ 'c': v:true,
   \ 'go': v:true,
   \ }
-" }}} 
-" --- Other Plugin Settings ------------------------------------------------ {{{ 
-" Git Gutter
-highlight GitGutterAdd guifg=#009900 ctermfg=Green
-highlight GitGutterChange guifg=#bbbb00 ctermfg=Yellow
-highlight GitGutterDelete guifg=#ff2222 ctermfg=Red
-nmap ) <Plug>(GitGutterNextHunk)
-nmap ( <Plug>(GitGutterPrevHunk)
-let g:gitgutter_enabled = 1
-let g:gitgutter_map_keys = 0
 
-" NERDTree
+" --- NERDTree ---
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['node_modules','\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 50
+
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv[0] | wincmd p | ene | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") |
+    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
-" Vimwiki
+" --- Tagbar ---
+let g:tagbar_autofocus = 1
+
+" --- WebDevIcons ---
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable_airline_statusline = 1
+
+" --- Vimwiki ---
 let g:vimwiki_list = [
             \ {'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'},
             \ {'path': '~/personalwiki/', 'syntax': 'markdown', 'ext': '.md'}
@@ -249,42 +194,48 @@ function! ToggleMarkdown()
 endfunction
 map <silent> <C-N> :call ToggleMarkdown()<CR>
 
-" Markdown Preview
+" --- Markdown Preview ---
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:mkdp_refresh_slow = 0
 
-" UltiSnips (if you decide to use it over CoC snippets)
-" Plug 'SirVer/ultisnips'
-" let g:UltiSnipsExpandTrigger="<c-l>"
-" }}} 
+" --- Startify ---
+let g:startify_commands = [
+    \ [ 'Find Files - <leader>ff',     'FzfFiles' ],
+    \ [ 'Find Buffers - <leader>fb',   'FzfBuffers' ],
+    \ [ 'Find Git Files - <leader>fg', 'FzfGFiles' ],
+    \ [ 'Ripgrep - <leader>rg',        'FzfRg' ],
+    \ [ 'History - <leader>fh',       'FzfHistory:' ],
+    \ [ 'Maps - <leader>fM',          'FzfMaps' ],
+    \ [ 'Marks - <leader>fm',          'FzfMarks' ],
+    \ ]
 
-" Translator
-" Set target language to Spanish
+let g:startify_lists = [
+    \ { 'type': 'sessions',  'header': ['   Sessions']          },
+    \ { 'type': 'files',     'header': ['   Recent Files']      },
+    \ { 'type': 'commands',  'header': ['   FZF Search']        },
+    \ { 'type': 'bookmarks', 'header': ['   Bookmarks']         },
+    \ ]
+
+let g:startify_bookmarks = [
+    \ { 'D': '~/Downloads'},
+    \ { 'b': '~/bin' },
+    \ { 'd': '~/dotfiles' },
+    \ { 'n': '~/nim_projects' },
+    \ { 'r': '~/Downloads/Refactor'},
+    \ { 't': '~/temp' },
+    \ { 'v': '~/.vimrc' },
+    \ { 'z': '~/Downloads/zlibrary/' },
+    \ ]
+
+" --- Translator ---
 let g:translator_target_lang = 'es'
-
-" Use Google Translate
 let g:translator_default_engines = ['google']
-
-" Use a popup window (requires Vim 8.1+)
 let g:translator_window_type = 'popup'
-
-" Customize border (optional, standard Vim borders)
 let g:translator_window_borderchars = ['─', '│', '─', '│', '╭', '╮', '╯', '╰']
-
-" --- Key Mappings ---
-" Normal Mode: <Leader>k translates the word under cursor in a popup
 nmap <Leader>gt <Plug>TranslateW
-
-" Visual Mode: <Leader>k translates the selection in a popup
 vmap <Leader>gt <Plug>TranslateWV
 
-" ==============================================================================
-" --- General Settings & Commands {{{ 
-" ==============================================================================
+" --- General Settings & Commands ---
 set path+=**
 command! MakeTags !ctags -R .
-" }}} 
-" ==============================================================================
-" --- End of File
-" ==============================================================================

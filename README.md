@@ -1,74 +1,90 @@
-# Vim Configuration
+# Ultimate Vim Configuration
 
-This repository contains a personal Vim configuration, managed through a
-structured set of files and a setup script for easy installation.
+This repository contains a highly tuned, deeply modularized, and performant personal Vim configuration designed for polyglot development in Bash, Ruby, C, C++, Rust, Nim, Python, Go, and Lua. 
 
-## Features
+It has been optimized for sub-millisecond lazy loading, native architectural integrations, and a zero-redundancy philosophy.
 
--   **Structured Configuration:** Settings, mappings, and plugins are separated
-    into different files for clarity and maintainability.
--   **Plugin Management:** Uses both `vim-plug` and `Vundle` for managing Vim
-    plugins.
--   **Language Server Protocol (LSP):** Integrates `coc.nvim` for enhanced
-    autocompletion, linting, and formatting.
--   **Custom Local Plugins:** Includes a set of local plugins for colorizing,
-    snippets, and C filetype settings.
--   **Automated Setup:** A setup script (`setup_vim.sh`) automates the process
-    of backing up existing configurations, creating necessary symlinks, and
-    installing dependencies.
+## 🚀 Key Features
 
-## Requirements
+- **Blazing Fast Startup:** Heavy plugins (`NERDTree`, `Tagbar`, `Undotree`, `markdown-preview`) are strictly lazy-loaded `on-demand` or `on-filetype`, keeping the initial application launch instantaneous.
+- **De-spaghettified Architecture:** Configuration is cleanly separated into strictly-categorized files (`plugins.vim`, `settings.vim`, `mappings.vim`, and `coc-config.vim`).
+- **Language Server Protocol (LSP):** Full `coc.nvim` integration providing VSCode-like intelligence, native async git signs (`coc-git`), and automated formatting on save.
+- **AI Assisted:** Native, ghost-text AI completion integration via `codeium.vim`.
+- **Smart Execution:** Context-aware compilation. You can press `<leader>r` in any supported language and Vim will automatically compile and/or execute the file natively in a subshell.
+- **Idempotent Setup:** An intelligent `setup_vim.sh` script that safely symlinks configurations and preserves your installed plugins across updates.
 
--   **Vim:** A working Vim installation is required. The setup script will
-    detect existing installations.
--   **Git:** Required for cloning the repository and for `vim-plug`/`Vundle`.
--   **Node.js:** Required for `coc.nvim`. The setup script will attempt to
-    install it if it's not found.
--   **curl:** Required for downloading `vim-plug` and Node.js.
+---
 
-## Installation
+## 🛠️ Included Plugins (Managed via `vim-plug`)
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/nisidabay/vim_config.git
-    cd vim_config
-    ```
+- **UI & Theme:** `tokyonight-vim`, `lightline.vim`, `vim-startify`, `ryanoasis/vim-devicons`
+- **Navigation:** `scrooloose/nerdtree`, `junegunn/fzf`, `fzf.vim`, `majutsushi/tagbar`
+- **Intelligence:** `neoclide/coc.nvim` *(LSP)*, `Exafunction/codeium.vim` *(AI)*
+- **Git:** `tpope/vim-fugitive`, `coc-git` *(Async Signs)*
+- **Editing:** `tpope/vim-commentary`, `tpope/vim-surround`, `Raimondi/delimitMate`
+- **Markdown & Notes:** `vimwiki/vimwiki`, `iamcco/markdown-preview.nvim`
+- **Language Support:** `rust.vim`, `nim.vim`, `vim-shfmt`, `c-syntax.vim`
 
-2.  **Run the setup script:**
-    The script will back up your existing Vim configuration (`~/.vim`,
-    `~/.vimrc`) to a timestamped directory in your home folder (e.g.,
-    `~/vim_backup_YYYYMMDD_HHMMSS`).
+---
 
-    ```bash
-    ./setup_vim.sh
-    ```
+## ⚙️ Installation
 
-3.  **Install Plugins:**
-    Open Vim and run the following commands to install the plugins defined in
-    `plugins.vim`:
-    ```vim
-    :PlugInstall
-    :PluginInstall
-    ```
+### 1. Prerequisites
+- **Vim 8+** (with python3 support)
+- **Node.js & npm** (Required for the `coc.nvim` Language Server)
+- **Git**
 
-## Configuration Structure
+### 2. Clone & Link
+Clone this repository and run the setup script. It will safely back up your old `~/.vim` directory and symlink these files into place.
+```bash
+git clone https://github.com/nisidabay/vim_config.git
+cd vim_config
+./setup_vim.sh
+```
 
-The Vim configuration is organized into the following files:
+### 3. Install Plugins
+Open Vim and run the `vim-plug` installation command:
+```vim
+:PlugInstall
+```
 
--   `settings.vim`: General Vim settings.
--   `mappings.vim`: Custom key mappings.
--   `plugins.vim`: Plugin declarations for `vim-plug` and `Vundle`.
--   `coc-config.vim`: Configuration specific to `coc.nvim`.
--   `coc-settings.json`: JSON configuration for `coc.nvim` and its extensions.
--   `local_plugins/`: A directory for custom or manually-managed Vim plugins.
-    -   `Colorizer.vim`: A plugin for colorizing text.
-    -   `snippets.vim`: A collection of custom snippets.
-    -   `c.vim`: Filetype-specific settings for C.
-    -   `unicode.vim`: Utility for unicode characters.
-    -   `yuyuko.vim`: Colorscheme.
+### 4. Install Language Servers
+Finally, install your required CoC extensions. This covers Git signs, Python, Bash, JSON, and Markdown linting:
+```vim
+:CocInstall coc-git coc-pyright coc-sh coc-json coc-markdownlint
+```
+*(Note: Rust, C++, Nim, and Ruby are configured natively through system binaries in `coc-settings.json`).*
 
-## Development
+---
 
-The `vim_config_structure.sh` script is a one-time utility used to scaffold the
-initial repository structure. It is not intended for regular use but provides
-context on how the repository was initiated.
+## ⌨️ Highlighted Mappings
+
+- `<leader>` is mapped to `<Space>`
+
+### Smart Execution
+- `<leader>r` -> Automatically compiles/runs the current file based on its extension (C, C++, Rust, Nim, Python, Go, Ruby, Bash, Lua).
+
+### Navigation
+- `<leader>nt` -> Toggle NERDTree *(lazy loaded)*
+- `<leader>ut` -> Toggle Undotree *(lazy loaded)*
+- `<leader>ff` -> Find Files (FZF)
+- `<leader>rg` -> Ripgrep (FZF)
+- `<leader>b` -> List buffers and switch
+- `gp` / `gP` -> Navigate LSP diagnostics (CoC)
+- `gd` / `gr` -> Go to definition / Find references (CoC)
+
+### Code Manipulation
+- `K` -> Show documentation in a floating window (CoC)
+- `<leader>rn` -> Rename symbol across project (CoC)
+- `<leader>qf` -> Auto-fix current linting error (CoC)
+- `gc` -> Auto-comment/uncomment selection (Commentary)
+
+---
+
+## 📁 Configuration Structure
+
+- **`settings.vim`**: Core mechanics, clipboard integrations, window behaviors, and rendering rules.
+- **`mappings.vim`**: Universal keyboard shortcuts, smart-run commands, FZF bindings, and Codeium hooks.
+- **`plugins.vim`**: Plugin definitions, lazy-loading rules, and specific plugin configuration blocks.
+- **`coc-config.vim`**: Autocompletion UI, diagnostic navigation, code actions, and floating window behaviors.
+- **`coc-settings.json`**: Language server binary bindings and automated format-on-save declarations.
