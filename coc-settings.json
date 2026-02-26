@@ -6,7 +6,8 @@
     "cpp",
     "sh",
     "markdown",
-    "rust"
+    "rust",
+    "ruby"
   ],
   "languageserver": {
     "nim": {
@@ -41,14 +42,15 @@
       "rootPatterns": [".git", ".marksman.toml"]
     },
     "ruby": {
-      "command": "solargraph",
-      "args": ["stdio"],
+      "command": "ruby-lsp",
       "filetypes": ["ruby"],
+      "rootPatterns": ["Gemfile", ".git", "Rakefile", "config.ru"],
       "initializationOptions": {
-        "diagnostics": true,
-        "completion": true,
-        "hover": true
+        // You can customize these if needed (most users leave them default)
+        // "formatter": "standard",
+        // "linters": ["standard"],
+        // "enableExperimentalFeatures": true
       }
     }
-  },
+  }
 }
