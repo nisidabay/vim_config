@@ -118,6 +118,12 @@ vnoremap > >gv
 " Make current file executable
 nnoremap <leader>x :!chmod +x %<CR>
 
+" Insert shebang
+nnoremap <leader>wb o#!/usr/bin/env/bash<Esc>
+nnoremap <leader>wr o#!/usr/bin/env ruby<Esc>
+nnoremap <leader>wl o#!/usr/bin/env lua<Esc>
+nnoremap <leader>wp o#!/usr/bin/env python3<Esc>
+
 " Save visually selected text to a new file
 vnoremap <leader>s :w <C-R>=input("Save to file: ")<CR><Esc>
 
@@ -125,9 +131,42 @@ vnoremap <leader>s :w <C-R>=input("Save to file: ")<CR><Esc>
 nnoremap <leader>sr :w !sudo tee <C-R>=input("Save to file: ")<CR> > /dev/null<Esc>
 
 " Copy the entire buffer to clipboard
-nnoremap <leader>ya :%y<CR>
-" Copy selected code into a designated "C-Code" tab
-vnoremap <ct> :call CopytoTab()<CR>
+function! s:copy_to_clipboard(type, ...)
+  let sel_save = &selection
+  let &selection = "inclusive"
+  let reg_save = @@
+
+  if a:type == 'line'
+    silent exe "normal! '[V']y"
+  elseif a:type == 'block'
+    silent exe "normal! `[\<C-V>`]y"
+  else
+    silent exe "normal! `[v`]y"
+  endif
+
+  if !empty($WAYLAND_DISPLAY) || $XDG_SESSION_TYPE ==? 'wayland'
+    call system('wl-copy', @@)
+  else
+    call system('xclip -selection clipboard', @@)
+  endif
+
+  let &selection = sel_save
+  let @@ = reg_save
+endfunction
+
+if !empty($WAYLAND_DISPLAY) || $XDG_SESSION_TYPE ==? 'wayland'
+  nnoremap <silent> y y:<C-u>call <SID>copy_to_clipboard(visualmode(), 1)<CR>
+  vnoremap <silent> y y:<C-u>call <SID>copy_to_clipboard(visualmode(), 1)<CR>
+  nnoremap <silent> yy yy:<C-u>call <SID>copy_to_clipboard('line')<CR>
+  nnoremap <silent> p :let @"=system('wl-paste --no-newline')<CR>p
+  vnoremap <silent> p "0p
+else
+  nnoremap <silent> y y:<C-u>call <SID>copy_to_clipboard(visualmode(), 1)<CR>
+  vnoremap <silent> y y:<C-u>call <SID>copy_to_clipboard(visualmode(), 1)<CR>
+  nnoremap <silent> yy yy:<C-u>call <SID>copy_to_clipboard('line')<CR>
+  nnoremap <silent> p :let @"=system('xclip -selection clipboard -o')<CR>p
+  vnoremap <silent> p "0p
+endif
 
 " Toggle spell check languages
 nnoremap <leader>sp :setlocal spell spelllang=es<CR>
