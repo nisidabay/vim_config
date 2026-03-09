@@ -154,17 +154,33 @@ function! s:copy_to_clipboard(type, ...)
   let @@ = reg_save
 endfunction
 
+function! s:yank_with_clipboardfunc(type)
+  if a:type == 'line'
+    silent normal! `[V`]y
+  elseif a:type == 'char'
+    silent normal! `[v`]y
+  elseif a:type == 'block'
+    silent normal! `[\<C-V>`]y
+  endif
+  call s:copy_to_clipboard(a:type)
+endfunction
+
 if !empty($WAYLAND_DISPLAY) || $XDG_SESSION_TYPE ==? 'wayland'
-  nnoremap <silent> y y:<C-u>call <SID>copy_to_clipboard(visualmode(), 1)<CR>
-  vnoremap <silent> y y:<C-u>call <SID>copy_to_clipboard(visualmode(), 1)<CR>
-  nnoremap <silent> yy yy:<C-u>call <SID>copy_to_clipboard('line')<CR>
-  nnoremap <silent> p :let @"=system('wl-paste --no-newline')<CR>p
+  " Map y operator to yank + copy to clipboard
+  nnoremap <silent> y :set operatorfunc=<SID>yank_with_clipboardfunc<CR>g@
+  " yy = whole buffer
+  nnoremap <silent> yy :call <SID>copy_to_clipboard('line')<CR>
+  " Visual mode y = copy to clipboard
+  vnoremap <silent> y y:call <SID>copy_to_clipboard('char')<CR>
+  " Paste from clipboard
+   nnoremap <silent> <expr> p system('wl-paste -n') != '' ? ':let @"=system("wl-paste -n")<CR>p' : 'p'
   vnoremap <silent> p "0p
 else
-  nnoremap <silent> y y:<C-u>call <SID>copy_to_clipboard(visualmode(), 1)<CR>
-  vnoremap <silent> y y:<C-u>call <SID>copy_to_clipboard(visualmode(), 1)<CR>
-  nnoremap <silent> yy yy:<C-u>call <SID>copy_to_clipboard('line')<CR>
-  nnoremap <silent> p :let @"=system('xclip -selection clipboard -o')<CR>p
+  " X11
+  nnoremap <silent> y :set operatorfunc=<SID>yank_with_clipboardfunc<CR>g@
+  nnoremap <silent> yy :call <SID>copy_to_clipboard('line')<CR>
+  vnoremap <silent> y y:call <SID>copy_to_clipboard('char')<CR>
+   nnoremap <silent> <expr> p system('xclip -selection clipboard -o') != '' ? ':let @"=system("xclip -selection clipboard -o")<CR>p' : 'p'
   vnoremap <silent> p "0p
 endif
 
