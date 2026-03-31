@@ -23,3 +23,6 @@ view/*
 
 # Except the local_plugins directory
 !local_plugins/
+
+# SDD artifacts
+.atl/
