@@ -13,6 +13,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer'
+Plug 'liuchengxu/vim-which-key'
 
 " --- File & Project Navigation ---
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
