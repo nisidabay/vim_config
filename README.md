@@ -10,6 +10,8 @@ It has been optimized for sub-millisecond lazy loading, native architectural int
 - **De-spaghettified Architecture:** Configuration is cleanly separated into strictly-categorized files (`plugins.vim`, `settings.vim`, `mappings.vim`, and `coc-config.vim`).
 - **Language Server Protocol (LSP):** Full `coc.nvim` integration providing VSCode-like intelligence, native async git signs (`coc-git`), and automated formatting on save.
 - **AI Assisted:** Native, ghost-text AI completion integration via `codeium.vim`.
+- **EditorConfig Aware:** Per-project indent style, tab width, and EOL rules from `.editorconfig` are auto-applied on file open — no plugin-specific config to maintain.
+- **Git-aware Editing:** Inline `+`/`-`/`~` gutter signs (vim-signify) make diff hunks visible at a glance, paired with `<leader>dN`/`<leader>dP` for hunk-to-hunk navigation.
 - **Smart Execution:** Context-aware compilation. You can press `<leader>r` in any supported language and Vim will automatically compile and/or execute the file natively in a subshell.
 - **Idempotent Setup:** An intelligent `setup_vim.sh` script that safely symlinks configurations and preserves your installed plugins across updates.
 
@@ -20,8 +22,9 @@ It has been optimized for sub-millisecond lazy loading, native architectural int
 - **UI & Theme:** `tokyonight-vim`, `lightline.vim`, `vim-startify`, `ryanoasis/vim-devicons`
 - **Navigation:** `scrooloose/nerdtree`, `junegunn/fzf`, `fzf.vim`, `majutsushi/tagbar`
 - **Intelligence:** `neoclide/coc.nvim` *(LSP)*, `Exafunction/codeium.vim` *(AI)*
-- **Git:** `tpope/vim-fugitive`, `coc-git` *(Async Signs)*
-- **Editing:** `tpope/vim-commentary`, `tpope/vim-surround`, `Raimondi/delimitMate`
+- **Git:** `tpope/vim-fugitive`, `coc-git` *(Async Signs)*, `mhinz/vim-signify` *(Gutter Indicators)*
+- **Editing:** `tpope/vim-commentary`, `tpope/vim-surround`, `tpope/vim-repeat` *(`.` repeat for plugin actions)*, `Raimondi/delimitMate`
+- **Editor Standards:** `editorconfig/editorconfig-vim` *(Honors `.editorconfig` per-project rules)*
 - **Markdown & Notes:** `vimwiki/vimwiki`, `iamcco/markdown-preview.nvim`
 - **Language Support:** `rust.vim`, `nim.vim`, `vim-shfmt`, `c-syntax.vim`
 
@@ -78,6 +81,10 @@ Finally, install your required CoC extensions. This covers Git signs, Python, Ba
 - `<leader>rn` -> Rename symbol across project (CoC)
 - `<leader>qf` -> Auto-fix current linting error (CoC)
 - `gc` -> Auto-comment/uncomment selection (Commentary)
+- `.` -> Repeats the last surround / comment / etc. action (vim-repeat)
+
+### Diff Navigation
+- `<leader>dN` / `<leader>dP` -> Jump to previous / next git hunk (vim-signify shows `+`/`-`/`~` in the gutter)
 
 ---
 

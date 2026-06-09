@@ -24,6 +24,7 @@ Plug 'christoomey/vim-tmux-navigator'
 
 " --- Editing Enhancements ---
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'Raimondi/delimitMate'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
@@ -32,6 +33,7 @@ Plug 'chrisbra/unicode.vim'
 
 " --- Git Integration ---
 Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
 
 " --- Language Intelligence & Completion ---
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -40,6 +42,7 @@ Plug 'honza/vim-snippets'
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 
 " --- Language Specific & Syntax ---
+Plug 'editorconfig/editorconfig-vim'
 Plug 'NLKNguyen/c-syntax.vim'
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 Plug 'zah/nim.vim'
@@ -165,6 +168,16 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 
 " --- Tagbar ---
 let g:tagbar_autofocus = 1
+
+" --- Vim-Signify (git/hg/svn gutter signs) ---
+" Disable ]c / [c default mappings — <leader>dN / <leader>dP already
+" navigate hunks (see mappings.vim). We only want the gutter indicators.
+let g:signify_disable_by_default = 1
+
+" --- EditorConfig ---
+" Reads .editorconfig on BufRead to apply per-project indent/tab/EOL rules.
+" No mappings. Runs silently on file open.
+let g:editorconfig_preserve_formatoptions = 1
 
 " --- WebDevIcons ---
 let g:webdevicons_enable = 1
