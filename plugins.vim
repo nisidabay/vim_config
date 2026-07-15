@@ -130,7 +130,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " --- Language Specific Formatting ---
 " C / C++
-let g:linux_kernel_style = '{BasedOnStyle: LLVM, IndentWidth: 8, UseTab: Always, TabWidth: 8, ContinuationIndentWidth: 8, BreakBeforeBraces: Linux, AllowShortIfStatementsOnASingleLine: Never, AllowShortLoopsOnASingleLine: false, AllowShortFunctionsOnASingleLine: None, AllowShortBlocksOnASingleLine: Never, IndentCaseLabels: false, AlignAfterOpenBracket: DontAlign, DerivePointerAlignment: false, PointerAlignment: Right, SpaceBeforeParens: ControlStatements, MaxEmptyLinesToKeep: 2, KeepEmptyLinesAtTheStartOfBlocks: false, AlignTrailingComments: false, ReflowComments: false, SortIncludes: Never, ColumnLimit: 80}'
+let g:linux_kernel_style = '{BasedOnStyle: LLVM, IndentWidth: 8, UseTab: Always, TabWidth: 8, ContinuationIndentWidth: 8, BreakBeforeBraces: Linux, AllowShortIfStatementsOnASingleLine: Never, AllowShortLoopsOnASingleLine: false, AllowShortFunctionsOnASingleLine: None, AllowShortBlocksOnASingleLine: Never, IndentCaseLabels: false, AlignAfterOpenBracket: DontAlign, DerivePointerAlignment: false, PointerAlignment: Right, SpaceBeforeParens: ControlStatements, MaxEmptyLinesToKeep: 2, KeepEmptyLinesAtTheStartOfBlocks: false, AlignTrailingComments: false, ReflowComments: false, SortIncludes: Never, ColumnLimit: 100}'
 
 augroup c_cpp_settings
     autocmd!

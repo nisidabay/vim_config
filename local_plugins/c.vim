@@ -14,36 +14,28 @@ setlocal cindent
 setlocal cinoptions=:0,l1,t0,g0,(0
 setlocal colorcolumn=101
 
-" Format function
+" Format function — uses .clang-format file in project root (auto-detected)
 function! s:FormatCBuffer()
     let l:save_cursor = getpos(".")
     let l:save_window = winsaveview()
-    
-    " Format using the Linux kernel style
-    let l:style = g:linux_kernel_style
-    silent execute '%!clang-format --style=' . shellescape(l:style)
-    
-    " Restore cursor position
+
+    silent execute '%!clang-format'
+
     call setpos('.', l:save_cursor)
     call winrestview(l:save_window)
 endfunction
 
-" Create commands
+" Manual format command and mapping
 command! -buffer FormatC call s:FormatCBuffer()
-
-" Key mapping for formatting
 nnoremap <buffer> <F3> :FormatC<CR>
 
-" Format on save
-augroup c_format_on_save
-    autocmd!
-    autocmd BufWritePre <buffer> call s:FormatCBuffer()
-augroup END
+" NOTE: Format-on-save is handled by coc.nvim via coc-settings.json.
+" The BufWritePre autocmd has been removed to avoid double-formatting.
 
 " Verify settings
 function! s:VerifySettings()
     let l:issues = []
-    
+
     if &l:shiftwidth != 8
         call add(l:issues, "shiftwidth is " . &l:shiftwidth . " (should be 8)")
     endif
@@ -53,7 +45,7 @@ function! s:VerifySettings()
     if &l:expandtab
         call add(l:issues, "expandtab is on (should be off)")
     endif
-    
+
     if !empty(l:issues)
         echohl WarningMsg
         echo "Linux kernel style issues found:"
