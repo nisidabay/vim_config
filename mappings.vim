@@ -64,8 +64,8 @@ nnoremap <leader>dd "_dd
 " Delete to end of file (black hole)
 nnoremap <leader>dG "_dG
 
-" Yank entire file to system clipboard (like Neovim)
-nnoremap <silent> <leader>ya :call <SID>yank_all_to_clipboard()<CR>
+" Yank entire file to system clipboard — defined inside conditional block below
+" (Wayland vs X11), only the active branch defines it at runtime.
 
 " --- Visual Mode Line Moves (like Neovim) ---
 " Move selected lines down
@@ -230,18 +230,16 @@ nnoremap <leader>wb I#!/usr/bin/env bash<Esc>
 nnoremap <leader>wp I#!/usr/bin/env python3<Esc>
 nnoremap <leader>ir I#!/usr/bin/env ruby<Esc>
 
-" --- FZF / Search (matching Neovim Telescope prefixes) ---
-nnoremap <silent> <leader>st :FzfTags<CR>
-nnoremap <silent> <leader>sT :FzfBTags<CR>
-nnoremap <silent> <leader>sm :FzfMarks<CR>
-nnoremap <silent> <leader>sM :FzfMaps<CR>
+" FZF / Search — see plugins.vim for the canonical f-prefix set
+" Additional Telescope-style aliases:
 nnoremap <silent> <leader>sf :FzfFiles<CR>
 nnoremap <silent> <leader>sb :FzfBuffers<CR>
 nnoremap <silent> <leader>sg :FzfRg<CR>
 nnoremap <silent> <leader>so :FzfHistory:<CR>
+nnoremap <silent> <leader>sm :call FzfManPages()<CR>
+" <leader>sk and <leader>sM are aliases for FzfMaps (same as <leader>fM)
 nnoremap <silent> <leader>sk :FzfMaps<CR>
-" Man pages uses <leader>sK to avoid conflict with marks
-nnoremap <silent> <leader>sK :call FzfManPages()<CR>
+nnoremap <silent> <leader>sM :FzfMaps<CR>
 
 " FZF insert mode completions
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -372,7 +370,8 @@ nnoremap <silent> <leader>fy :Startify<CR>
 " --- Vimwiki ---
 nnoremap <leader>di :VimwikiDiaryIndex<CR>
 nnoremap <leader>kal :Calendar<CR>
-nnoremap <leader>rw :VimwikiRenameFile<ESC>
+" VimwikiRenameFile moved to <leader>rR to free <leader>rw for window-right
+nnoremap <leader>rR :VimwikiRenameFile<ESC>
 nnoremap <leader>ww :VimwikiIndex<CR>
 nnoremap <Leader>w1 :VimwikiIndex 1<CR>
 nnoremap <Leader>w2 :VimwikiIndex 2<CR>

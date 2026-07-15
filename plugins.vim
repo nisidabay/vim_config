@@ -124,8 +124,8 @@ nnoremap <silent> <leader>rg :FzfRg<CR>
 nnoremap <silent> <leader>fm :FzfMarks<CR> 
 nnoremap <silent> <leader>fM :FzfMaps<CR> 
 
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+" Insert-mode FZF completions are defined in mappings.vim — removed here
+" to avoid duplication.
 
 " --- Language Specific Formatting ---
 " C / C++ — clang-format now auto-detects .clang-format in project root.
@@ -190,14 +190,8 @@ augroup vimwikigroup
   autocmd BufRead,BufNewFile diary.wiki VimwikiDiaryGenerateLinks
 augroup end
 
-function! ToggleMarkdown()
-  if &filetype == 'vimwiki'
-    set ft=markdown
-  elseif &filetype == 'markdown'
-    set ft=vimwiki
-  endif
-endfunction
-map <silent> <C-N> :call ToggleMarkdown()<CR>
+" ToggleMarkdown and <C-N> mapping are defined in mappings.vim — this
+" copy is removed to avoid duplication.
 
 " --- Markdown Preview ---
 let g:mkdp_auto_start = 0
