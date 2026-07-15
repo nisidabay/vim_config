@@ -120,8 +120,8 @@ nnoremap <leader>rN :!nim -r c %<CR>    " Run Nim
 " bash: use <leader>rB for bash run
 nnoremap <leader>rB :!bash %<CR>        " Run Bash
 
-" Compile C (like Neovim <leader>cc)
-nnoremap <leader>cc :!gcc % -o %< && ./%<<CR>
+" Compile C with strict flags
+nnoremap <leader>cc :!gcc -Wall -Wextra -Wpedantic -Werror -fsanitize=undefined -O2 -g -std=c11 -o %< % && ./%<<CR>
 " Compile C with Valgrind (like Neovim <leader>cv)
 nnoremap <leader>cv :!gcc -g % -o %< && valgrind --leak-check=yes ./%<<CR>
 " Nim release (like Neovim <leader>on)
