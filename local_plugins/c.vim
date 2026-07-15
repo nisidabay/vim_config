@@ -73,5 +73,5 @@ command! -buffer VerifyCSettings call s:VerifySettings()
 let b:undo_ftplugin = (exists('b:undo_ftplugin') ? b:undo_ftplugin . '|' : '')
     \ . 'setlocal tabstop< shiftwidth< expandtab< softtabstop< textwidth< cindent< cinoptions< colorcolumn<'
 
-" Optional: Verify settings when loading the file
-call s:VerifySettings()
+" Optional: Verify settings when loading the file (commented out — noisy)
+" call s:VerifySettings()

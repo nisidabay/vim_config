@@ -6,7 +6,6 @@
 set encoding=utf-8
 set fileencodings=utf-8
 set shell=/bin/zsh
-set rtp+=/usr/local/opt/fzf
 " --- General Mechanics ---
 set nocompatible              
 set timeoutlen=500

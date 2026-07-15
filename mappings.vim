@@ -248,7 +248,10 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " --- LSP (via coc.nvim) ---
 nmap gd <Plug>(coc-definition)
 nmap gr <Plug>(coc-references)
-nmap K <Plug>(coc-codeaction)           
+" K is overridden by coc-config.vim -> ShowDocumentation() (hover/docs)
+" coc-config.vim is sourced after mappings.vim, so the nnoremap wins.
+" The line below is left for reference but does NOT take effect:
+" nmap K <Plug>(coc-codeaction)
 nmap gD <Plug>(coc-declaration)
 nmap <space>D <Plug>(coc-type-definition)
 nmap <leader>f <Plug>(coc-format)
@@ -391,6 +394,9 @@ endfunction
 noremap <leader>ie :!emoji_insert.sh<CR>
 
 " --- Floating Copilot/Codeium Mappings ---
+" NOTE: <C-G> may not arrive in terminal/tmux — Codeium recommends <C-]> 
+" if <C-G> stops working. <C-h>/<C-j> can conflict with other mappings
+" (window navigation, quickfix list) — adjust if needed.
 imap <script><silent><nowait><expr> <C-G> codeium#Accept()
 imap <script><silent><nowait><expr> <C-h> codeium#AcceptNextWord()
 imap <script><silent><nowait><expr> <C-j> codeium#AcceptNextLine()

@@ -128,8 +128,9 @@ nnoremap <silent> <leader>fM :FzfMaps<CR>
 " to avoid duplication.
 
 " --- Language Specific Formatting ---
-" C / C++ — clang-format now auto-detects .clang-format in project root.
-" See ftplugin (local_plugins/c.vim) for the formatting function.
+" C / C++ — formatting via clang-format (Linux kernel style).
+" local_plugins/c.vim is deployed to ~/.vim/ftplugin/c.vim by setup_vim.sh
+" and provides FormatC command + F3 mapping.
 " Python
 autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4 
 
