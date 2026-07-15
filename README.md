@@ -1,97 +1,125 @@
 # Ultimate Vim Configuration
 
-This repository contains a highly tuned, deeply modularized, and performant personal Vim configuration designed for polyglot development in Bash, Ruby, C, C++, Rust, Nim, Python, Go, and Lua. 
-
-It has been optimized for sub-millisecond lazy loading, native architectural integrations, and a zero-redundancy philosophy.
+This repository contains a personal Vim configuration for polyglot development. Vim is the backup editor — Neovim is the daily driver. Vim's keybindings are aligned to match Neovim's where possible.
 
 ## 🚀 Key Features
 
-- **Blazing Fast Startup:** Heavy plugins (`NERDTree`, `Tagbar`, `Undotree`, `markdown-preview`) are strictly lazy-loaded `on-demand` or `on-filetype`, keeping the initial application launch instantaneous.
-- **De-spaghettified Architecture:** Configuration is cleanly separated into strictly-categorized files (`plugins.vim`, `settings.vim`, `mappings.vim`, and `coc-config.vim`).
-- **Language Server Protocol (LSP):** Full `coc.nvim` integration providing VSCode-like intelligence and automated formatting on save.
-- **AI Assisted:** Native, ghost-text AI completion integration via `codeium.vim`.
-- **EditorConfig Aware:** Per-project indent style, tab width, and EOL rules from `.editorconfig` are auto-applied on file open — no plugin-specific config to maintain.
-- **Git-aware Editing:** Inline `+`/`-`/`~` gutter signs (vim-signify) make diff hunks visible at a glance, paired with `<leader>dN`/`<leader>dP` for hunk-to-hunk navigation.
-- **Smart Execution:** Context-aware compilation. You can press `<leader>r` in any supported language and Vim will automatically compile and/or execute the file natively in a subshell.
-- **Idempotent Setup:** An intelligent `setup_vim.sh` script that safely symlinks configurations and preserves your installed plugins across updates.
+- **Language Server Protocol (LSP):** Full `coc.nvim` integration.
+- **AI Assisted:** `codeium.vim` for ghost-text AI completion.
+- **Git-aware:** `vim-signify` for inline `+`/`-`/`~` gutter signs.
+- **Smart Execution:** `<leader>r<letter>` per-language run commands.
+- **Telescope-style search:** `<leader>s*` prefix for all FZF pickers.
+- **clang-format:** Linux kernel (Torvalds) C style via `.clang-format`.
+- **Idempotent Setup:** `setup_vim.sh` symlinks everything into place.
 
----
+## 🛠️ Plugins (vim-plug)
 
-## 🛠️ Included Plugins (Managed via `vim-plug`)
-
-- **UI & Theme:** `tokyonight-vim`, `lightline.vim`, `vim-startify`, `ryanoasis/vim-devicons`
-- **Navigation:** `scrooloose/nerdtree`, `junegunn/fzf`, `fzf.vim`, `majutsushi/tagbar`
-- **Intelligence:** `neoclide/coc.nvim` *(LSP)*, `Exafunction/codeium.vim` *(AI)*
-- **Git:** `tpope/vim-fugitive`, `mhinz/vim-signify` *(Gutter Indicators)*
-- **Editing:** `tpope/vim-commentary`, `tpope/vim-surround`, `tpope/vim-repeat` *(`.` repeat for plugin actions)*, `Raimondi/delimitMate`
-- **Editor Standards:** `editorconfig/editorconfig-vim` *(Honors `.editorconfig` per-project rules)*
-- **Markdown & Notes:** `vimwiki/vimwiki`, `iamcco/markdown-preview.nvim`
-- **Language Support:** `rust.vim`, `nim.vim`, `vim-shfmt`
-
----
+- **UI:** `tokyonight-vim`, `lightline.vim`, `vim-startify`, `vim-devicons`
+- **Navigation:** `nerdtree`, `fzf` + `fzf.vim`, `tagbar`
+- **LSP:** `coc.nvim`, `coc-snippets`, `vim-snippets`
+- **AI:** `codeium.vim`
+- **Git:** `vim-fugitive`, `vim-signify`
+- **Editing:** `vim-commentary`, `vim-surround`, `vim-repeat`, `delimitMate`
+- **Notes:** `vimwiki`, `vim-table-mode`, `calendar-vim`
+- **Languages:** `rust.vim`, `nim.vim`
 
 ## ⚙️ Installation
 
-### 1. Prerequisites
-- **Vim 8+** (with python3 support)
-- **Node.js & npm** (Required for the `coc.nvim` Language Server)
-- **Git**
-
-### 2. Clone & Link
-Clone this repository and run the setup script. It will safely back up your old `~/.vim` directory and symlink these files into place.
 ```bash
 git clone https://github.com/nisidabay/vim_config.git
 cd vim_config
 ./setup_vim.sh
 ```
 
-### 3. Install Plugins
-Open Vim and run the `vim-plug` installation command:
+Then inside Vim:
 ```vim
 :PlugInstall
-```
-
-### 4. Install Language Servers
-Finally, install your required CoC extensions. This covers Python, Bash, JSON, and Markdown linting:
-```vim
 :CocInstall coc-pyright coc-sh coc-json coc-markdownlint
 ```
-*(Note: Rust, C++, Nim, and Ruby are configured natively through system binaries in `coc-settings.json`).*
 
----
+## ⌨️ Key Mappings
 
-## ⌨️ Highlighted Mappings
+`<leader>` is mapped to `<Space>`.
 
-- `<leader>` is mapped to `<Space>`
+### Search (Telescope-style `<leader>s*`)
+| Key | Action |
+|-----|--------|
+| `<leader>sf` | Find files (FZF) |
+| `<leader>sb` | Find buffers (FZF) |
+| `<leader>sg` | Ripgrep (FZF) |
+| `<leader>so` | Command history (FZF) |
+| `<leader>sk` / `<leader>fM` | Show all mappings (FZF) |
+| `<leader>sm` | Marks (FZF) |
+| `<leader>st` | Tags (FZF) |
+| `<leader>sT` | Buffer tags (FZF) |
+| `<leader>sG` | Git files (FZF) |
+| `<leader>sK` | Man pages (FZF) |
 
-### Smart Execution
-- `<leader>r` -> Automatically compiles/runs the current file based on its extension (C, C++, Rust, Nim, Python, Go, Ruby, Bash, Lua).
+### LSP (coc.nvim)
+| Key | Action |
+|-----|--------|
+| `gd` | Go to definition |
+| `gr` | Go to references |
+| `K` | Show documentation |
+| `gD` | Go to declaration |
+| `<Space>D` | Type definition |
+| `<leader>f` | Format buffer |
+| `gp` / `gP` | Previous / next diagnostic |
+| `<leader>rn` | Rename symbol |
 
-### Navigation
-- `<leader>nt` -> Toggle NERDTree *(lazy loaded)*
-- `<leader>ut` -> Toggle Undotree *(lazy loaded)*
-- `<leader>ff` -> Find Files (FZF)
-- `<leader>rg` -> Ripgrep (FZF)
-- `<leader>b` -> List buffers and switch
-- `gp` / `gP` -> Navigate LSP diagnostics (CoC)
-- `gd` / `gr` -> Go to definition / Find references (CoC)
+### Run per Language
+| Key | Language |
+|-----|----------|
+| `<leader>rp` | Python |
+| `<leader>rc` | Ruby |
+| `<leader>rr` | Rust |
+| `<leader>rl` | Lua |
+| `<leader>rz` | Zig |
+| `<leader>rN` | Nim |
+| `<leader>rB` | Bash |
+| `<leader>cc` | Compile C |
+| `<leader>cv` | Compile C + Valgrind |
+| `<leader>on` | Nim release build |
 
-### Code Manipulation
-- `K` -> Show documentation in a floating window (CoC)
-- `<leader>rn` -> Rename symbol across project (CoC)
-- `<leader>qf` -> Auto-fix current linting error (CoC)
-- `gc` -> Auto-comment/uncomment selection (Commentary)
-- `.` -> Repeats the last surround / comment / etc. action (vim-repeat)
+### Format per Language
+| Key | Action |
+|-----|--------|
+| `<leader>pf` | autopep8 (Python) |
+| `<leader>is` | isort (Python) |
+| `<leader>bf` | shfmt (Bash) |
+| `<leader>fg` | gofmt (Go) |
+| `<leader>lf` | stylua (Lua) |
+| `<leader>rf` | rubocop (Ruby) |
 
-### Diff Navigation
-- `<leader>dN` / `<leader>dP` -> Jump to previous / next git hunk (vim-signify shows `+`/`-`/`~` in the gutter)
+### General
+| Key | Action |
+|-----|--------|
+| `jk` / `kj` | Exit insert mode |
+| `<leader>nh` | Clear search highlights |
+| `<leader>x` | Make file executable |
+| `<leader>t` | Open terminal |
+| `<leader>dd` | Delete to black hole register |
+| `<leader>dG` | Delete to end (black hole) |
+| `<leader>nt` | Toggle NERDTree |
+| `<leader>ut` | Toggle undotree |
+| `nr` | Toggle relative numbers |
+| `ls` / `le` | Toggle Spanish / English spell check |
+| `<C-v>` | Paste from system clipboard |
 
----
+### Vimwiki
+| Key | Action |
+|-----|--------|
+| `<leader>ww` | Open wiki index |
+| `<leader>di` | Diary index |
+| `<leader>kal` | Calendar |
+| `<leader>rR` | Rename file |
 
 ## 📁 Configuration Structure
 
-- **`settings.vim`**: Core mechanics, clipboard integrations, window behaviors, and rendering rules.
-- **`mappings.vim`**: Universal keyboard shortcuts, smart-run commands, FZF bindings, and Codeium hooks.
-- **`plugins.vim`**: Plugin definitions, lazy-loading rules, and specific plugin configuration blocks.
-- **`coc-config.vim`**: Autocompletion UI, diagnostic navigation, code actions, and floating window behaviors.
-- **`coc-settings.json`**: Language server binary bindings and automated format-on-save declarations.
+- **`settings.vim`**: Core mechanics, clipboard, rendering.
+- **`mappings.vim`**: All keyboard shortcuts (312 lines).
+- **`plugins.vim`**: Plugin declarations, FZF mappings, Startify.
+- **`coc-config.vim`**: LSP autocompletion, navigation, code actions.
+- **`coc-settings.json`**: Language server binaries and format-on-save.
+- **`local_plugins/c.vim`**: C-specific settings (Linux kernel style).
+- **`.clang-format`**: Torvalds C style (8-char tabs, 100 cols).

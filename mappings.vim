@@ -13,12 +13,6 @@ vnoremap kj <Esc>
 cnoremap kj <Esc> 
 cnoremap jk <Esc> 
 
-" Also jj/kk like Neovim
-inoremap jj <Esc>
-inoremap kk <Esc>
-cnoremap jj <Esc>
-cnoremap kk <Esc>
-
 " Disable arrow keys to enforce hjkl
 nnoremap <down> <Nop>
 nnoremap <up> <Nop>
@@ -34,14 +28,11 @@ vnoremap <left> <Nop>
 vnoremap <right> <Nop>
 
 " --- Line Navigation ---
-" j/k move by visual lines (like Neovim)
+" j/k move by visual lines 
 nnoremap j gj
 nnoremap k gk
 
 " --- Editing & Utility ---
-" Swap char with next (like Neovim xp)
-nnoremap xp xp
-
 " Clear search highlights
 nnoremap <leader>nh :nohl<CR>
 
@@ -64,9 +55,6 @@ nnoremap <leader>dd "_dd
 " Delete to end of file (black hole)
 nnoremap <leader>dG "_dG
 
-" Yank entire file to system clipboard — defined inside conditional block below
-" (Wayland vs X11), only the active branch defines it at runtime.
-
 " --- Visual Mode Line Moves (like Neovim) ---
 " Move selected lines down
 xnoremap J :m'>+1<CR>gv=gv
@@ -83,7 +71,7 @@ function! s:toggle_relativenumber()
     endif
 endfunction
 
-" --- Insert date (like Neovim <leader>ad) ---
+" --- Insert date  ---
 nnoremap <leader>ad :.!date<CR>I# Date:<Esc>
 
 " --- Box word around visual/current word (like Neovim <leader>bx) ---
@@ -98,25 +86,6 @@ nnoremap <silent> <leader>bc :%bd\|e#\|bd#<CR>
 " --- Clear registers (like Neovim <leader>cr) ---
 nnoremap <silent> <leader>cr :call setreg('', '')<Bar>for i in range(97,122)\|call setreg(nr2char(i), '')\|endfor<Bar>for i in range(48,57)\|call setreg(nr2char(i), '')\|endfor<Bar>call setreg('+', '')\|call setreg('*', '')\|call setreg('-', '')<CR>
 
-" --- Window & Buffer Management ---
-" Move between windows
-nnoremap <leader>lw <C-w>h
-nnoremap <leader>rw <C-w>l
-
-" Window sizes (like Neovim Alt+letter)
-nnoremap <A-d> <C-w>5<
-nnoremap <A-i> <C-w>>5
-nnoremap <A-k> <C-w>5+
-nnoremap <A-j> <C-w>5-
-
-" Split operations (like Neovim)
-nnoremap <leader>wv <C-w>v           " Split vertical
-nnoremap <leader>w_ <C-w>s           " Split horizontal
-nnoremap <leader>we <C-w>=           " Equalize splits
-nnoremap <leader>wx :close<CR>       " Close split
-
-" Show and manage buffers
-nnoremap <leader>b :set nomore <Bar> :ls <Bar> :set more <CR>:b<leader>
 " Delete all buffers except the current one
 nnoremap <silent> <leader>cab :update <bar> %bd <bar> e# <bar> bd# <CR><CR>
 
@@ -133,67 +102,14 @@ nnoremap <leader>ts :tabs<CR>
 " Easy expansion of the active file directory
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%' 
 
-" Show working directory
-nnoremap <leader>. :lcd %:p:h<CR>:pwd<CR>
 " Change directory to the current file
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR> 
-
-" --- Sessions ---
-if !isdirectory($HOME . '/.vim/sessions')
-  call mkdir($HOME . '/.vim/sessions', 'p')
-endif
-
-function! s:save_session()
-  let l:name = input('Session name: ', '')
-  if !empty(l:name)
-    execute 'mksession! ~/.vim/sessions/'.l:name
-    echo "\nSession saved: ".l:name
-  endif
-endfunction
-
-function! s:load_session()
- let l:sessions = split(globpath('~/.vim/sessions', '*'), '\n')
- call fzf#run({
-       \ 'source': map(l:sessions, 'fnamemodify(v:val, ":t")'),
-       \ 'sink': {s -> execute('source ~/.vim/sessions/'.s)},
-       \ 'dir': '~/.vim/sessions',
-       \ 'options': '+m --prompt="Sessions> "',
-       \ })
-endfunction
-
-nnoremap <leader>ss :call <SID>save_session()<CR>
-nnoremap <leader>sl :call <SID>load_session()<CR>
+nnoremap <leader>. :cd %:p:h<CR>:pwd<CR> 
 
 " --- Terminal Integration ---
-" Move from terminal to window using C-t k
-set termwinkey=<C-T>
 " Open term
 nnoremap <leader>t :term<CR> 
-" Switch from terminal mode to normal mode
-tnoremap <C-x> <C-\><C-n> 
 
-" --- Smart Compile & Execute ---
-augroup SmartRun
-    autocmd!
-    autocmd FileType go nnoremap <buffer> <leader>r :!go run %<CR>
-    autocmd FileType go nnoremap <buffer> <leader>b :!go build %<CR>
-    autocmd FileType sh nnoremap <buffer> <leader>r :!bash %<CR>
-    autocmd FileType rust nnoremap <buffer> <leader>r :!rustc %<CR>
-    autocmd FileType lua nnoremap <buffer> <leader>r :!lua %<CR>
-    autocmd FileType nim nnoremap <buffer> <leader>r :!nim -r c %<CR>
-    autocmd FileType python nnoremap <buffer> <leader>r :!python3 %<CR>
-    autocmd FileType ruby nnoremap <buffer> <leader>r :!ruby %<CR>
-    autocmd FileType c nnoremap <buffer> <leader>r :!gcc % -o %< && ./%<<CR>
-    " Zig support (like Neovim <leader>rz)
-    autocmd FileType zig nnoremap <buffer> <leader>r :!zig run %<CR>
-augroup END
-
-" --- Language-specific Run, Format, and Build (like Neovim) ---
-" The SmartRun above covers <leader>r per filetype.
-" These are explicit <leader>r<letter> mappings matching Neovim's scheme.
-" NOTE: <leader>rg is FZF Ripgrep, <leader>rn is coc-rename, <leader>re is
-" coc-refactor, <leader>rw is move-window-right and VimwikiRenameFile,
-" <leader>rv is source $MYVIMRC — those stay as-is.
+" --- Compile & Execute ---
 nnoremap <leader>rp :!python3 %<CR>     " Run Python
 nnoremap <leader>rc :!ruby %<CR>        " Run Ruby
 nnoremap <leader>rr :!rustc %<CR>       " Run Rust
@@ -221,25 +137,12 @@ nnoremap <leader>rf :!rubocop --auto-correct-all %<CR>   " Ruby format
 " Go format visual selection (like Neovim <leader>vg)
 xnoremap <leader>vg :!gofmt<CR>
 
-" Black format for Python (legacy, keep for compatibility)
-autocmd FileType python setlocal formatprg=black\ - 
 
 " --- Insert shebang (like Neovim — insert at cursor, not new line) ---
 nnoremap <leader>il I#!/usr/bin/env lua<Esc>
 nnoremap <leader>wb I#!/usr/bin/env bash<Esc>
 nnoremap <leader>wp I#!/usr/bin/env python3<Esc>
 nnoremap <leader>ir I#!/usr/bin/env ruby<Esc>
-
-" FZF / Search — all FZF mappings are in plugins.vim (s-prefix primary,
-" f-prefix legacy aliases). This section intentionally left empty
-" to avoid duplicate definitions before fzf.vim loads.
-
-" FZF insert mode completions
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-" LSP mappings are in coc-config.vim (gd, gr, gp, gP, K, etc.) —
-" this section intentionally left empty to avoid duplicate definitions.
 
 " --- Clipboard Integration (Wayland + X11) ---
 " Copy yanked content to clipboard
@@ -329,12 +232,6 @@ nnoremap <silent> le :setlocal spell spelllang=en_us<CR>
 nnoremap <leader>sp :setlocal spell spelllang=es<CR>
 nnoremap <leader>se :setlocal spell spelllang=en_us<CR>
 
-" --- Diff mappings ---
-nnoremap <silent> <leader>dN [c " Previous difference
-nnoremap <silent> <leader>dP ]c " Next difference
-nnoremap <silent> <leader>dg :diffget<CR> " Get diff
-nnoremap <silent> <leader>dp :diffput<CR> " Put diff
-
 " --- Vim Configuration Management ---
 " Edit and reload .vimrc easily
 nnoremap <leader>mv :tabnew $MYVIMRC<CR> 
@@ -342,8 +239,6 @@ nnoremap <leader>rv :source $MYVIMRC<CR>
 nnoremap <leader>cb :!cp ~/.vimrc vimrc_copy<CR> 
 
 " --- Plugin Toggle Shortcuts ---
-" NERDTree matched to Neovim's <leader>e for explorer
-nnoremap <leader>e :NERDTreeToggle<CR>
 " Keep old nt for backward compat
 nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>ut :UndotreeToggle<CR>
@@ -374,17 +269,6 @@ endfunction
 " Miscellaneous utilities
 noremap <leader>ie :!emoji_insert.sh<CR>
 
-" --- Floating Copilot/Codeium Mappings ---
-" NOTE: <C-G> may not arrive in terminal/tmux — Codeium recommends <C-]> 
-" if <C-G> stops working. <C-h>/<C-j> can conflict with other mappings
-" (window navigation, quickfix list) — adjust if needed.
-imap <script><silent><nowait><expr> <C-G> codeium#Accept()
-imap <script><silent><nowait><expr> <C-h> codeium#AcceptNextWord()
-imap <script><silent><nowait><expr> <C-j> codeium#AcceptNextLine()
-imap <C-;>   <Cmd>call codeium#CycleCompletions(1)<CR>
-imap <C-,>   <Cmd>call codeium#CycleCompletions(-1)<CR>
-imap <C-x>   <Cmd>call codeium#Clear()<CR>
-
 " --- Web Search Integration ---
 " Open browser smart search
 vmap <silent> gx <Plug>(openbrowser-smart-search)
@@ -394,29 +278,6 @@ vnoremap <silent> <Leader>sw :<C-U>call SearchInFirefox(visualmode(), 1)<CR>
 nnoremap <silent> <Leader>sw :set opfunc=SearchInFirefox<CR>g@
 
 " --- Functions ---
-function! CopytoTab()
-    normal! gvy
-    let tab_number = -1
-    for i in range(tabpagenr('$'))
-        if gettabvar(i + 1, 'is_code_tab') == 1
-            let tab_number = i + 1
-            break
-        endif
-    endfor
-
-    if tab_number == -1
-        tabnew
-        let t:is_code_tab = 1
-        file C-Code
-    else
-        execute 'tabnext ' . tab_number
-    endif
-
-    %delete _
-    normal! P
-    setlocal filetype=c
-    normal! gg
-endfunction
 
 function! SearchInFirefox(type, ...)
     let sel_save = &selection
@@ -449,21 +310,3 @@ nnoremap <leader>k :<c-u>let save_isk = &iskeyword \| set iskeyword+=. \| execut
 
 " --- Open man pages for word under cursor ---
 nnoremap <leader>M :Man <C-R><C-W><CR>
-
-" ==============================================================================
-" Command Mode Abbreviations
-" ==============================================================================
-iabbr clm Carlos Lacaci Moya
-iabbr true True
-iabbr false False
-
-cnoreabbrev W! w!
-cnoreabbrev Q! q!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Qall qall
