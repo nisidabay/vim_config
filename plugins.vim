@@ -123,14 +123,6 @@ nnoremap <silent> <leader>fG :FzfGFiles<CR>
 nnoremap <silent> <leader>rg :FzfRg<CR> 
 nnoremap <silent> <leader>fm :FzfMarks<CR> 
 nnoremap <silent> <leader>fM :FzfMaps<CR> 
-" Telescope-style s-prefix aliases:
-nnoremap <silent> <leader>sf :FzfFiles<CR>
-nnoremap <silent> <leader>sb :FzfBuffers<CR>
-nnoremap <silent> <leader>sg :FzfRg<CR>
-nnoremap <silent> <leader>so :FzfHistory:<CR>
-nnoremap <silent> <leader>sm :call FzfManPages()<CR>
-nnoremap <silent> <leader>sk :FzfMaps<CR>
-nnoremap <silent> <leader>sM :FzfMaps<CR>
 
 " Insert-mode FZF completions are defined in mappings.vim — removed here
 " to avoid duplication.
