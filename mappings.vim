@@ -184,7 +184,6 @@ augroup SmartRun
     autocmd FileType python nnoremap <buffer> <leader>r :!python3 %<CR>
     autocmd FileType ruby nnoremap <buffer> <leader>r :!ruby %<CR>
     autocmd FileType c nnoremap <buffer> <leader>r :!gcc % -o %< && ./%<<CR>
-    autocmd FileType cpp nnoremap <buffer> <leader>r :!g++ % -o %< && ./%<<CR>
     " Zig support (like Neovim <leader>rz)
     autocmd FileType zig nnoremap <buffer> <leader>r :!zig run %<CR>
 augroup END
@@ -232,24 +231,17 @@ nnoremap <leader>wp I#!/usr/bin/env python3<Esc>
 nnoremap <leader>ir I#!/usr/bin/env ruby<Esc>
 
 " --- FZF / Search (matching Neovim Telescope prefixes) ---
-" Keep old f-prefix for backward compat, add s-prefix like Telescope
-" Old (unchanged):
-nnoremap <silent> <leader>ff :FzfFiles<CR>
-nnoremap <silent> <leader>fb :FzfBuffers<CR>
-nnoremap <silent> <leader>ft :FzfTags<CR>
-nnoremap <silent> <leader>fT :FzfBTags<CR>
-nnoremap <silent> <leader>fh :FzfHistory:<CR>
-nnoremap <silent> <leader>fg :FzfGFiles<CR>
-nnoremap <silent> <leader>rg :FzfRg<CR>
-nnoremap <silent> <leader>fm :FzfMarks<CR>
-nnoremap <silent> <leader>fM :FzfMaps<CR>
-" New s-prefix aliases (like Telescope):
+nnoremap <silent> <leader>st :FzfTags<CR>
+nnoremap <silent> <leader>sT :FzfBTags<CR>
+nnoremap <silent> <leader>sm :FzfMarks<CR>
+nnoremap <silent> <leader>sM :FzfMaps<CR>
 nnoremap <silent> <leader>sf :FzfFiles<CR>
 nnoremap <silent> <leader>sb :FzfBuffers<CR>
 nnoremap <silent> <leader>sg :FzfRg<CR>
 nnoremap <silent> <leader>so :FzfHistory:<CR>
 nnoremap <silent> <leader>sk :FzfMaps<CR>
-nnoremap <silent> <leader>sm :call FzfManPages()<CR>
+" Man pages uses <leader>sK to avoid conflict with marks
+nnoremap <silent> <leader>sK :call FzfManPages()<CR>
 
 " FZF insert mode completions
 imap <c-x><c-f> <plug>(fzf-complete-path)

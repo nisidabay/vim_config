@@ -119,7 +119,7 @@ nnoremap <silent> <leader>fb :FzfBuffers<CR>
 nnoremap <silent> <leader>ft :FzfTags<CR> 
 nnoremap <silent> <leader>fT :FzfBTags<CR> 
 nnoremap <silent> <leader>fh :FzfHistory:<CR> 
-nnoremap <silent> <leader>fg :FzfGFiles<CR> 
+nnoremap <silent> <leader>fG :FzfGFiles<CR> 
 nnoremap <silent> <leader>rg :FzfRg<CR> 
 nnoremap <silent> <leader>fm :FzfMarks<CR> 
 nnoremap <silent> <leader>fM :FzfMaps<CR> 
@@ -208,7 +208,7 @@ let g:mkdp_refresh_slow = 0
 let g:startify_commands = [
     \ [ 'Find Files - <leader>ff',     'FzfFiles' ],
     \ [ 'Find Buffers - <leader>fb',   'FzfBuffers' ],
-    \ [ 'Find Git Files - <leader>fg', 'FzfGFiles' ],
+    \ [ 'Find Git Files - <leader>fG', 'FzfGFiles' ],
     \ [ 'Ripgrep - <leader>rg',        'FzfRg' ],
     \ [ 'History - <leader>fh',       'FzfHistory:' ],
     \ [ 'Maps - <leader>fM',          'FzfMaps' ],
