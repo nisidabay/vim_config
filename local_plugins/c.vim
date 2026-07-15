@@ -14,12 +14,20 @@ setlocal cindent
 setlocal cinoptions=:0,l1,t0,g0,(0
 setlocal colorcolumn=101
 
-" Format function — uses .clang-format file in project root (auto-detected)
+" Format function — checks for .clang-format in project root first,
+" falls back to Linux kernel style inline if no config file is found.
+" clang-format auto-detects .clang-format files by default; when none
+" exists, passing --style=Linux is equivalent to the Torvalds rules.
 function! s:FormatCBuffer()
     let l:save_cursor = getpos(".")
     let l:save_window = winsaveview()
 
-    silent execute '%!clang-format'
+    let l:clang_format = findfile('.clang-format', '.;')
+    if empty(l:clang_format)
+        silent execute '%!clang-format --style=Linux'
+    else
+        silent execute '%!clang-format --style=file'
+    endif
 
     call setpos('.', l:save_cursor)
     call winrestview(l:save_window)

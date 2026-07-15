@@ -119,7 +119,7 @@ vnoremap > >gv
 nnoremap <leader>x :!chmod +x %<CR>
 
 " Insert shebang
-nnoremap <leader>wb o#!/usr/bin/env/bash<Esc>
+nnoremap <leader>wb o#!/usr/bin/env bash<Esc>
 nnoremap <leader>wr o#!/usr/bin/env ruby<Esc>
 nnoremap <leader>wl o#!/usr/bin/env lua<Esc>
 nnoremap <leader>wp o#!/usr/bin/env python3<Esc>

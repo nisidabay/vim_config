@@ -43,7 +43,6 @@ Plug 'Exafunction/codeium.vim', { 'branch': 'main' }
 
 " --- Language Specific & Syntax ---
 Plug 'editorconfig/editorconfig-vim'
-Plug 'NLKNguyen/c-syntax.vim'
 Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 Plug 'zah/nim.vim'
 Plug 'rust-lang/rust.vim'
@@ -129,14 +128,8 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " --- Language Specific Formatting ---
-" C / C++
-let g:linux_kernel_style = '{BasedOnStyle: LLVM, IndentWidth: 8, UseTab: Always, TabWidth: 8, ContinuationIndentWidth: 8, BreakBeforeBraces: Linux, AllowShortIfStatementsOnASingleLine: Never, AllowShortLoopsOnASingleLine: false, AllowShortFunctionsOnASingleLine: None, AllowShortBlocksOnASingleLine: Never, IndentCaseLabels: false, AlignAfterOpenBracket: DontAlign, DerivePointerAlignment: false, PointerAlignment: Right, SpaceBeforeParens: ControlStatements, MaxEmptyLinesToKeep: 2, KeepEmptyLinesAtTheStartOfBlocks: false, AlignTrailingComments: false, ReflowComments: false, SortIncludes: Never, ColumnLimit: 100}'
-
-augroup c_cpp_settings
-    autocmd!
-    autocmd FileType c setlocal tabstop=8 shiftwidth=8 noexpandtab softtabstop=8
-augroup END
-
+" C / C++ — clang-format now auto-detects .clang-format in project root.
+" See ftplugin (local_plugins/c.vim) for the formatting function.
 " Python
 autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4 
 
@@ -170,9 +163,7 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 let g:tagbar_autofocus = 1
 
 " --- Vim-Signify (git/hg/svn gutter signs) ---
-" Disable ]c / [c default mappings — <leader>dN / <leader>dP already
-" navigate hunks (see mappings.vim). We only want the gutter indicators.
-let g:signify_disable_by_default = 1
+let g:signify_disable_by_default = 0
 
 " --- EditorConfig ---
 " Reads .editorconfig on BufRead to apply per-project indent/tab/EOL rules.

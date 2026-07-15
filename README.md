@@ -22,11 +22,11 @@ It has been optimized for sub-millisecond lazy loading, native architectural int
 - **UI & Theme:** `tokyonight-vim`, `lightline.vim`, `vim-startify`, `ryanoasis/vim-devicons`
 - **Navigation:** `scrooloose/nerdtree`, `junegunn/fzf`, `fzf.vim`, `majutsushi/tagbar`
 - **Intelligence:** `neoclide/coc.nvim` *(LSP)*, `Exafunction/codeium.vim` *(AI)*
-- **Git:** `tpope/vim-fugitive`, `coc-git` *(Async Signs)*, `mhinz/vim-signify` *(Gutter Indicators)*
+- **Git:** `tpope/vim-fugitive`, `mhinz/vim-signify` *(Gutter Indicators)*
 - **Editing:** `tpope/vim-commentary`, `tpope/vim-surround`, `tpope/vim-repeat` *(`.` repeat for plugin actions)*, `Raimondi/delimitMate`
 - **Editor Standards:** `editorconfig/editorconfig-vim` *(Honors `.editorconfig` per-project rules)*
 - **Markdown & Notes:** `vimwiki/vimwiki`, `iamcco/markdown-preview.nvim`
-- **Language Support:** `rust.vim`, `nim.vim`, `vim-shfmt`, `c-syntax.vim`
+- **Language Support:** `rust.vim`, `nim.vim`, `vim-shfmt`
 
 ---
 
