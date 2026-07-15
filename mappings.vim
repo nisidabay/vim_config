@@ -309,8 +309,6 @@ if !empty($WAYLAND_DISPLAY) || $XDG_SESSION_TYPE ==? 'wayland'
   " <C-v> for paste from clipboard (like Neovim)
   nnoremap <C-v> :let @"=system('wl-paste -n')<CR>p
   inoremap <C-v> <Esc>:let @"=system('wl-paste -n')<CR>pa
-  " <C-q> as alternative for visual block (overridden by C-v paste)
-  nnoremap <C-q> <C-v>
 else
   " X11
   nnoremap <silent> y :set operatorfunc=<SID>yank_with_clipboardfunc<CR>g@
@@ -322,8 +320,6 @@ else
   " <C-v> for paste from clipboard (like Neovim)
   nnoremap <C-v> :let @"=system('xclip -selection clipboard -o')<CR>p
   inoremap <C-v> <Esc>:let @"=system('xclip -selection clipboard -o')<CR>pa
-  " <C-q> as alternative for visual block (overridden by C-v paste)
-  nnoremap <C-q> <C-v>
 endif
 
 " --- Spell Check (like Neovim: ls/le) ---
