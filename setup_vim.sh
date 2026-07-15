@@ -55,7 +55,6 @@ CONFIG_FILES=(
     "plugins.vim"
     "coc-config.vim"
     "coc-settings.json"
-    "which-key.vim"
 )
 
 # Files that get symlinked into ~/.vim/ftplugin/
@@ -147,7 +146,6 @@ source ~/.vim/settings.vim
 source ~/.vim/mappings.vim
 source ~/.vim/plugins.vim
 source ~/.vim/coc-config.vim
-source ~/.vim/which-key.vim
 EOL
     log "success" "Created ~/.vimrc."
 }

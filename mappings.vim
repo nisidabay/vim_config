@@ -247,12 +247,10 @@ nnoremap <silent> <leader>sK :call FzfManPages()<CR>
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-" --- LSP (via coc.nvim, matching Neovim mappings) ---
-" Neovim uses gd, gr, K, gD, <space>D, <leader>f — map via coc <Plug>
-" These override the default Vim gd (go to definition in Vim's man page)
+" --- LSP (via coc.nvim) ---
 nmap gd <Plug>(coc-definition)
 nmap gr <Plug>(coc-references)
-nmap K <Plug>(coc-codeaction)           " Neovim: hover docs (use <leader>k for pydoc)
+nmap K <Plug>(coc-codeaction)           
 nmap gD <Plug>(coc-declaration)
 nmap <space>D <Plug>(coc-type-definition)
 nmap <leader>f <Plug>(coc-format)
