@@ -112,7 +112,7 @@ let g:which_key_map.c = {
       \ 'd': 'cd-to-file-dir',
       \ 'l': 'codelens (coc)',
       \ 'r': 'clear-registers',
-      \ 'v': 'backup-vimrc',
+      \ 'b': 'backup-vimrc',
       \ }
 
 " Group: n → Nim / Neovim-like not found
