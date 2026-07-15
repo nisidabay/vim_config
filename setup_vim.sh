@@ -57,6 +57,17 @@ CONFIG_FILES=(
     "coc-settings.json"
 )
 
+# Files that get symlinked into ~/.vim/mappings/
+MAPPINGS_FILES=(
+    "mappings/core.vim"
+    "mappings/languages.vim"
+    "mappings/search.vim"
+    "mappings/lsp.vim"
+    "mappings/clipboard.vim"
+    "mappings/plugins.vim"
+    "mappings/abbreviations.vim"
+)
+
 # Files that get symlinked into ~/.vim/ftplugin/
 FTPLUGIN_FILES=(
     "local_plugins/c.vim"
@@ -65,7 +76,7 @@ FTPLUGIN_FILES=(
 check_required_repo_files() {
     log "info" "Checking for required files in repository..."
     local all_files_found=true
-    for file in "${CONFIG_FILES[@]}" "${FTPLUGIN_FILES[@]}"; do
+    for file in "${CONFIG_FILES[@]}" "${MAPPINGS_FILES[@]}" "${FTPLUGIN_FILES[@]}"; do
         if [ ! -f "$SCRIPT_DIR/$file" ]; then
             log "error" "Missing required file in repo: $file"
             all_files_found=false
@@ -120,6 +131,13 @@ install_vim_plug() {
 link_and_copy_files() {
     log "info" "Linking configuration files..."
     for file in "${CONFIG_FILES[@]}"; do
+        ln -sf "$SCRIPT_DIR/$file" "$VIM_DIR/$file"
+        log "success" "Linked $VIM_DIR/$file"
+    done
+
+    log "info" "Linking mappings directory..."
+    mkdir -p "$VIM_DIR/mappings"
+    for file in "${MAPPINGS_FILES[@]}"; do
         ln -sf "$SCRIPT_DIR/$file" "$VIM_DIR/$file"
         log "success" "Linked $VIM_DIR/$file"
     done
