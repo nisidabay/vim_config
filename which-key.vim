@@ -21,7 +21,7 @@ function! s:fzf_which_key()
   call fzf#run(fzf#wrap('which-key', {
         \ 'source': items,
         \ 'sink': function('s:execute_wk_item'),
-        \ 'options': '--no-sort --prompt="Mappings> "',
+        \ 'options': '--no-sort --prompt="Mappings> " --delimiter=":" --with-nth=2..',
         \ 'window': { 'width': 0.85, 'height': 0.65 }
         \ }, 0))
 endfunction
