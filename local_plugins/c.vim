@@ -9,10 +9,10 @@ setlocal tabstop=8
 setlocal shiftwidth=8
 setlocal noexpandtab
 setlocal softtabstop=8
-setlocal textwidth=80
+setlocal textwidth=100
 setlocal cindent
 setlocal cinoptions=:0,l1,t0,g0,(0
-setlocal colorcolumn=81
+setlocal colorcolumn=101
 
 " Format function
 function! s:FormatCBuffer()

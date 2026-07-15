@@ -1,0 +1,36 @@
+# Linux Kernel (Torvalds) C Coding Style
+# Full reference: https://www.kernel.org/doc/html/v4.10/process/coding-style.html
+
+# Use true hardware tabs, 8 characters wide
+IndentWidth: 8
+UseTab: Always
+TabWidth: 8
+
+# Linus officially increased the column limit from 80 to 100 in 2020
+ColumnLimit: 100
+
+# Clang-format has a built-in brace breaking style specifically for the kernel.
+# It places braces on the same line for control statements, but on a new line for functions.
+BreakBeforeBraces: Linux
+
+# The kernel style forbids cramming code onto single lines
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: false
+
+# Switch statements: 'case' aligns strictly with 'switch'
+IndentCaseLabels: false
+
+# Pointers: the asterisk binds to the variable name, not the type (e.g., int *ptr)
+PointerAlignment: Right
+
+# The kernel relies on strict, manual include ordering; automatic sorting breaks builds
+SortIncludes: false
+
+# Continuation lines align under the opening bracket
+AlignAfterOpenBracket: Align
+ContinuationIndentWidth: 8
+
+# Don't break constructor initializers onto their own line
+BreakConstructorInitializers: BeforeComma

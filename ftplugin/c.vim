@@ -11,10 +11,10 @@ let b:did_c_ftplugin = 1
 " The custom formatting function and mapping have been removed to avoid conflicts.
 
 " C-specific indentation settings
-setlocal textwidth=80
+setlocal textwidth=100
 setlocal cindent
 setlocal cinoptions=:0,l1,t0,g0,(0
-setlocal colorcolumn=81
+setlocal colorcolumn=101
 
 " Verification function to check for Linux kernel style compliance
 function! s:VerifySettings()
