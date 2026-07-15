@@ -339,7 +339,7 @@ nnoremap <silent> <leader>dp :diffput<CR> " Put diff
 " Edit and reload .vimrc easily
 nnoremap <leader>mv :tabnew $MYVIMRC<CR> 
 nnoremap <leader>rv :source $MYVIMRC<CR> 
-nnoremap <leader>cv :!cp ~/.vimrc vimrc_copy<CR> 
+nnoremap <leader>cb :!cp ~/.vimrc vimrc_copy<CR> 
 
 " --- Plugin Toggle Shortcuts ---
 " NERDTree matched to Neovim's <leader>e for explorer
