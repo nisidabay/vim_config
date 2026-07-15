@@ -14,19 +14,20 @@ nnoremap <silent> <leader>? :FzfMappings<CR>
 
 function! s:fzf_mappings()
   " Collect all mappings that start with <leader> from all modes
-  let mappings = []
-  redir => mapping_output
+  let l:mappings = []
+  redir => l:mapping_output
   silent map <Leader>
   redir END
 
-  for line in split(mapping_output, '\n')
-    let line = substitute(line, '^\s*', '', '')
-    if line =~ '\S'
-      call add(mappings, line)
+  for l:line in split(l:mapping_output, '\n')
+    let l:line = substitute(l:line, '^\s*', '', '')
+    if l:line =~ '\S'
+      " Format: "key   action" for FZF preview
+      call add(l:mappings, l:line)
     endif
   endfor
 
-  if empty(mappings)
+  if empty(l:mappings)
     echohl WarningMsg
     echo "No <leader> mappings found"
     echohl None
@@ -34,7 +35,7 @@ function! s:fzf_mappings()
   endif
 
   call fzf#run(fzf#wrap('mappings', {
-        \ 'source': mappings,
+        \ 'source': l:mappings,
         \ 'sink': function('s:execute_mapping'),
         \ 'options': '--no-sort --prompt="Mappings> " --preview="echo {1}"',
         \ 'window': { 'width': 0.8, 'height': 0.6 }
@@ -43,10 +44,10 @@ endfunction
 
 function! s:execute_mapping(line)
   " Extract the key from the mapping output (first whitespace-separated token)
-  let key = matchstr(a:line, '^\S\+')
-  if !empty(key)
+  let l:key = matchstr(a:line, '^\S\+')
+  if !empty(l:key)
     " Feed the key sequence as if typed
-    call feedkeys(key)
+    call feedkeys(l:key)
   endif
 endfunction
 
