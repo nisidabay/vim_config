@@ -113,16 +113,18 @@ endfunction
 
 command! FzfMan call FzfManPages()
 
-nnoremap <silent> <leader>fk :FzfMan<CR>
-nnoremap <silent> <leader>ff :FzfFiles<CR>
-nnoremap <silent> <leader>fb :FzfBuffers<CR> 
-nnoremap <silent> <leader>ft :FzfTags<CR> 
-nnoremap <silent> <leader>fT :FzfBTags<CR> 
-nnoremap <silent> <leader>fh :FzfHistory:<CR> 
-nnoremap <silent> <leader>fG :FzfGFiles<CR> 
-nnoremap <silent> <leader>rg :FzfRg<CR> 
-nnoremap <silent> <leader>fm :FzfMarks<CR> 
-nnoremap <silent> <leader>fM :FzfMaps<CR> 
+nnoremap <silent> <leader>sf :FzfFiles<CR>
+nnoremap <silent> <leader>sb :FzfBuffers<CR>
+nnoremap <silent> <leader>sg :FzfRg<CR>
+nnoremap <silent> <leader>so :FzfHistory:<CR>
+nnoremap <silent> <leader>sk :FzfMaps<CR>
+nnoremap <silent> <leader>sm :FzfMarks<CR>
+nnoremap <silent> <leader>sM :FzfMaps<CR>
+nnoremap <silent> <leader>st :FzfTags<CR>
+nnoremap <silent> <leader>sT :FzfBTags<CR>
+nnoremap <silent> <leader>sG :FzfGFiles<CR>
+nnoremap <silent> <leader>sK :FzfMan<CR>
+" No f-prefix aliases — only s-prefix like Neovim's Telescope.
 
 " Insert-mode FZF completions are defined in mappings.vim — removed here
 " to avoid duplication.
@@ -201,13 +203,13 @@ let g:mkdp_refresh_slow = 0
 
 " --- Startify ---
 let g:startify_commands = [
-    \ [ 'Find Files - <leader>ff',     'FzfFiles' ],
-    \ [ 'Find Buffers - <leader>fb',   'FzfBuffers' ],
-    \ [ 'Find Git Files - <leader>fG', 'FzfGFiles' ],
-    \ [ 'Ripgrep - <leader>rg',        'FzfRg' ],
-    \ [ 'History - <leader>fh',       'FzfHistory:' ],
-    \ [ 'Maps - <leader>fM',          'FzfMaps' ],
-    \ [ 'Marks - <leader>fm',          'FzfMarks' ],
+    \ [ 'Find Files - <leader>sf',     'FzfFiles' ],
+    \ [ 'Find Buffers - <leader>sb',   'FzfBuffers' ],
+    \ [ 'Find Git Files - <leader>sG', 'FzfGFiles' ],
+    \ [ 'Ripgrep - <leader>sg',        'FzfRg' ],
+    \ [ 'History - <leader>so',       'FzfHistory:' ],
+    \ [ 'Maps - <leader>sk',          'FzfMaps' ],
+    \ [ 'Marks - <leader>sm',          'FzfMarks' ],
     \ ]
 
 let g:startify_lists = [

@@ -230,16 +230,9 @@ nnoremap <leader>wb I#!/usr/bin/env bash<Esc>
 nnoremap <leader>wp I#!/usr/bin/env python3<Esc>
 nnoremap <leader>ir I#!/usr/bin/env ruby<Esc>
 
-" FZF / Search — see plugins.vim for the canonical f-prefix set
-" Additional Telescope-style aliases:
-nnoremap <silent> <leader>sf :FzfFiles<CR>
-nnoremap <silent> <leader>sb :FzfBuffers<CR>
-nnoremap <silent> <leader>sg :FzfRg<CR>
-nnoremap <silent> <leader>so :FzfHistory:<CR>
-nnoremap <silent> <leader>sm :call FzfManPages()<CR>
-" <leader>sk and <leader>sM are aliases for FzfMaps (same as <leader>fM)
-nnoremap <silent> <leader>sk :FzfMaps<CR>
-nnoremap <silent> <leader>sM :FzfMaps<CR>
+" FZF / Search — all FZF mappings are in plugins.vim (s-prefix primary,
+" f-prefix legacy aliases). This section intentionally left empty
+" to avoid duplicate definitions before fzf.vim loads.
 
 " FZF insert mode completions
 imap <c-x><c-f> <plug>(fzf-complete-path)
