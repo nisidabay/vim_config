@@ -43,9 +43,6 @@ nnoremap k gk
 " Swap char with next (like Neovim xp)
 nnoremap xp xp
 
-" Clear search highlights
-nnoremap <leader>nh :nohl<CR>
-
 " Maintain visual selection after shifting indentation
 vnoremap < <gv
 vnoremap > >gv
