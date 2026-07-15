@@ -13,6 +13,12 @@ vnoremap kj <Esc>
 cnoremap kj <Esc> 
 cnoremap jk <Esc> 
 
+" Also jj/kk like Neovim
+inoremap jj <Esc>
+inoremap kk <Esc>
+cnoremap jj <Esc>
+cnoremap kk <Esc>
+
 " Disable arrow keys to enforce hjkl
 nnoremap <down> <Nop>
 nnoremap <up> <Nop>
@@ -27,10 +33,87 @@ vnoremap <up> <Nop>
 vnoremap <left> <Nop>
 vnoremap <right> <Nop>
 
+" --- Line Navigation ---
+" j/k move by visual lines (like Neovim)
+nnoremap j gj
+nnoremap k gk
+
+" --- Editing & Utility ---
+" Swap char with next (like Neovim xp)
+nnoremap xp xp
+
+" Clear search highlights
+nnoremap <leader>nh :nohl<CR>
+
+" Maintain visual selection after shifting indentation
+vnoremap < <gv
+vnoremap > >gv
+
+" Make current file executable
+nnoremap <leader>x :!chmod +x %<CR>
+
+" Save visually selected text to a new file
+vnoremap <leader>s :w <C-R>=input("Save to file: ")<CR><Esc>
+
+" Save file as root (sudo)
+nnoremap <leader>sr :w !sudo tee <C-R>=input("Save to file: ")<CR> > /dev/null<Esc>
+
+" --- Black Hole Deletes (like Neovim) ---
+" Delete line to black hole register (don't clobber clipboard)
+nnoremap <leader>dd "_dd
+" Delete to end of file (black hole)
+nnoremap <leader>dG "_dG
+
+" Yank entire file to system clipboard (like Neovim)
+nnoremap <silent> <leader>ya :call <SID>yank_all_to_clipboard()<CR>
+
+" --- Visual Mode Line Moves (like Neovim) ---
+" Move selected lines down
+xnoremap J :m'>+1<CR>gv=gv
+" Move selected lines up
+xnoremap K :m'<-2<CR>gv=gv
+
+" --- Toggle Relative Number (like Neovim nr) ---
+nnoremap nr :call <SID>toggle_relativenumber()<CR>
+function! s:toggle_relativenumber()
+    if &relativenumber
+        set norelativenumber
+    else
+        set relativenumber
+    endif
+endfunction
+
+" --- Insert date (like Neovim <leader>ad) ---
+nnoremap <leader>ad :.!date<CR>I# Date:<Esc>
+
+" --- Box word around visual/current word (like Neovim <leader>bx) ---
+nnoremap <leader>bx yyp<c-v>$r-A<Esc>yy1kP<Esc>
+
+" --- Format buffer to line length (like Neovim <leader>wa) ---
+nnoremap <leader>wa gqip
+
+" --- Close all other unmodified buffers (like Neovim <leader>bc) ---
+nnoremap <silent> <leader>bc :%bd\|e#\|bd#<CR>
+
+" --- Clear registers (like Neovim <leader>cr) ---
+nnoremap <silent> <leader>cr :call setreg('', '')<Bar>for i in range(97,122)\|call setreg(nr2char(i), '')\|endfor<Bar>for i in range(48,57)\|call setreg(nr2char(i), '')\|endfor<Bar>call setreg('+', '')\|call setreg('*', '')\|call setreg('-', '')<CR>
+
 " --- Window & Buffer Management ---
 " Move between windows
 nnoremap <leader>lw <C-w>h
 nnoremap <leader>rw <C-w>l
+
+" Window sizes (like Neovim Alt+letter)
+nnoremap <A-d> <C-w>5<
+nnoremap <A-i> <C-w>>5
+nnoremap <A-k> <C-w>5+
+nnoremap <A-j> <C-w>5-
+
+" Split operations (like Neovim)
+nnoremap <leader>wv <C-w>v           " Split vertical
+nnoremap <leader>w_ <C-w>s           " Split horizontal
+nnoremap <leader>we <C-w>=           " Equalize splits
+nnoremap <leader>wx :close<CR>       " Close split
 
 " Show and manage buffers
 nnoremap <leader>b :set nomore <Bar> :ls <Bar> :set more <CR>:b<leader>
@@ -102,35 +185,92 @@ augroup SmartRun
     autocmd FileType ruby nnoremap <buffer> <leader>r :!ruby %<CR>
     autocmd FileType c nnoremap <buffer> <leader>r :!gcc % -o %< && ./%<<CR>
     autocmd FileType cpp nnoremap <buffer> <leader>r :!g++ % -o %< && ./%<<CR>
+    " Zig support (like Neovim <leader>rz)
+    autocmd FileType zig nnoremap <buffer> <leader>r :!zig run %<CR>
 augroup END
 
-" Black format for Python
+" --- Language-specific Run, Format, and Build (like Neovim) ---
+" The SmartRun above covers <leader>r per filetype.
+" These are explicit <leader>r<letter> mappings matching Neovim's scheme.
+" NOTE: <leader>rg is FZF Ripgrep, <leader>rn is coc-rename, <leader>re is
+" coc-refactor, <leader>rw is move-window-right and VimwikiRenameFile,
+" <leader>rv is source $MYVIMRC — those stay as-is.
+nnoremap <leader>rp :!python3 %<CR>     " Run Python
+nnoremap <leader>rc :!ruby %<CR>        " Run Ruby
+nnoremap <leader>rr :!rustc %<CR>       " Run Rust
+nnoremap <leader>rl :!lua %<CR>         " Run Lua
+nnoremap <leader>rz :!zig run %<CR>     " Run Zig
+" nim: <leader>rn is coc-rename, so use <leader>rN for nim run
+nnoremap <leader>rN :!nim -r c %<CR>    " Run Nim
+" bash: use <leader>rB for bash run
+nnoremap <leader>rB :!bash %<CR>        " Run Bash
+
+" Compile C (like Neovim <leader>cc)
+nnoremap <leader>cc :!gcc % -o %< && ./%<<CR>
+" Compile C with Valgrind (like Neovim <leader>cv)
+nnoremap <leader>cv :!gcc -g % -o %< && valgrind --leak-check=yes ./%<<CR>
+" Nim release (like Neovim <leader>on)
+nnoremap <leader>on :!nim c -d:release -r %<CR>
+
+" Language formatters (like Neovim)
+nnoremap <leader>pf :!autopep8 --in-place %<CR>       " Python autoformat
+nnoremap <leader>is :!isort %<CR>                       " Python sort imports
+nnoremap <leader>bf :!shfmt -w %<CR>                    " Bash format
+nnoremap <leader>fg :w<Bar>!gofmt -w %<CR>              " Go format
+nnoremap <leader>lf :!stylua %<CR>                      " Lua format
+nnoremap <leader>rf :!rubocop --auto-correct-all %<CR>   " Ruby format
+" Go format visual selection (like Neovim <leader>vg)
+xnoremap <leader>vg :!gofmt<CR>
+
+" Black format for Python (legacy, keep for compatibility)
 autocmd FileType python setlocal formatprg=black\ - 
 
-" --- Editing & Utility ---
-" Clear search highlights
-nnoremap <leader>nh :nohls<CR>
+" --- Insert shebang (like Neovim — insert at cursor, not new line) ---
+nnoremap <leader>il I#!/usr/bin/env lua<Esc>
+nnoremap <leader>wb I#!/usr/bin/env bash<Esc>
+nnoremap <leader>wp I#!/usr/bin/env python3<Esc>
+nnoremap <leader>ir I#!/usr/bin/env ruby<Esc>
 
-" Maintain visual selection after shifting indentation
-vnoremap < <gv
-vnoremap > >gv
+" --- FZF / Search (matching Neovim Telescope prefixes) ---
+" Keep old f-prefix for backward compat, add s-prefix like Telescope
+" Old (unchanged):
+nnoremap <silent> <leader>ff :FzfFiles<CR>
+nnoremap <silent> <leader>fb :FzfBuffers<CR>
+nnoremap <silent> <leader>ft :FzfTags<CR>
+nnoremap <silent> <leader>fT :FzfBTags<CR>
+nnoremap <silent> <leader>fh :FzfHistory:<CR>
+nnoremap <silent> <leader>fg :FzfGFiles<CR>
+nnoremap <silent> <leader>rg :FzfRg<CR>
+nnoremap <silent> <leader>fm :FzfMarks<CR>
+nnoremap <silent> <leader>fM :FzfMaps<CR>
+" New s-prefix aliases (like Telescope):
+nnoremap <silent> <leader>sf :FzfFiles<CR>
+nnoremap <silent> <leader>sb :FzfBuffers<CR>
+nnoremap <silent> <leader>sg :FzfRg<CR>
+nnoremap <silent> <leader>so :FzfHistory:<CR>
+nnoremap <silent> <leader>sk :FzfMaps<CR>
+nnoremap <silent> <leader>sm :call FzfManPages()<CR>
 
-" Make current file executable
-nnoremap <leader>x :!chmod +x %<CR>
+" FZF insert mode completions
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
-" Insert shebang
-nnoremap <leader>wb o#!/usr/bin/env bash<Esc>
-nnoremap <leader>wr o#!/usr/bin/env ruby<Esc>
-nnoremap <leader>wl o#!/usr/bin/env lua<Esc>
-nnoremap <leader>wp o#!/usr/bin/env python3<Esc>
+" --- LSP (via coc.nvim, matching Neovim mappings) ---
+" Neovim uses gd, gr, K, gD, <space>D, <leader>f — map via coc <Plug>
+" These override the default Vim gd (go to definition in Vim's man page)
+nmap gd <Plug>(coc-definition)
+nmap gr <Plug>(coc-references)
+nmap K <Plug>(coc-codeaction)           " Neovim: hover docs (use <leader>k for pydoc)
+nmap gD <Plug>(coc-declaration)
+nmap <space>D <Plug>(coc-type-definition)
+nmap <leader>f <Plug>(coc-format)
 
-" Save visually selected text to a new file
-vnoremap <leader>s :w <C-R>=input("Save to file: ")<CR><Esc>
+" Keep existing coc navigation
+nmap <silent> gp <Plug>(coc-diagnostic-prev)
+nmap <silent> gP <Plug>(coc-diagnostic-next)
 
-" Save file as root (sudo)
-nnoremap <leader>sr :w !sudo tee <C-R>=input("Save to file: ")<CR> > /dev/null<Esc>
-
-" Copy yanked content to clipboard (works with marks set by operator or visual selection)
+" --- Clipboard Integration (Wayland + X11) ---
+" Copy yanked content to clipboard
 function! s:copy_to_clipboard(type, ...)
   let sel_save = &selection
   let &selection = "inclusive"
@@ -194,6 +334,9 @@ if !empty($WAYLAND_DISPLAY) || $XDG_SESSION_TYPE ==? 'wayland'
   " Paste from clipboard
    nnoremap <silent> <expr> p system('wl-paste -n') != '' ? ':let @"=system("wl-paste -n")<CR>p' : 'p'
   vnoremap <silent> p "0p
+  " <C-v> for paste from clipboard (like Neovim)
+  nnoremap <C-v> :let @"=system('wl-paste -n')<CR>p
+  inoremap <C-v> <Esc>:let @"=system('wl-paste -n')<CR>pa
 else
   " X11
   nnoremap <silent> y :set operatorfunc=<SID>yank_with_clipboardfunc<CR>g@
@@ -202,19 +345,19 @@ else
   vnoremap <silent> y y:call <SID>visual_yank_to_clipboard()<CR>
    nnoremap <silent> <expr> p system('xclip -selection clipboard -o') != '' ? ':let @"=system("xclip -selection clipboard -o")<CR>p' : 'p'
   vnoremap <silent> p "0p
+  " <C-v> for paste from clipboard (like Neovim)
+  nnoremap <C-v> :let @"=system('xclip -selection clipboard -o')<CR>p
+  inoremap <C-v> <Esc>:let @"=system('xclip -selection clipboard -o')<CR>pa
 endif
 
-" Toggle spell check languages
+" --- Spell Check (like Neovim: ls/le) ---
+nnoremap <silent> ls :setlocal spell spelllang=es_es<CR>
+nnoremap <silent> le :setlocal spell spelllang=en_us<CR>
+" Keep old sp/se for backward compat
 nnoremap <leader>sp :setlocal spell spelllang=es<CR>
 nnoremap <leader>se :setlocal spell spelllang=en_us<CR>
 
-" Get python help for word under cursor
-nnoremap <leader>k :<c-u>let save_isk = &iskeyword \| set iskeyword+=. \| execute "!pydoc3 " . expand("<cword>") \| let &iskeyword = save_isk<cr>
-
-" Open man pages for word under cursor
-nnoremap <leader>M :Man <C-R><C-W><CR>
-
-" Diff mappings
+" --- Diff mappings ---
 nnoremap <silent> <leader>dN [c " Previous difference
 nnoremap <silent> <leader>dP ]c " Next difference
 nnoremap <silent> <leader>dg :diffget<CR> " Get diff
@@ -227,17 +370,33 @@ nnoremap <leader>rv :source $MYVIMRC<CR>
 nnoremap <leader>cv :!cp ~/.vimrc vimrc_copy<CR> 
 
 " --- Plugin Toggle Shortcuts ---
-" Toggle NERDTree and Undotree
-nnoremap <leader>ut :UndotreeToggle<CR>
+" NERDTree matched to Neovim's <leader>e for explorer
+nnoremap <leader>e :NERDTreeToggle<CR>
+" Keep old nt for backward compat
 nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>ut :UndotreeToggle<CR>
 
-" Startify
+" Startify / Home screen
 nnoremap <silent> <leader>fy :Startify<CR>
 
-" Vimwiki
+" --- Vimwiki ---
 nnoremap <leader>di :VimwikiDiaryIndex<CR>
 nnoremap <leader>kal :Calendar<CR>
 nnoremap <leader>rw :VimwikiRenameFile<ESC>
+nnoremap <leader>ww :VimwikiIndex<CR>
+nnoremap <Leader>w1 :VimwikiIndex 1<CR>
+nnoremap <Leader>w2 :VimwikiIndex 2<CR>
+nnoremap <Leader>ws :VimwikiUISelect<CR>
+nnoremap <C-N> :call ToggleMarkdown()<CR>
+
+" Toggle between vimwiki and markdown filetypes
+function! ToggleMarkdown()
+  if &filetype == 'vimwiki'
+    set ft=markdown
+  elseif &filetype == 'markdown'
+    set ft=vimwiki
+  endif
+endfunction
 
 " Miscellaneous utilities
 noremap <leader>ie :!emoji_insert.sh<CR>
@@ -298,12 +457,22 @@ function! SearchInFirefox(type, ...)
         silent exe "normal! `[v`]y"
     endif
 
-    let search = substitute(escape(@@, '"\'), '[[:space:]]', '+', 'g')
+    let search = substitute(escape(@@, '"\\'), '[[:space:]]', '+', 'g')
     silent exe "!firefox 'https://www.google.com/search?q=" . search . "' &"
 
     let &selection = sel_save
     let @@ = reg_save
 endfunction
+
+" --- Bash help (like Neovim <leader>bh) ---
+command! BashHelp !man bash | less
+nnoremap <leader>bh :BashHelp<CR>
+
+" --- Get python help for word under cursor (keep legacy) ---
+nnoremap <leader>k :<c-u>let save_isk = &iskeyword \| set iskeyword+=. \| execute "!pydoc3 " . expand("<cword>") \| let &iskeyword = save_isk<cr>
+
+" --- Open man pages for word under cursor ---
+nnoremap <leader>M :Man <C-R><C-W><CR>
 
 " ==============================================================================
 " Command Mode Abbreviations
