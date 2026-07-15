@@ -83,7 +83,7 @@ nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<CR>
 nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<CR>
 nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<CR>
 nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<CR>
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<CR>
+nnoremap <silent><nowait> <space>S  :<C-u>CocList -I symbols<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " --- Floating Window Scrolling ---

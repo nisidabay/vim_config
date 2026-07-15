@@ -119,7 +119,6 @@ nnoremap <silent> <leader>sg :FzfRg<CR>
 nnoremap <silent> <leader>so :FzfHistory:<CR>
 nnoremap <silent> <leader>sk :FzfMaps<CR>
 nnoremap <silent> <leader>sm :FzfMarks<CR>
-nnoremap <silent> <leader>sM :FzfMaps<CR>
 nnoremap <silent> <leader>st :FzfTags<CR>
 nnoremap <silent> <leader>sT :FzfBTags<CR>
 nnoremap <silent> <leader>sG :FzfGFiles<CR>
