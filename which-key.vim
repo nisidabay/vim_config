@@ -6,47 +6,6 @@
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 
-" --- FZF Mappings with Descriptions ---
-" Explora todos los mappings del diccionario de which-key desde FZF.
-" Buscás por descripción (ej: "compile", "python") y Enter ejecuta.
-command! FzfWhichKey call s:fzf_which_key()
-nnoremap <silent> <leader>? :FzfWhichKey<CR>
-
-function! s:fzf_which_key()
-  let items = []
-  call s:flatten_map(g:which_key_map, '', items)
-  if empty(items)
-    return
-  endif
-  call fzf#run(fzf#wrap('which-key', {
-        \ 'source': items,
-        \ 'sink': function('s:execute_wk_item'),
-        \ 'options': '--no-sort --prompt="Mappings> " --delimiter=":" --with-nth=2..',
-        \ 'window': { 'width': 0.85, 'height': 0.65 }
-        \ }, 0))
-endfunction
-
-function! s:flatten_map(dict, prefix, acc)
-  for [key, val] in items(a:dict)
-    if type(val) == v:t_dict
-      let name = get(val, 'name', '')
-      call s:flatten_map(val, a:prefix . key, a:acc)
-    else
-      let seq = a:prefix . key
-      call add(a:acc, seq . ':' . val)
-    endif
-  endfor
-endfunction
-
-function! s:execute_wk_item(line)
-  let seq = split(a:line, ':')[0]
-  if !empty(seq)
-    " Reconstruct the leader key sequence
-    let keys = '<Space>' . seq
-    call feedkeys(keys)
-  endif
-endfunction
-
 " --- Description Dictionary ---
 let g:which_key_map = {}
 
