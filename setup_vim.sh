@@ -56,7 +56,6 @@ CONFIG_FILES=(
     "coc-config.vim"
     "coc-settings.json"
     "which-key.vim"
-    ".clang-format"
 )
 
 # Files that get symlinked into ~/.vim/ftplugin/
@@ -133,6 +132,10 @@ link_and_copy_files() {
         ln -sf "$SCRIPT_DIR/$file" "$target"
         log "success" "Linked $target"
     done
+
+    log "info" "Linking .clang-format to home directory..."
+    ln -sf "$SCRIPT_DIR/.clang-format" "$HOME/.clang-format"
+    log "success" "Linked $HOME/.clang-format"
 }
 
 create_vimrc() {
