@@ -23,7 +23,7 @@ syntax on
 set cursorline                " Highlight the current line in every window
 set number                    " Show line numbers on the side bar
 set relativenumber            " Show relative numbers on the side bar
-set colorcolumn=80            " Show 80-character limit column
+set colorcolumn=100            " Show 100-character limit column
 set visualbell                " Flash the screen instead of beeping on errors
 set title                     " Set the window's title to the current file
 set laststatus=2              " Always display the status bar
@@ -45,7 +45,7 @@ set softtabstop=4
 set autoindent                " New lines inherit the indentation of previous lines
 set smartindent
 set backspace=indent,eol,start " Set the backspace behavior for deletion
-set textwidth=80              " Linebreak at 80 chars
+set textwidth=100              " Linebreak at 100 chars
 set linebreak                 " Avoid wrapping a line in the middle of a word
 
 " --- Windows & Splitting ---

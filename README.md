@@ -8,7 +8,7 @@ It has been optimized for sub-millisecond lazy loading, native architectural int
 
 - **Blazing Fast Startup:** Heavy plugins (`NERDTree`, `Tagbar`, `Undotree`, `markdown-preview`) are strictly lazy-loaded `on-demand` or `on-filetype`, keeping the initial application launch instantaneous.
 - **De-spaghettified Architecture:** Configuration is cleanly separated into strictly-categorized files (`plugins.vim`, `settings.vim`, `mappings.vim`, and `coc-config.vim`).
-- **Language Server Protocol (LSP):** Full `coc.nvim` integration providing VSCode-like intelligence, native async git signs (`coc-git`), and automated formatting on save.
+- **Language Server Protocol (LSP):** Full `coc.nvim` integration providing VSCode-like intelligence and automated formatting on save.
 - **AI Assisted:** Native, ghost-text AI completion integration via `codeium.vim`.
 - **EditorConfig Aware:** Per-project indent style, tab width, and EOL rules from `.editorconfig` are auto-applied on file open — no plugin-specific config to maintain.
 - **Git-aware Editing:** Inline `+`/`-`/`~` gutter signs (vim-signify) make diff hunks visible at a glance, paired with `<leader>dN`/`<leader>dP` for hunk-to-hunk navigation.
@@ -52,9 +52,9 @@ Open Vim and run the `vim-plug` installation command:
 ```
 
 ### 4. Install Language Servers
-Finally, install your required CoC extensions. This covers Git signs, Python, Bash, JSON, and Markdown linting:
+Finally, install your required CoC extensions. This covers Python, Bash, JSON, and Markdown linting:
 ```vim
-:CocInstall coc-git coc-pyright coc-sh coc-json coc-markdownlint
+:CocInstall coc-pyright coc-sh coc-json coc-markdownlint
 ```
 *(Note: Rust, C++, Nim, and Ruby are configured natively through system binaries in `coc-settings.json`).*
 
